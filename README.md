@@ -16,7 +16,7 @@ List of Topics
 - Heap & State
 - Separation Logic
 - Imperative Refinement Types
-- <ADD MORE HERE>
+- *ADD MORE HERE*
 
 List of Papers
 --------------
@@ -26,4 +26,4 @@ List of Papers
 - Abduction/Containers  [Dilligs etc.]
 - RockSalt
 - BedRock
-- <ADD MORE HERE>
+- *ADD MORE HERE*
