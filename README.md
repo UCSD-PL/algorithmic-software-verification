@@ -16,26 +16,15 @@ List of Topics
 - Heap & State
 - Separation Logic
 - Imperative Refinement Types
+- Symbolic Model Checking, BDDs, Craig Interpolants
 - *ADD MORE HERE*
 
 List of Papers
 --------------
 
-- JS*                   [Swamy et al.]
-- Abstract Predicates   [Parkinson etc.]
-- Abduction/Containers  [Dilligs etc.]
-- RockSalt
-- BedRock
-
-- HMC, CAV 2011                     [Jhala et al.](http://goto.ucsd.edu/~rjhala/papers/hmc.pdf)
-- Dep.Types for ML, VMCAI 2013      [Zhu & Jagannathan](http://www.cs.purdue.edu/homes/zhu103/pubs/vmcai13full.pdf)
-
-- Dafny                 [Leino]
-- Termination           [some of Byron Cook's papers]
 - Concurrency           [e.g. Mike Emmi's papers]
     via Sep Logic       [e.g. Jagannathan, Parkinson]
 - Security              [papers of Gordon, Fournet, Bhargavan]
-
 - [JS*](http://research.microsoft.com/~nswamy/papers/dijkstra-submitted-pldi13.pdf)
   (Swamy et al, PLDI 2013)
   NOTE: waiting for camera ready to be posted
@@ -69,6 +58,8 @@ List of Papers
   (papers of Gordon, Fournet, Bhargavan, et al)
   TODO: choose some from
   [here](http://research.microsoft.com/en-us/um/people/adg/Publications/)
+- IC3                   [Bradley]
+
 
 - *ADD MORE HERE*
 
