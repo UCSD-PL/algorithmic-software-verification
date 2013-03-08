@@ -26,8 +26,10 @@ List of Papers
 - Abduction/Containers  [Dilligs etc.]
 - RockSalt
 - BedRock
-- HMC                   [Jhala et al]
-- Dep. Types for ML     [Zhu, Jagannathan VMCAI 2013]
+
+- HMC, CAV 2011                     [Jhala et al.](http://goto.ucsd.edu/~rjhala/papers/hmc.pdf)
+- Dep.Types for ML, VMCAI 2013      [Zhu & Jagannathan](http://www.cs.purdue.edu/homes/zhu103/pubs/vmcai13full.pdf)
+
 - Dafny                 [Leino]
 - Termination           [some of Byron Cook's papers]
 - Concurrency           [e.g. Mike Emmi's papers]
