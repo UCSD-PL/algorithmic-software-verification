@@ -16,6 +16,7 @@ List of Topics
 - Heap & State
 - Separation Logic
 - Imperative Refinement Types
+- Symbolic Model Checking, BDDs, Craig Interpolants
 - *ADD MORE HERE*
 
 List of Papers
@@ -35,6 +36,9 @@ List of Papers
 - Concurrency           [e.g. Mike Emmi's papers]
     via Sep Logic       [e.g. Jagannathan, Parkinson]
 - Security              [papers of Gordon, Fournet, Bhargavan]
+- IC3                   [Bradley]
+
+
 - *ADD MORE HERE*
 
 Requirements
