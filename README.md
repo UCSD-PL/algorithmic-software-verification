@@ -26,6 +26,13 @@ List of Papers
 - Abduction/Containers  [Dilligs etc.]
 - RockSalt
 - BedRock
+- HMC                   [Jhala et al]
+- Dep. Types for ML     [Zhu, Jagannathan VMCAI 2013]
+- Dafny                 [Leino]
+- Termination           [some of Byron Cook's papers]
+- Concurrency           [e.g. Mike Emmi's papers]
+    via Sep Logic       [e.g. Jagannathan, Parkinson]
+- Security              [papers of Gordon, Fournet, Bhargavan]
 - *ADD MORE HERE*
 
 Requirements
