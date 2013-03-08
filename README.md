@@ -16,6 +16,7 @@ List of Topics
 - Heap & State
 - Separation Logic
 - Imperative Refinement Types
+- Craig Interpolants
 - *ADD MORE HERE*
 
 List of Papers
