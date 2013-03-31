@@ -6,13 +6,13 @@ Course Materials for Graduate Class on Algorithmic Software Verification
 Requirements
 ------------
 
-1. Scribe **one** lecture
+1. **Scribe** one lecture
 
-2. Do **three** assignments
+2. **Program** three assignments
     - implement some of the above algorithms
     - use verification tools
 
-3. Present one 40 minute talk
+3. **Present** one 40 minute talk
     - read 1-3 papers from the list below
     - prepare slides and get vetted by me
     - synthesize and present
