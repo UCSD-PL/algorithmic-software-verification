@@ -23,10 +23,13 @@ Plan
 Deductive Verification
 
 1. Decision Procedures/SMT  [2]
+    
     - EUIF
     - DIFF
+    
     - DPLL
     - SMT
+    
     - Proofs?
 
 2. Contd.
@@ -110,7 +113,7 @@ List of Papers
 - [JS*](http://research.microsoft.com/~nswamy/papers/dijkstra-submitted-pldi13.pdf)
   (Swamy et al, PLDI 2013)[here](http://research.microsoft.com/en-us/um/people/nswamy/papers/index.html)
 
-- [Separation Logic and Abstraction](http://www.cl.cam.ac.uk/~mjp41/p205-parkinson.pdf)
+- [Separation Logic and Objects](http://www.cl.cam.ac.uk/~mjp41/p205-parkinson.pdf)
   (Parkinson and Bierman, POPL 2005)
 
 - [Abduction](http://www.cs.wm.edu/~idillig/pldi022-dillig.pdf)
@@ -125,6 +128,9 @@ List of Papers
 - Concurrency via Separation Logic (papers from Parkinson, Birkedal, et al)
   [here](http://research.microsoft.com/en-us/people/mattpark/)
 
+- Abstracting Abstract Machines: Van Horn & Might
+
+- Quantitative Bounds: COSTA, RAML, SPEED
 
 - Dependently Typed Languages: 
     - [ATS](todo) 
