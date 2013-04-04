@@ -138,3 +138,414 @@ You will present one **40 minute talk**
 
 ## Lets Begin ...
 
+- Logics & Decision Procedures
+
+- Easily enough to teach (many) courses
+
+- We will scratch the surface just to give a feel
+
+## Logics & Decision Procedures
+
+- **Logic is the Calculus of Computation**
+
+- May seem *abstract* now ...
+
+- ... why are we talking about these wierd symbols?!
+
+- Much/all of program analysis can be boiled down to logic
+
+- **Language** for reasoning about programs
+
+
+## Logics & Decision Procedures
+
+We will look very closely at the following
+
+1. Propositional Logic
+
+2. Theory of *Equality*
+
+3. Theory of *Uninterpreted Functions*
+
+4. Theory of *Difference-Bounded Arithmetic*
+
+(Why? Representative & have "efficient" decision procedures)
+
+## Logics & Decision Procedures
+
+We will look very closely at the following
+
+1. **Propositional Logic**
+
+2. Theory of *Equality*
+
+3. Theory of *Uninterpreted Functions*
+
+4. Theory of *Difference-Bounded Arithmetic*
+
+(Why? Representative & have "efficient" decision procedures)
+
+## Propositional Logic
+
+A logic is a **language**
+
+- *Syntax* of formulas (predicates, propositions...) in the logic
+
+- *Semantics* of when are formulas *satisfied* or *valid*
+
+
+## Propositional Logic: Syntax
+
+~~~~~{.haskell}
+data Symbol -- a set of symbols 
+
+data Pred = PV Symbol | Not Pred | Pred `And` Pred | Pred `Or`  Pred
+~~~~~
+
+**Predicates** are made of
+
+- Propositional symbols (aka "boolean variables" that are `True` or `False`)
+
+- Combined with `And`, `Or` and `Not`
+
+## Propositional Logic: Syntax
+
+~~~~~{.haskell}
+data Symbol -- a set of symbols 
+
+data Pred = PV Symbol | Not Pred | Pred `And` Pred | Pred `Or`  Pred
+~~~~~
+
+Can build in **other operators** `Implies`, `Iff`, `Xor` *etc.*
+
+~~~~~{.haskell}
+p `imp` q = (Not p `Or` q)
+p `iff` q = (p `And` q)     `Or` (Not p `And` Not q)
+p `xor` q = (p `And` Not q) `Or` (Not p `And` q)
+~~~~~
+
+## Propositional Logic: Semantics
+
+Predicate is a **constraint** 
+
+Example:
+
+~~~~~{.haskell}
+x1 `xor` x2 `xor` x3
+~~~~~
+
+States "only an **odd number** of the variables can be true"
+
+When is such a constraint **satisfiable** or **valid** ?
+
+## Propositional Logic: Semantics
+
+Let `Values = True, False, ...` be a universe of possible "meanings"
+
+An **assignment** is a map setting *value* of each `Symbol` as `True` or `False`
+
+~~~~~{.haskell}
+data Asgn = Symbol -> Value 
+~~~~~
+
+### Semantics/Evaluation Procedure
+
+Defines when an assignment `σ` makes a formula `p` true.
+
+~~~~~{.haskell}
+eval               :: Asgn -> Pred -> Bool
+
+eval σ (PV x)      = σ x                 -- assignment σ sets x to `True`
+eval σ (Not p)     = not (sat σ p)       -- p is NOT satisfied
+eval σ (p `And` q) = sat σ p && sat σ q  -- both of p , q are satisfied
+eval σ (p `Or`  q) = sat σ p || sat σ q  -- one of  p , q are satisfied
+~~~~~
+
+
+## Propositional Logic: Decision Problem 
+
+
+### Decision Problem: Satisfaction
+
+Does `eval σ p` return `True`  for **some** assignment `σ` ?
+
+### Decision Problem: Validity 
+
+Does `eval σ p` return `True`  for **all** assignments `σ` ?
+
+## Satisfaction: A Naive Decision Procedure
+
+Does `eval σ p` return `True`  for **some** assignment `σ` ?
+
+*Enumerate* all assignments and run `eval` on each!
+
+~~~~~{.haskell}
+isSat   :: Pred -> Bool
+
+isSat p = exists (\σ -> eval σ p) σs
+  where 
+    σs  = asgns $ removeDuplicates $ vars p
+
+exists f []     = False
+exists f (x:xs) = f x || exists f xs
+~~~~~
+
+## Satisfaction: A Naive Decision Procedure
+
+Does `eval σ p` return `True`  for **some** assignment `σ` ?
+
+*Enumerate* all assignments and run `eval` on each!
+
+### Enumerating all Assignments
+
+~~~~~{.haskell}
+asgns            :: [PVar] -> [Asgn]
+asgns []         = [\x -> False]     
+asgns (x:xs)     = [ext σ x t | σ <- asgns xs, t <- [True, False]]
+
+ext σ x t        = \y -> if y == x then t else σ x
+
+vars             :: Pred -> [PVar]
+vars (PV x)      = [x]
+vars (Not p)     = vars p
+vars (p `And` q) = vars p ++ vars q
+vars (p `Or`  q) = vars p ++ vars q
+~~~~~
+
+> **Obviously Inefficent**... (guaranteed) exponential in number of vars! 
+
+> Will see better *heuristics*
+
+## Logics & Decision Procedures
+
+We will look very closely at the following
+
+1. Propositional Logic
+
+2. Propositional Logic **+ Theories**
+
+    - Equality
+    
+    - Uninterpreted Functions
+    
+    - Difference-Bounded Arithmetic
+
+(Why? Representative & have "efficient" decision procedures)
+
+## Propositional Logic + Theory
+
+**Layer theories** on top of basic propositional logic
+
+### Expressions
+
+A new kind of term 
+
+~~~~~{.haskell}
+data Expr 
+~~~~~
+
+### Theory
+
+A Theory is Described by 
+
+1. Extend universe of `Values` 
+
+2. A set of `Operator`  
+    
+    - Syntax    : `data Expr = ... | Op [Expr]`
+    
+    - Semantics : `eval :: Op -> [Value] -> Value`
+
+3. A set of `Relation`  (i.e. `[Expr] -> Pred`)
+    
+    - Syntax    : `data Pred = ... | Symbol <=> (Rel [Expr])`
+
+    - Semantics : `eval :: Rel -> [Value] -> Bool`
+
+
+
+### Propositional Logic + Theory
+
+Note that `Pred` includes old propositional predicates *and* new relations
+
+## Propositional Logic + Theory
+
+**Layer theories** on top of basic propositional logic
+
+### Semantics 
+
+Extend `eval` semantics for `Operator` and `Relation`
+
+~~~~~{.haskell}
+eval σ (op es)      = eval op [eval σ e | e <- es]
+eval σ (x <=> r es) = eval r  [eval σ e | e <- es]
+~~~~~
+
+-->
+
+### Satisfaction / Validity
+
+- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+
+- **Valid** Does `eval σ p` return `True`  for **all** assignments `σ` ?
+
+## Lets make things concrete!
+
+## Logics & Decision Procedures
+
+We will look very closely at the following
+
+1. Propositional Logic
+
+2. Propositional Logic + Theories
+
+    - **Equality**
+    
+    - Uninterpreted Functions
+    
+    - Difference-Bounded Arithmetic
+
+(Why? Representative & have "efficient" decision procedures)
+
+
+## Propositional Logic + Theory of Equality
+
+1. `Values` = ... + `Integer` 
+
+2. `Operator`  none
+
+3. `Relation` 
+    
+    - Syntax  : `a Eq b` or `a Ne b`
+
+    - Semantics
+
+~~~~~{.haskell}
+eval Eq [n, m] = (n == m)
+eval Ne [n, m] = not (n == m)
+~~~~~
+
+### Example
+
+~~~~~{.haskell}
+      (x1 `And` x2 `And` x3)
+`And` (x1 <=> a `Eq` b) 
+`And` (x2 <=> b `Eq` c) 
+`And` (x3 <=> a `Ne` c)
+~~~~~
+
+## Propositional Logic + Theory of Equality
+
+### Example
+
+~~~~~{.haskell}
+      (x1 `And` x2 `And` x3)
+`And` (x1 <=> a `Eq` b) 
+`And` (x2 <=> b `Eq` c) 
+`And` (x3 <=> a `Ne` c)
+~~~~~
+
+### Decision Procedures?
+
+- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+
+Can we *enumerate* over all assignments? [No]
+
+## Logics & Decision Procedures
+
+We will look very closely at the following
+
+1. Propositional Logic
+
+2. Propositional Logic + Theories
+
+    - Equality
+    
+    - **Uninterpreted Functions**
+    
+    - Difference-Bounded Arithmetic
+
+(Why? Representative & have "efficient" decision procedures)
+
+## Propositional Logic + Theory of Equality + Uninterpreted Functions
+
+
+1. `Values`   : `... + functions [Value] -> Value ` 
+
+2. `Operator` : `App`           (*apply*  `App [f,a,b]` or just `f(a,b)`) 
+
+3. `Relation` : `Eq` and `Ne`   (from before)
+
+4. Extended `eval`
+
+~~~~~{.haskell}
+eval σ (App (e : [e1...en])) = (eval σ e) (eval σ e1 ... eval σ en)   
+~~~~~
+
+### Example
+
+~~~~~{.haskell}
+      (x1 `And` x2 `And` x3          )
+`And` (x1 <=> a `Eq` g(g(g(a)))      ) 
+`And` (x2 <=> a `Eq` g(g(g(g(g(a)))))) 
+`And` (x3 <=> a `Ne` g(a)            )
+~~~~~
+
+### Decision Procedures ?
+
+- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+
+- Can we *enumerate* over all assignments? [Hell, no!]
+
+- How can we possibly enumerate over all functions!
+
+## Logics & Decision Procedures
+
+We will look very closely at the following
+
+1. Propositional Logic
+
+2. Propositional Logic + Theories
+
+    - Equality
+    
+    - Uninterpreted Functions
+    
+    - **Difference-Bounded Arithmetic**
+
+(Why? Representative & have "efficient" decision procedures)
+
+
+## Propositional Logic + Difference Bounded Arithmetic
+
+1. `Values`   : `... + Integer` 
+
+2. `Operator` : None 
+
+3. `Relation` : `DBn(x,y)` (or, `x - y <= n`)
+
+4. Extended `eval`
+
+~~~~~{.haskell}
+eval σ (DB (e1, e2, n)) = (eval σ e1) - (eval σ e2) <= n 
+~~~~~
+
+### Example
+
+~~~~~{.haskell}
+      (x1 `And` x2 `And` x3)
+`And` (x1 <=> a - b <= 5   ) 
+`And` (x2 <=> b - c <= 10  ) 
+`And` (x3 <=> c - a <= -20 )
+~~~~~
+
+### Decision Procedures ?
+
+- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+
+- Can we *enumerate* over all assignments? [Hell, no!]
+
+- How can we possibly enumerate over all functions!
+
+## Next Time: Decision Procedures for SAT/SMT
+
