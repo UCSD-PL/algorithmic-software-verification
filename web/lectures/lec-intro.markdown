@@ -2,6 +2,10 @@
 % Introduction
 % Ranjit Jhala, UC San Diego 
 
+
+
+
+
 ## What is Algorithmic Verification?
 
 Algorithms, Techniques and Tools to ensure that
@@ -15,6 +19,10 @@ Algorithms, Techniques and Tools to ensure that
 (What does that *mean* ? Stay tuned...)
 
 
+
+
+
+
 ## Topics
 
 Most people here know what it means so more concretely...
@@ -26,6 +34,8 @@ Most people here know what it means so more concretely...
 3. Culminating with *recent topics* in verification.    [you]
 
 
+
+
 ## Goals
 
 1. Train students in state of the art, preparation for research
@@ -33,11 +43,20 @@ Most people here know what it means so more concretely...
 2. Write a monograph synthesizing different lines of work 
 
 
+
+
+
+
 ## Goals
 
 1. *Use* tools for different languages to see ideas in practice
 
 2. *Develop* ideas in a *single*, *unified*, *simplified* (aka "toy") PL
+
+
+
+
+
 
 ## Plan
 
@@ -53,6 +72,12 @@ Most people here know what it means so more concretely...
 
 - **Part 6** Project Talks
 
+
+
+
+
+
+
 ## Plan: 1 Deductive Verification
 
 - Logics & Decision Procedures 
@@ -60,17 +85,43 @@ Most people here know what it means so more concretely...
 - Verification Conditions
 - Symbolic Execution
 
+
+
+
+
+
+
+
+
 ## Plan: 2 Type Systems
 
 - Hindley-Milner 
 - Subtyping
 - Bidirectional Type Checking
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Plan: 3 Refinement Types
 
 - Combining Types & Logic
 - Reasoning about State
 - Abstract Refinements
+
+
+
+
+
 
 ## Plan: 4 Abstract Interpretation
 
@@ -79,16 +130,41 @@ Most people here know what it means so more concretely...
 - Predicate Abstraction/Liquid Types
 - Interpolation 
 
+
+
+
+
+
+
+
+
+
+
 ## Plan: 5 Heap & Dynamic Languages
 
 - Linear Types
 - Separation Logic
-- HTT
+- Hoare Type Theory
 - Dependent JavaScript
+
+
+
+
+
+
 
 ## Plan: 6 Project Talks
 
 Link to README
+
+
+
+
+
+
+
+
+
 
 
 ## Requirements & Evaluation
@@ -99,6 +175,17 @@ Link to README
 
 3. **Present**
 
+
+
+
+
+
+
+
+
+
+
+
 ## Requirements: 1. Scribe
 
 - Lectures will be black-board (not slides)
@@ -107,7 +194,15 @@ Link to README
 
 - For that lecture, take notes
 
-- Write up notes in **LaTex** using provided **template**
+- Write up notes in **LaTeX** using provided **template**
+
+
+
+
+
+
+
+
 
 ## Requirements: 2. Program
 
@@ -116,6 +211,16 @@ About **three** "programming" assignments
 - *Implement* some of algorithms (in Haskell)
 
 - *Use* some verification tools (miscellaneous) 
+
+
+
+
+
+
+
+
+
+
 
 ## Requirements: 3. Present
 
@@ -132,9 +237,34 @@ You will present one **40 minute talk**
 - Can add other paper if I'm ok with it.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ## Questions
 
 ?
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Lets Begin ...
 
@@ -143,6 +273,19 @@ You will present one **40 minute talk**
 - Easily enough to teach (many) courses
 
 - We will scratch the surface just to give a feel
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Logics & Decision Procedures
 
@@ -155,6 +298,14 @@ You will present one **40 minute talk**
 - Much/all of program analysis can be boiled down to logic
 
 - **Language** for reasoning about programs
+
+
+
+
+
+
+
+
 
 
 ## Logics & Decision Procedures
@@ -171,6 +322,20 @@ We will look very closely at the following
 
 (Why? Representative & have "efficient" decision procedures)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Logics & Decision Procedures
 
 We will look very closely at the following
@@ -185,6 +350,11 @@ We will look very closely at the following
 
 (Why? Representative & have "efficient" decision procedures)
 
+
+
+
+
+
 ## Propositional Logic
 
 A logic is a **language**
@@ -194,19 +364,38 @@ A logic is a **language**
 - *Semantics* of when are formulas *satisfied* or *valid*
 
 
+
+
+
+
+
+
+
+
+
 ## Propositional Logic: Syntax
 
 ~~~~~{.haskell}
 data Symbol -- a set of symbols 
 
-data Pred = PV Symbol | Not Pred | Pred `And` Pred | Pred `Or`  Pred
+data Pred = PV Symbol 
+          | Not Pred 
+          | Pred `And` Pred 
+          | Pred `Or`  Pred
 ~~~~~
 
 **Predicates** are made of
 
-- Propositional symbols (aka "boolean variables" that are `True` or `False`)
+- Propositional symbols ("boolean variables") 
 
 - Combined with `And`, `Or` and `Not`
+
+
+
+
+
+
+
 
 ## Propositional Logic: Syntax
 
@@ -224,6 +413,11 @@ p `iff` q = (p `And` q)     `Or` (Not p `And` Not q)
 p `xor` q = (p `And` Not q) `Or` (Not p `And` q)
 ~~~~~
 
+
+
+
+
+
 ## Propositional Logic: Semantics
 
 Predicate is a **constraint** 
@@ -237,6 +431,9 @@ x1 `xor` x2 `xor` x3
 States "only an **odd number** of the variables can be true"
 
 When is such a constraint **satisfiable** or **valid** ?
+
+
+
 
 ## Propositional Logic: Semantics
 
@@ -548,4 +745,9 @@ eval σ (DB (e1, e2, n)) = (eval σ e1) - (eval σ e2) <= n
 - How can we possibly enumerate over all functions!
 
 ## Next Time: Decision Procedures for SAT/SMT
+
+NOT (x - y <= c)
+==> (x - y >  c)
+==> (-c > y - x)
+==> (y - x <= -c - 1)
 
