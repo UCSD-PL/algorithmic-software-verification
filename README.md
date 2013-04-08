@@ -182,4 +182,11 @@ HW 3:
 
 
  
- 
+Lecture Links
+-------------
+
+SAT
+
+Lintao Zhang 
+  - [SAT 1](http://research.microsoft.com/en-us/people/lintaoz/sat_course1.pdf) 
+  - [SAT 2](http://research.microsoft.com/en-us/people/lintaoz/sat_course1.pdf)

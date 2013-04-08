@@ -746,8 +746,3 @@ eval σ (DB (e1, e2, n)) = (eval σ e1) - (eval σ e2) <= n
 
 ## Next Time: Decision Procedures for SAT/SMT
 
-NOT (x - y <= c)
-==> (x - y >  c)
-==> (-c > y - x)
-==> (y - x <= -c - 1)
-
