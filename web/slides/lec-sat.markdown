@@ -2,7 +2,7 @@
 % Ranjit Jhala, UC San Diego 
 % April 9, 2013
 
-## Decision Procedures
+## SAT Solvers 
 
 We will look very closely at the following
 
