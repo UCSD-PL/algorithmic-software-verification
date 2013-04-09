@@ -106,7 +106,7 @@ List of Topics
 List of Papers
 --------------
 
-- Termination (papers from Cook, et al) [here](http://research.microsoft.com/en-us/people/bycook/)
+- Termination (papers from Rybalchenko, et al) [here](http://research.microsoft.com/en-us/people/bycook/)
 
 - Fancy First-Order Logics [HAVOC](google:qadeer-lahiri) [STRAND](google:partharasarathy)
 

@@ -2,12 +2,6 @@
 title: Home 
 ---
 
-## Signup Here
-
-- [Scribe]
-
-- [Presentation]
-
 ## Instructor
 
 Ranjit Jhala `(jhala@cs.ucsd.edu)`
