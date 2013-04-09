@@ -2,6 +2,11 @@
 title: Home 
 ---
 
+## Signup Here
+
+- [Scribe]
+
+- [Presentation]
 
 ## Instructor
 
