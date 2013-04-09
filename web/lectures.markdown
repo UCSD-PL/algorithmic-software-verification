@@ -6,9 +6,9 @@ title: Lectures
 **Date**     **Topic**                                          **Notes**
 --------     ----------------------------------------------     --------------
    *4/4*     Introduction  
-   *4/9*     SAT and SMT
-  *4/11*     Floyd-Hoare Logic
-  *4/16*     VC Generation & Symbolic Execution
+   *4/9*     SAT Solvers
+  *4/11*     SMT Solvers
+  *4/16*     Floyd-Hoare Logic & VC Generation 
   *4/18*     Types: Hindley-Milner
   *4/23*     Types: Subtyping, Bidirectional Checking
   *4/25*     Refinement Types
@@ -25,8 +25,6 @@ title: Lectures
   *5/30*     ""
    *6/4*     ""
    *6/6*     ""
-
-
 
 ----------------------------------------------------------------------------------
 
