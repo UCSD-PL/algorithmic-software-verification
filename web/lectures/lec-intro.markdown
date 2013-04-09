@@ -1,10 +1,6 @@
-% Algorithmic Software Verification (Spring 2013)
-% Introduction
-% Ranjit Jhala, UC San Diego 
-
-
-
-
+% Software Verification : Introduction
+% Ranjit Jhala, UC San Diego
+% April 4, 2013
 
 ## What is Algorithmic Verification?
 
@@ -17,10 +13,6 @@ Algorithms, Techniques and Tools to ensure that
 - Bugs
 
 (What does that *mean* ? Stay tuned...)
-
-
-
-
 
 
 ## Topics
@@ -402,7 +394,10 @@ data Pred = PV Symbol
 ~~~~~{.haskell}
 data Symbol -- a set of symbols 
 
-data Pred = PV Symbol | Not Pred | Pred `And` Pred | Pred `Or`  Pred
+data Pred = PV Symbol 
+          | Not Pred 
+          | Pred `And` Pred 
+          | Pred `Or`  Pred
 ~~~~~
 
 Can build in **other operators** `Implies`, `Iff`, `Xor` *etc.*
@@ -414,15 +409,9 @@ p `xor` q = (p `And` Not q) `Or` (Not p `And` q)
 ~~~~~
 
 
-
-
-
-
 ## Propositional Logic: Semantics
 
-Predicate is a **constraint** 
-
-Example:
+Predicate is a **constraint**. For example,
 
 ~~~~~{.haskell}
 x1 `xor` x2 `xor` x3
@@ -430,10 +419,7 @@ x1 `xor` x2 `xor` x3
 
 States "only an **odd number** of the variables can be true"
 
-When is such a constraint **satisfiable** or **valid** ?
-
-
-
+- When is such a constraint **satisfiable** or **valid** ?
 
 ## Propositional Logic: Semantics
 
@@ -447,15 +433,15 @@ data Asgn = Symbol -> Value
 
 ### Semantics/Evaluation Procedure
 
-Defines when an assignment `σ` makes a formula `p` true.
+Defines when an assignment `s` makes a formula `p` true.
 
 ~~~~~{.haskell}
 eval               :: Asgn -> Pred -> Bool
 
-eval σ (PV x)      = σ x                 -- assignment σ sets x to `True`
-eval σ (Not p)     = not (sat σ p)       -- p is NOT satisfied
-eval σ (p `And` q) = sat σ p && sat σ q  -- both of p , q are satisfied
-eval σ (p `Or`  q) = sat σ p || sat σ q  -- one of  p , q are satisfied
+eval s (PV x)      = s x                 -- assignment s sets x to `True`
+eval s (Not p)     = not (sat s p)       -- p is NOT satisfied
+eval s (p `And` q) = sat s p && sat s q  -- both of p , q are satisfied
+eval s (p `Or`  q) = sat s p || sat s q  -- one of  p , q are satisfied
 ~~~~~
 
 
@@ -464,24 +450,24 @@ eval σ (p `Or`  q) = sat σ p || sat σ q  -- one of  p , q are satisfied
 
 ### Decision Problem: Satisfaction
 
-Does `eval σ p` return `True`  for **some** assignment `σ` ?
+Does `eval s p` return `True`  for **some** assignment `s` ?
 
 ### Decision Problem: Validity 
 
-Does `eval σ p` return `True`  for **all** assignments `σ` ?
+Does `eval s p` return `True`  for **all** assignments `s` ?
 
 ## Satisfaction: A Naive Decision Procedure
 
-Does `eval σ p` return `True`  for **some** assignment `σ` ?
+Does `eval s p` return `True`  for **some** assignment `s` ?
 
 *Enumerate* all assignments and run `eval` on each!
 
 ~~~~~{.haskell}
 isSat   :: Pred -> Bool
 
-isSat p = exists (\σ -> eval σ p) σs
+isSat p = exists (\s -> eval s p) ss 
   where 
-    σs  = asgns $ removeDuplicates $ vars p
+    ss  = asgns $ removeDuplicates $ vars p
 
 exists f []     = False
 exists f (x:xs) = f x || exists f xs
@@ -489,7 +475,7 @@ exists f (x:xs) = f x || exists f xs
 
 ## Satisfaction: A Naive Decision Procedure
 
-Does `eval σ p` return `True`  for **some** assignment `σ` ?
+Does `eval s p` return `True`  for **some** assignment `s` ?
 
 *Enumerate* all assignments and run `eval` on each!
 
@@ -498,9 +484,9 @@ Does `eval σ p` return `True`  for **some** assignment `σ` ?
 ~~~~~{.haskell}
 asgns            :: [PVar] -> [Asgn]
 asgns []         = [\x -> False]     
-asgns (x:xs)     = [ext σ x t | σ <- asgns xs, t <- [True, False]]
+asgns (x:xs)     = [ext s x t | s <- asgns xs, t <- [True, False]]
 
-ext σ x t        = \y -> if y == x then t else σ x
+ext s x t        = \y -> if y == x then t else s x
 
 vars             :: Pred -> [PVar]
 vars (PV x)      = [x]
@@ -574,17 +560,17 @@ Note that `Pred` includes old propositional predicates *and* new relations
 Extend `eval` semantics for `Operator` and `Relation`
 
 ~~~~~{.haskell}
-eval σ (op es)      = eval op [eval σ e | e <- es]
-eval σ (x <=> r es) = eval r  [eval σ e | e <- es]
+eval s (op es)      = eval op [eval s e | e <- es]
+eval s (x <=> r es) = eval r  [eval s e | e <- es]
 ~~~~~
 
 -->
 
 ### Satisfaction / Validity
 
-- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+- **Sat**   Does `eval s p` return `True`  for **some** assignment `s` ?
 
-- **Valid** Does `eval σ p` return `True`  for **all** assignments `σ` ?
+- **Valid** Does `eval s p` return `True`  for **all** assignments `s` ?
 
 ## Lets make things concrete!
 
@@ -644,7 +630,7 @@ eval Ne [n, m] = not (n == m)
 
 ### Decision Procedures?
 
-- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+- **Sat**   Does `eval s p` return `True`  for **some** assignment `s` ?
 
 Can we *enumerate* over all assignments? [No]
 
@@ -676,7 +662,7 @@ We will look very closely at the following
 4. Extended `eval`
 
 ~~~~~{.haskell}
-eval σ (App (e : [e1...en])) = (eval σ e) (eval σ e1 ... eval σ en)   
+eval s (App (e : [e1...en])) = (eval s e) (eval s e1 ... eval s en)   
 ~~~~~
 
 ### Example
@@ -690,7 +676,7 @@ eval σ (App (e : [e1...en])) = (eval σ e) (eval σ e1 ... eval σ en)
 
 ### Decision Procedures ?
 
-- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+- **Sat**   Does `eval s p` return `True`  for **some** assignment `s` ?
 
 - Can we *enumerate* over all assignments? [Hell, no!]
 
@@ -724,7 +710,7 @@ We will look very closely at the following
 4. Extended `eval`
 
 ~~~~~{.haskell}
-eval σ (DB (e1, e2, n)) = (eval σ e1) - (eval σ e2) <= n 
+eval s (DB (e1, e2, n)) = (eval s e1) - (eval s e2) <= n 
 ~~~~~
 
 ### Example
@@ -738,7 +724,7 @@ eval σ (DB (e1, e2, n)) = (eval σ e1) - (eval σ e2) <= n
 
 ### Decision Procedures ?
 
-- **Sat**   Does `eval σ p` return `True`  for **some** assignment `σ` ?
+- **Sat**   Does `eval s p` return `True`  for **some** assignment `s` ?
 
 - Can we *enumerate* over all assignments? [Hell, no!]
 
