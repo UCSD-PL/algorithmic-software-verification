@@ -180,9 +180,149 @@ Returns a **conjunction of atoms** for the `theorySolver`
 
 ## Need to Solve Formulas Over Different Theories
 
-**TODO**
+Input formulas `F` have `Relation`, `Operator` from *different* theories
 
-- NO Motivation
+- $F \equiv f(f(a) - f(b)) \not = f(c), b \geq a, c \geq b+c, c \geq 0$
+
+- Recall here *comma* means *conjunction*
+
+Formula contains symbols from 
+
+- `EUF`   : $f(a)$, $f(b)$, $=$, $\not =$,...
+
+- `Arith` : $\geq$, $+$, $0$,...
+
+How to solve formulas over *different* theories?
+
+## Naive Splitting Approach
+
+Consider $F$ over $T_E$ (e.g. `EUF`) and $T_A$ (e.g. `Arith`)
+
+### By Theory, Split $F$ Into $F_E \wedge F_A$ 
+
+- $F_E$ which **only contains** symbols from $T_E$
+- $F_A$ which **only contains** symbols from $T_A$
+
+Our example,
+
+- $F \equiv f(f(a) - f(b)) \not = f(c), b \geq a, c \geq b+c, c \geq 0$
+
+Can be split into
+
+- $F_E \equiv f(f(a) - f(b)) \not = f(c)$  <!-- _z -->
+- $F_A \equiv b \geq a, c \geq b+c , c \geq 0$
+
+## Naive Splitting Approach
+
+Our example,
+
+- $F \equiv f(f(a) - f(b)) \not = f(c) , b \geq a , c \geq b+c , c \geq 0$
+
+Can be split into
+
+- $F_E \equiv f(f(a) - f(b)) \not = f(c)$  <!-- _z -->
+- $F_A \equiv b \geq a, c \geq b+c, c \geq 0$
+
+**Problem! Pesky "minus" operator ($-$) has crept into $F_E$ ...**
+
+## Less Naive Splitting Approach
+
+**Problem! Pesky "minus" operator ($-$) has crept into $F_E$ ...**
+
+### Name Sub-Expressions With Fresh Variables
+
+- Replace $r(f(e)$ with $t = f(e) \wedge r(t)$
+
+Example formula $F$ becomes 
+
+- $t_1 = f(a),  t_2 = f(b), t_3 = t_1 - t_2$
+
+- $f(t3) \not = f(c), b \geq a, c \geq b+c, c \geq 0$
+
+Which splits nicely into
+
+- $F_E \equiv t_1 = f(a),  t_2 = f(b), f(t3) \not = f(c)$
+
+- $F_A \equiv t_3 = t_1 - t_2, b \geq a, c \geq b+c, c \geq 0$
+
+
+## Less Naive Splitting Approach
+
+Consider $F$ over $T_E$ (e.g. `EUF`) and $T_A$ (e.g. `Arith`)
+
+- **Split** $F \equiv F_E \wedge F_A$
+
+Now what? Run theory solvers independently 
+
+~~~~~{.haskell}
+theorySolver f =
+  let (fE, fA) = splitByTheory f in 
+  case theorySolverE fE, theorySolverA fA of
+    (UNSAT, _) -> UNSAT
+    (_, UNSAT) -> UNSAT 
+    (SAT, SAT) -> SAT
+~~~~~
+
+**Will it work?**
+
+## Less Naive Splitting Approach
+
+### Run Theory Solvers Independently 
+
+~~~~~{.haskell}
+theorySolver f =
+  let (fE, fA) = splitByTheory f in 
+  case theorySolverE fE, theorySolverA fA of
+    (UNSAT, _) -> UNSAT
+    (_, UNSAT) -> UNSAT 
+    (SAT, SAT) -> SAT
+~~~~~
+
+**Will it work? Alas, no.**
+
+## Satisfiability of Mixed Theories
+
+Consider $F$ over $T_E$ (e.g. `EUF`) and $T_A$ (e.g. `Arith`)
+
+- **Split** $F \equiv F_E \wedge F_A$
+
+The following are obvious 
+
+1. *UNSAT* $F_E$ implies *UNSAT* $F_E \wedge F_A$ implies *UNSAT* $F$
+2. *UNSAT* $F_A$ implies *UNSAT* $F_E \wedge F_A$ implies *UNSAT* $F$
+
+But this **is not true**
+
+3. *SAT* $F_E$ and *SAT $F_A$ implies *SAT* $F_E \wedge F_A$
+
+## Satisfiability of Mixed Theories
+
+*SAT* $F_E$ and *SAT* $F_A$ **does not imply** *SAT* $F_E \wedge F_A$
+
+### Example
+
+- $F_E \equiv t_1 = f(a),  t_2 = f(b), f(t3) \not = f(c)$
+
+- $F_A \equiv t_3 = t_1 - t_2, b \geq a, c \geq b+c, c \geq 0$
+
+### Individual Satisfying Assignment
+
+- Let $\sigma \equiv = a \mapsto 0, b \mapsto 0, c \mapsto 1, f \mapsto \lambda x.x$ 
+
+- Easy to check that $\sigma$ satisfies $F_E$ and $F_A$
+
+- (But not both!)
+
+*One* bad assignment doesn't mean $F$ is *UNSAT*...
+
+
+## Proof of Unsatisfiability of Mixed Formula $F_E \wedge F_A$ 
+
+!["Proof" Of Unsatisfiability](../static/smt-mixed-unsat-proof.png)
+
+
+
+
 
 ## Nelson-Oppen Framework For Combining Theory Solvers 
 
