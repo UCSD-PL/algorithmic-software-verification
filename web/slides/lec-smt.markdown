@@ -163,7 +163,7 @@ Where, the function
 cube :: TheoryFormula -> [Literal] -> TheoryFormula  
 ~~~~~
 
-returns a **conjunction of atoms** for the `theorySolver`
+Returns a **conjunction of atoms** for the `theorySolver`
 
 
 ## Today 
