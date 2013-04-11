@@ -623,7 +623,8 @@ Every term $e$ is equal to itself
 If $e_1$ is equal to $e_2$, then $e_2$ is equal to $e_1$
 
     $$\forall e_1, e_2. \mbox{If } e_1 = e_2 \mbox{ Then } e_2 = e_1$$
-
+ 
+   
 ### Transitivity 
 
 If $e_1$ equals $e_2$ and $e_2$ equals $e_3$ then $e_1$ equals $e_3$
@@ -738,14 +739,14 @@ union e1 e2 = do r1 <- find e1
 
 ## Union Find : Example
 
-Graph represents fact that $a=b=c=d$ and $e=f=g$.
+Graph represents fact that $a = b = c = d$ and $e = f = g$.
 
 ![Inital Union-Find Graph](../static/smt-eq-uf-1.png)
 
 
 ## Union-Find : Example
 
-Graph represents fact that $a=b=c=d$ and $e=f=g$.
+Graph represents fact that $a = b = c = d$ and $e = f = g$.
 
 **Updates**  graph with equality $a=e$ using `union a e` 
 
@@ -754,11 +755,9 @@ Graph represents fact that $a=b=c=d$ and $e=f=g$.
 
 ## Union-Find : Example
 
-After linking, graph represents fact that $a=b=c=d=e=f=g$.
+After linking, graph represents fact that $a = b = c = d = e = f = g$.
 
 ![Union The Sets of `a` and `e`](../static/smt-eq-uf-3.png)
-
-
 
 ## Solver for Theory of Equality: Union-Find Algorithm
 
@@ -768,34 +767,31 @@ After linking, graph represents fact that $a=b=c=d=e=f=g$.
 - Tree root is **canonical representative** of equivalent set 
 - i.e. nodes are equal *iff* they have the **same root**
 
-### Solver Check Disequalities
-HEREHEREHEREHEREHERE
+### Algorithm 
 
-- For some atom `ek /= el`, if `find(ek) == find(el)` return `UNSAT`
-- Otherwise return `SAT`
+~~~~~{.haskell}
+theorySolverEq atoms
+  = do _     <- forM_ eqs  union        -- 1. Build U-F Tree 
+       u     <- anyM  neqs checkEqual   -- 2. Check Conflict 
+       return $ if u then UNSAT else SAT
+    where 
+      eqs     = [(e, e') | (e `Eq` e') <- atoms]
+      neqs    = [(e, e') | (e `Ne` e') <- atoms]
 
-## Solver for Theory of Equality 
+checkEqual (e, e')
+  = do r     <- find e
+       r'    <- find e'
+       return $ r == r' 
+~~~~~
 
-**Input** $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+## Solver for Theory of Equality: Missing Pieces
 
-**Step 1** Build Union-Find Graph
+1. How to **discover equalities** ?
 
-- For each equality atom $e_i = e_j$, call `union(ei, ej)`
+2. How to **track causes** ?
 
-- *Vertices* $e_1, e_2, \ldots$
-- *Edges*    $e_i --- e_j$ for each 
+Figure it out in *homework*
 
-**Step 2** Compute Equivalence Closure
-
-- Keep adding edges between $e$ and $e'$ according to *transitivity* axioms
-- *Note:* Reflexivity and Symmetry handled by undirected graph representation
-
-**Output** For each $k,l$ in disequality atoms, 
-
-- If exists edge $e_k --- e_l$ in graph then return `UNSAT`
-- Else return `SAT`
-
-END HEREHEREHEREHERE
 
 ## Today 
 
@@ -807,6 +803,101 @@ END HEREHEREHEREHERE
     - **Theory of Uninterpreted Functions**
     - Theory of *Difference-Bounded Arithmetic*
 
+## Solver for Theory of Equality + Uninterpreted Functions
+
+**Recall** Only need to solve list of `Atom` 
+
+- i.e. formulas like $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+
+### New: UIF Applications in Expressions
+
+- An expression $e$ can be of the form $f(e_1,\ldots,e_k)$ 
+
+- Where $f$ is an *uninterpreted function* of arity $k$
+
+**Question:** What does *uninterpreted* mean anyway ? 
+
+## Axioms for Theory of Equality + Uninterpreted Functions
+
+Rules defining when one expressions *is equal to* another. 
+
+### Equivalence Axioms
+
+- Reflexivity $\forall e. e = e$
+- Symmetry $\forall e_1, e_2. \mbox{If } e_1 = e_2 \mbox{ Then } e_2 = e_1$
+- Transitivity $\forall e_1, e_2, e_3. \mbox{If } e_1 = e_2 \mbox{ and } e_2 = e_3 \mbox{ Then } e_1 = e_3$
+
+### Congruence 
+
+If function arguments are equal, then outputs are equal
+
+    $$\forall e_1,\ldots e_k, e_1',\ldots,e_k'. \mbox{If } \wedge_i e_i = e_i'  \mbox{ Then } f(e_1,\ldots,e_k) = f(e_1',\ldots,e_k')$$
+
+## Solver for Theory of Equality + Uninterpreted Functions 
+
+Let $R$ be a relation on expressions.
+
+### Congruence Closure of $R$ 
+
+Is the *smallest* relation $R*$ containing $R$ that is *closed* under 
+
+- Reflexivity
+- Symmetry
+- Transitivity
+- Congruence
+
+### Solver: Compute Congruence Closure of Input Equalities
+
+- Compute **congruence closure** of input equality atoms
+- Return `UNSAT` if any disequal terms are in the closure 
+- Return `SAT` otherwise
+
+## Solver for EUF: Extended Union-Find Algorithm
+
+### Step 1: Represent Expressions With DAG 
+
+- Each **node** in DAG represents an expression
+- Implicitly represents *fresh variables*
+- Can be shared across theory solvers
+
+![DAG Representation of Expressions](../static/smt-uf-dag.png)
+
+## Solver for EUF: Extended Union-Find Algorithm
+
+### Step 2: Keep Parent Links to Function Symbols 
+
+![Parent Links](../static/smt-uf-dag-parent.png)
+
+## Solver for EUF: Extended Union-Find Algorithm
+
+### Step 3: Extend `union e1 e2` To Parents
+
+~~~~~{.haskell}
+union e1 e2 
+  = do e1' <- find e1
+       e2' <- find e2
+       link        e1' e2'
+       linkParents e1' e2'
+
+linkParents e1' e2' 
+  = do transferParents      e1' e2'
+       recursiveParentUnion e1' e2'
+~~~~~
+
+## Solver for EUF: Example
+
+**Input** $a = f(f(f(a))), a = f(f(f(f(f(a), x \not = f(a)$
+
+![Congruence Closure Example](../static/smt-congclos.png)
+
+## Solver for Theory of EUF: Missing Pieces
+
+1. How to **discover equalities** ?
+
+2. How to **track causes** ?
+
+Figure it out in *homework*
+
 ## Today 
 
 1. Combining SAT *and Theory* Solvers
@@ -816,6 +907,60 @@ END HEREHEREHEREHERE
     - Theory of Equality
     - Theory of Uninterpreted Functions
     - **Theory of Difference-Bounded Arithmetic**
+
+
+## Theory of Linear Arithmetic
+
+Syntax: +, -, =, >, 0, 1, -1, 2, -2, ...
+• Semantics: as expected
+• The most useful in program verification after equality
+– checking array bounds, etc
+• Example: y > 2x + 1 . y + x > 1 . y < 0
+
+## Theory of Difference Constraints
+
+A special case of linear arithmetic
+• All constraints of the form:
+x + c <= y
+• c is a constant
+• Special variable z representing 0
+• Can express many common linear constraints
+
+## Solver For Difference Constraints
+
+• How to check satisfiability?
+• Hint: Think of a directed graph
+– with a node for each variable
+– represent constraint in each graph
+– and think about graph algorithms
+
+## Solver For Difference Constraints
+
+Hint: Think of a directed graph
+– with a node for each variable
+– represent constraint in each graph
+– and think about graph algorithms
+• Example
+– x <= y
+– y+4 <= w
+– w-2 <= x
+– w+1 < =z
+• What is explanation?
+
+EXAMPLE TODO
+
+## Solver For Difference Constraints
+
+Difference Constraints
+
+Theorem: 
+A set of difference constraints is satisfiable 
+in and only if
+there is no positive weight cycle in the graph
+• Can be solved in $O(n^2)$
+• Algorithm is complete !
+• Was used successfully in array-bounds checking 
+elimination and induction variable discovery
 
 ## Today 
 
