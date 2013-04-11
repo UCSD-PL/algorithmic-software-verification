@@ -4,9 +4,16 @@ title: Links
 
 ## Books 
 
+- [Decision Procedures, Strichman and Kroening](http://www.decisionprocedures.org)
+
 ## Tutorials
 
+- [Combining Decision Procedures, Oliveras](http://www.lsi.upc.edu/~oliveras/TDV/NO.pdf)
+
+
 ## Courses
+
+- [Cormac Flanagan, UCSC, Wi 2004](http://classes.soe.ucsc.edu/cmps290g/Winter04)
 
 ## Papers For Presentation
 
