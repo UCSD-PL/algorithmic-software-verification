@@ -244,8 +244,6 @@ and **Theory Cube**
 
 - Thus `smtSolver` returns `UNSAT`
 
-
-
 ## Today 
 
 1. Combining SAT *and Theory* Solvers
@@ -581,6 +579,14 @@ Requirement of `theorySolver`
 - `theorySolver` constructs **blocking clause** from *causes*
 
 ## Building Blocking Clauses from Causes
+
+- **Tag** each input `Atom`
+
+- **Tag** each discovered and broadcasted equality
+
+- **Link** each discovered fact with *tags* of its causes
+
+- On **UNSAT** returned cause is backwards *slice* of *tags*
 
 
 
