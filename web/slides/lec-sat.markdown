@@ -1,8 +1,8 @@
-% Decision Procedures 
+% SAT Solvers 
 % Ranjit Jhala, UC San Diego 
 % April 9, 2013
 
-## SAT Solvers 
+## Decision Procedures
 
 We will look very closely at the following
 
@@ -321,11 +321,11 @@ Algorithms
 
 ## Decision Tree: Describes Space of All Assignments
 
-![SAT Decision Tree (Courtesy: Lintao Zhang)](../static/sat-tree-full.pdf "Decision Tree")
+![SAT Decision Tree (Courtesy: Lintao Zhang)](../static/sat-tree-full-small.png "Decision Tree")
 
 ## Decision Tree: SAT via Depth First Search 
 
-![DFS On Decision Tree (Courtesy: Lintao Zhang)](../static/sat-tree-full-solution.pdf "Decision Tree")
+![DFS On Decision Tree (Courtesy: Lintao Zhang)](../static/sat-tree-full-solution-small.png "Decision Tree")
 
 ## Backtracking Search 
 
@@ -338,88 +338,88 @@ Don't build *whole* tree, but lazily search solutions
 
 ## Backtracking Search (1/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-1.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-1-small.png)
 
 
 ## Backtracking Search (2/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-2.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-2-small.png)
 
 ## Backtracking Search (3/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-3.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-3-small.png)
 
 ## Backtracking Search (4/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-4.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-4-small.png)
 
 ## Backtracking Search (5/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-5.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-5-small.png)
 
 ## Backtracking Search (6/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-6.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-6-small.png)
 
 ## Backtracking Search (7/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-7.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-7-small.png)
 
 ## Backtracking Search (8/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-8.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-8-small.png)
 
 ## Backtracking Search (9/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-9.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-9-small.png)
 
 ## Backtracking Search (10/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-10.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-10-small.png)
 
 ## Backtracking Search (11/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-11.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-11-small.png)
 
 ## Backtracking Search (12/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-12.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-12-small.png)
 
 ## Backtracking Search (13/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-13.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-13-small.png)
 
 ## Backtracking Search (14/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-14.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-14-small.png)
 
 ## Backtracking Search (15/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-15.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-15-small.png)
 
 ## Backtracking Search (16/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-16.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-16-small.png)
 
 ## Backtracking Search (17/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-17.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-17-small.png)
 
 ## Backtracking Search (18/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-18.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-18-small.png)
 
 ## Backtracking Search (19/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-19.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-19-small.png)
 
 ## Backtracking Search (20/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-20.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-20-small.png)
 
 ## Backtracking Search (21/21) 
 
-![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-21.png)
+![Basic DLL (Courtesy: Lintao Zhang)](../static/sat-dll-21-small.png)
 
 
 ## Backtracking Search
@@ -487,7 +487,7 @@ Often, we don't really have a choice...
 
 Revisit Example With BCP
 
-![Boolean Constraint Propagation (Courtesy: Lintao Zhang)](../static/sat-dll-21.png)
+![Boolean Constraint Propagation (Courtesy: Lintao Zhang)](../static/sat-dll-21-small.png)
 
 ## Boolean Constraint Propagation
 
@@ -504,6 +504,7 @@ Revisit Example With BCP
 - Means to *learn* to repeat *dead ends* 
 
 - Key to scaling to practical problems
+
 
 ## Decision Procedures: Propositional Logic
 
@@ -537,6 +538,24 @@ Algorithm for Satisfiability," Proc. ICCAD 1996.
 - R. J. Bayardo Jr. and R. C. Schrag "Using CSP look-back techniques to 
 solve real world SAT instances." Proc. AAAI, 1997
 
+## Conflict Driven Learning
+
+- Resolve on conflict variable to **learn** new **conflict** clause
+
+- **Add** clause to set of clauses
+
+- **Backjump** using conflict clause
+
+## Conflict Driven Learning
+
+Revisit Example With CDL
+
+- Learn, Add, Backjump
+- Vastly faster search
+
+![Boolean Constraint Propagation (Courtesy: Lintao Zhang)](../static/sat-dll-21-small.png)
+
+
 ## More Details about SAT Solvers
 
 Lectures By Lintao Zhang (ZChaff)
@@ -544,13 +563,12 @@ Lectures By Lintao Zhang (ZChaff)
 - [1](http://research.microsoft.com/en-us/people/lintaoz/sat_course1.pdf)
 - [2](http://research.microsoft.com/en-us/people/lintaoz/sat_course2.pdf)
 
-## Decision Procedures: Equality
+## Next Time: SMT = SAT + Theories 
 
-## Decision Procedures: Uninterpreted Functions
+1. Propositional Logic
 
-## Decision Procedures: Difference Constraints 
+2. Combining Theories
+    - *Equality + Uninterpreted Functions*
+    - *Difference-Bounded Arithmetic*
 
-
-
-
-
+3. Combining SAT + Theories

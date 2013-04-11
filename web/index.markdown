@@ -8,7 +8,7 @@ Ranjit Jhala `(jhala@cs.ucsd.edu)`
 
 ## Co-ordinates 
 
-*Lectures:* Tu-Th 3:30 to 4:50 pm in CSE 2154
+*Lectures:* Tu-Th 3:30 to 4:50 pm in CSE 2217
 
 ## Description
 
