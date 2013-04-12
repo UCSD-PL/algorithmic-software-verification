@@ -588,7 +588,7 @@ Requirement of `theorySolver`
 
 - On **UNSAT** returned cause is backwards *slice* of *tags*
 
-
+- Willsee this informally, but will show up in assignment...
 
 ## Today 
 
@@ -599,6 +599,203 @@ Requirement of `theorySolver`
     - **Theory of Equality**
     - Theory of *Uninterpreted Functions*
     - Theory of *Difference-Bounded Arithmetic*
+
+
+## Solver for Theory of Equality
+
+**Recall** Only need to solve list of `Atom` 
+
+- i.e. formulas like $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+
+
+## Axioms for Theory of Equality
+
+Rules defining when one expressions *is equal to* another. 
+
+### Reflexivity
+
+Every term $e$ is equal to itself
+
+    $$\forall e. e = e$$
+
+### Symmetry
+
+If $e_1$ is equal to $e_2$, then $e_2$ is equal to $e_1$
+
+    $$\forall e_1, e_2. \mbox{If } e_1 = e_2 \mbox{ Then } e_2 = e_1$$
+
+### Transitivity 
+
+If $e_1$ equals $e_2$ and $e_2$ equals $e_3$ then $e_1$ equals $e_3$
+
+    $$\forall e_1, e_2, e_3. \mbox{If } e_1 = e_2 \mbox{ and } e_2 = e_3 \mbox{ Then } e_1 = e_3$$
+
+
+## Solver for Theory of Equality 
+
+Let $R$ be a relation on expressions.
+
+### Equivalence Closure of $R$ 
+
+Is the *smallest* relation $R*$ containing $R$ that is *closed* under 
+
+- Reflexivity
+- Symmetry
+- Transitivity
+
+By definition, $R*$ is an *equivalence* relation
+
+### Solver: Compute Equivalence Closure of Input Equalities
+
+- Compute equivalence closure of input equality atoms
+- Return `UNSAT` if any disequal terms are in the closure 
+- Return `SAT` otherwise
+
+## Solver for Theory of Equality 
+
+**Input** $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+
+**Step 1** Build Undirected Graph 
+
+- *Vertices* $e_1, e_2, \ldots$
+- *Edges*    $e_i --- e_j$ for each equality atom $e_i = e_j$
+
+**Step 2** Compute Equivalence Closure
+
+- Keep adding edges between $e$ and $e'$ according to *transitivity* axioms
+- *Note:* Reflexivity and Symmetry handled by undirected graph representation
+
+**Output** For each $k,l$ in disequality atoms, 
+
+- If exists edge $e_k --- e_l$ in graph then return `UNSAT`
+- Else return `SAT`
+
+
+## Solver for Theory of Equality: Example
+
+Input formula: $a=b, b=d, c=e, a \not = d, a\not e$
+
+![Inital Graph: Vertices](../static/smt-eq-slow-1.png)
+
+
+## Solver for Theory of Equality: Example
+
+Input formula: $a=b, b=d, c=e, a \not = d, a\not e$
+
+![Inital Graph: Edges From Atoms](../static/smt-eq-slow-2.png)
+
+
+## Solver for Theory of Equality: Example
+
+Input formula: $a=b, b=d, c=e, a \not = d, a\not e$
+
+![Inital Graph: Equivalence Closure](../static/smt-eq-slow-3.png)
+
+
+## Solver for Theory of Equality: Example
+
+Input formula: $a=b, b=d, c=e, a \not = d, a\not e$
+
+![Inital Graph: Check Disequalities](../static/smt-eq-slow-4.png)
+
+
+## Solver for Theory of Equality 
+
+That was a **slow** algorithm 
+
+- Worst case number of edges is quadratic in number of expressions
+
+Better approach using **Union-Find**
+
+## Solver for Theory of Equality: Union-Find Algorithm
+
+### Key Idea 
+
+- Build **directed tree** of nodes for each equivalent set 
+- Tree root is **canonical representative** of equivalent set 
+- i.e. nodes are equal *iff* they have the **same root**
+
+### `find e`
+
+-  Walks up the tree and returns the **root** of `e`
+
+### `union e1 e2`
+
+- Updates graph with equality `e1 == e2`
+- Merges equivalence sets of `e1` and `e2`
+
+~~~~~{.haskell}
+union e1 e2 = do r1 <- find e1
+                 r2 <- find e2
+                 link r1 r2
+~~~~~
+
+
+### Check Disequalities
+
+- For some atom `ek /= el`, if `find(ek) == find(el)` return `UNSAT`
+- Otherwise return `SAT`
+
+## Union Find : Example
+
+Graph represents fact that $a=b=c=d$ and $e=f=g$.
+
+![Inital Union-Find Graph](../static/smt-eq-uf-1.png)
+
+
+## Union-Find : Example
+
+Graph represents fact that $a=b=c=d$ and $e=f=g$.
+
+**Updates**  graph with equality $a=e$ using `union a e` 
+
+![Find Roots of `a` and `e`](../static/smt-eq-uf-2.png)
+
+
+## Union-Find : Example
+
+After linking, graph represents fact that $a=b=c=d=e=f=g$.
+
+![Union The Sets of `a` and `e`](../static/smt-eq-uf-3.png)
+
+
+
+## Solver for Theory of Equality: Union-Find Algorithm
+
+### Key Idea 
+
+- Build **directed tree** of nodes for each equivalent set 
+- Tree root is **canonical representative** of equivalent set 
+- i.e. nodes are equal *iff* they have the **same root**
+
+### Solver Check Disequalities
+HEREHEREHEREHEREHERE
+
+- For some atom `ek /= el`, if `find(ek) == find(el)` return `UNSAT`
+- Otherwise return `SAT`
+
+## Solver for Theory of Equality 
+
+**Input** $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+
+**Step 1** Build Union-Find Graph
+
+- For each equality atom $e_i = e_j$, call `union(ei, ej)`
+
+- *Vertices* $e_1, e_2, \ldots$
+- *Edges*    $e_i --- e_j$ for each 
+
+**Step 2** Compute Equivalence Closure
+
+- Keep adding edges between $e$ and $e'$ according to *transitivity* axioms
+- *Note:* Reflexivity and Symmetry handled by undirected graph representation
+
+**Output** For each $k,l$ in disequality atoms, 
+
+- If exists edge $e_k --- e_l$ in graph then return `UNSAT`
+- Else return `SAT`
+
+END HEREHEREHEREHERE
 
 ## Today 
 
