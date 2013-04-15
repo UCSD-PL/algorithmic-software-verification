@@ -182,6 +182,7 @@ In `UNSAT` case `theorySolver` returns **blocking clause**
 
 - Tells `satSolver` not to find *similar* assignments ever again!
 
+
 ## `smtSolver` : Example 
 
 Recall formula split into **CNF**
@@ -199,9 +200,9 @@ and **Theory Cube**
 
 ### Iteration 1: SMT
 
-- **In** $(x_1, a=b), (x_3, b=d), (x_5, c=d), (x_6, a \not = d), (x_7, a \not = e)
+- **In** $(x_1, a=b), (x_3, b=d), (x_5, c=d), (x_6, a \not = d), (x_7, a \not = e)$
 
-- **Out** `UNSAT` (\neg x_1 \vee \neg x_3 \vee \neg x_6)
+- **Out** `UNSAT` $(\neg x_1 \vee \neg x_3 \vee \neg x_6)$
 
 ## `smtSolver` : Example 
 
@@ -213,9 +214,9 @@ and **Theory Cube**
 
 ### Iteration 2: SMT
 
-- **In** $(x_1, a=b), (x_4, b=e), (x_5, c=d), (x_6, a \not = d), (x_7, a \not = e)
+- **In** $(x_1, a=b), (x_4, b=e), (x_5, c=d), (x_6, a \not = d), (x_7, a \not = e)$
 
-- **Out** `UNSAT` (\neg x_1 \vee \neg x_4 \vee \neg x_7)
+- **Out** `UNSAT` $(\neg x_1 \vee \neg x_4 \vee \neg x_7)$
 
 ## `smtSolver` : Example 
 
@@ -228,21 +229,22 @@ and **Theory Cube**
 
 ### Iteration 3 : SMT
 
-- **In** $(x_2, a=c), (x_4, b=e), (x_5, c=d), (x_6, a \not = d), (x_7, a \not = e)
+- **In** $(x_2, a=c), (x_4, b=e), (x_5, c=d), (x_6, a \not = d), (x_7, a \not = e)$
 
-- **Out** `UNSAT` (\neg x_2 \vee \neg x_5 \vee \neg x_6)
+- **Out** `UNSAT` $(\neg x_2 \vee \neg x_5 \vee \neg x_6)$
 
 ## `smtSolver` : Example 
 
 ### Iteration 4 : SAT
 
 - **In** $(x_1 \vee x_2), (x_3 \vee x_4), (x_5), (x_6), (x_7),$ 
-         $(\neg x_1 \vee \neg x_3), (\neg x_1 \vee \neg x_4 \vee \neg x_7)$, 
-         $(\neg x_2 \vee \neg x_5 \vee \neg x_6)
+         $(\neg x_1 \vee \neg x_3), (\neg x_1 \vee \neg x_4 \vee \neg x_7),$ 
+         $(\neg x_2 \vee \neg x_5 \vee \neg x_6)$
 
 - **Out** `UNSAT`
 
 - Thus `smtSolver` returns `UNSAT`
+
 
 ## Today 
 
@@ -271,6 +273,7 @@ Formula contains symbols from
 - `Arith` : $\geq$, $+$, $0$,...
 
 How to solve formulas over *different* theories?
+
 
 ## Naive Splitting Approach
 
@@ -405,17 +408,17 @@ But this **is not true**
 
 Is quite non-trivial!
 
-- Decision Procedure for EUF: [Ackermann, 1954](http://books.google.com/books/about/Solvable_cases_of_the_decision_problem.html?id=YTk4AAAAMAAJ)
+- EUF: [Ackermann, 1954](http://books.google.com/books/about/Solvable_cases_of_the_decision_problem.html?id=YTk4AAAAMAAJ)
 
-- Decision Procedure for Arith: [Fourier, 1827](http://en.wikipedia.org/wiki/Fourier%E2%80%93Motzkin_elimination)
+- Arith: [Fourier, 1827](http://en.wikipedia.org/wiki/Fourier%E2%80%93Motzkin_elimination)
 
-- Decision Procedure for EUF+Arith: [Nelson-Oppen, POPL 1978](http://scottmcpeak.com/nelson-verification.pdf)
+- EUF+Arith: [Nelson-Oppen, POPL 1978](http://scottmcpeak.com/nelson-verification.pdf)
 
 Real software verification queries span multiple theories
 
 - EUF + Arith + Arrays + Bit-Vectors + ...
 
-**Good news!** The fantastic *combination* procedure of *Nelson and Oppen*...
+**Good news!** The Nelson - Oppen *combination* procedure ...
 
 ## Nelson-Oppen Framework For Combining Theory Solvers 
 
@@ -431,8 +434,8 @@ Real software verification queries span multiple theories
 
 ### Step 3 (Key Insight)
 
-- **Broadcast New Equalities** discovered by *each* solver to others
-- **Repeat** step 2 **Until** no new equalities discovered
+- **Broadcast New Equalities** discovered by *each* solver
+- **Repeat** step 2 **until** no new equalities discovered
 
 ## Nelson-Oppen Framework: Example
 
@@ -461,7 +464,7 @@ Real software verification queries span multiple theories
 
 Broadcast 
 
-- $F_E' \equiv F_E, a = b$ 
+- $F_E' \leftarrow F_E, a = b$ 
 
 *Repeat* Step 2
 
@@ -479,9 +482,10 @@ Broadcast
 
 Broadcast and Update
 
-- $F_A' \equiv F_A, t_1 = t_2$
+- $F_A' \leftarrow F_A, t_1 = t_2$
 
 *Repeat* Step 2
+
 
 ## Nelson-Oppen Framework: Example
 
@@ -497,7 +501,7 @@ Broadcast and Update
 
 Broadcast and Update
 
-- $F_E'' \equiv F_E', t_3 = c$
+- $F_E'' \leftarrow F_E', t_3 = c$
 
 *Repeat* Step 2
 
@@ -505,14 +509,15 @@ Broadcast and Update
 
 ### After Step 2 (Run `EUF` on $F_E''$, `Arith` on $F_A'$)
 
-- $F_E' \equiv t_1 = f(a),  t_2 = f(b), f(t3) \not = f(c), a=b, t3=c$ is `UNSAT`
+- $F_E' \equiv t_1 = f(a),  t_2 = f(b), f(t3) \not = f(c), a=b, t3=c$ 
+
+- `Arith` returns `UNSAT`
 
 - **Output** `UNSAT`
 
 ## Nelson-Oppen in Code
 
 TODO
-
 
 ## Nelson-Oppen Framework For Combining Theory Solvers 
 
@@ -528,13 +533,15 @@ If whenever $F$ implies $a_1 = b_1 \vee a_2 = b_2$
 
 **either** $F$ implies $a_1 = b_1$ **or** $F$ implies $a_2 = b_2$
 
+## Nelson-Oppen Framework For Combining Theory Solvers 
+
 ### Theorem: Nelson-Oppen Combination
 
-Let $T_1$, $T_2$ be *stably infinite* and *convex* theories with solvers `S1` and `S2` 
+Let $T_1$, $T_2$ be *stably infinite*, *convex* theories w/ solvers `S1` and `S2` 
 
 1. `nelsonOppen S1 S2` is a solver the combined theory $T_1 \cup T_2$
 
-2. `nelsonOppen S1 S2 F` returns `SAT` iff `F` is satisfiable in $T_1 \cup T_2$.
+2. `nelsonOppen S1 S2 F == SAT` iff `F` is satisfiable in $T_1 \cup T_2$.
 
 ## Convexity
 
@@ -550,8 +557,9 @@ $(\mathbb{Z}, +, \leq)$ and Equality
 
 - $F$ does not imply either $t_1 = t_2$ or $t_1 = t_3$
 
-**Nelson-Oppen** fails on $F, t_1 \not = t_2, t_1 \not = t_3$
+Nelson-Oppen **fails** on $F, t_1 \not = t_2, t_1 \not = t_3$
 
+- Extensions: add case-splits on dis/equality
 ## Nelson-Oppen Architecture
 
 TODO Nifty Bus PIC
@@ -588,7 +596,7 @@ Requirement of `theorySolver`
 
 - On **UNSAT** returned cause is backwards *slice* of *tags*
 
-- Willsee this informally, but will show up in assignment...
+- Will see this informally, but will show up in assignment...
 
 ## Today 
 
@@ -605,30 +613,24 @@ Requirement of `theorySolver`
 
 **Recall** Only need to solve list of `Atom` 
 
-- i.e. formulas like $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+- i.e. formulas like $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = e_l$
 
 
 ## Axioms for Theory of Equality
 
 Rules defining when one expressions *is equal to* another. 
 
-### Reflexivity
+### Reflexivity: Every term $e$ is equal to itself
 
-Every term $e$ is equal to itself
+$$\forall e. e = e$$
 
-    $$\forall e. e = e$$
+### Symmetry: If $e_1$ is equal to $e_2$, then $e_2$ is equal to $e_1$
 
-### Symmetry
+$$\forall e_1, e_2. \mbox{If } e_1 = e_2 \mbox{ Then } e_2 = e_1$$
+   
+### Transitivity: If $e_1$ equals $e_2$ and $e_2$ equals $e_3$ then $e_1$ equals $e_3$
 
-If $e_1$ is equal to $e_2$, then $e_2$ is equal to $e_1$
-
-    $$\forall e_1, e_2. \mbox{If } e_1 = e_2 \mbox{ Then } e_2 = e_1$$
-
-### Transitivity 
-
-If $e_1$ equals $e_2$ and $e_2$ equals $e_3$ then $e_1$ equals $e_3$
-
-    $$\forall e_1, e_2, e_3. \mbox{If } e_1 = e_2 \mbox{ and } e_2 = e_3 \mbox{ Then } e_1 = e_3$$
+$$\forall e_1, e_2, e_3. \mbox{If } e_1 = e_2 \mbox{ and } e_2 = e_3 \mbox{ Then } e_1 = e_3$$
 
 
 ## Solver for Theory of Equality 
@@ -637,13 +639,13 @@ Let $R$ be a relation on expressions.
 
 ### Equivalence Closure of $R$ 
 
-Is the *smallest* relation $R*$ containing $R$ that is *closed* under 
+Is the *smallest* relation containing $R$ that is *closed* under 
 
 - Reflexivity
 - Symmetry
 - Transitivity
 
-By definition, $R*$ is an *equivalence* relation
+By definition, closure is an *equivalence* relation
 
 ### Solver: Compute Equivalence Closure of Input Equalities
 
@@ -653,7 +655,7 @@ By definition, $R*$ is an *equivalence* relation
 
 ## Solver for Theory of Equality 
 
-**Input** $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+**Input** $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = e_l$
 
 **Step 1** Build Undirected Graph 
 
@@ -662,8 +664,9 @@ By definition, $R*$ is an *equivalence* relation
 
 **Step 2** Compute Equivalence Closure
 
-- Keep adding edges between $e$ and $e'$ according to *transitivity* axioms
-- *Note:* Reflexivity and Symmetry handled by undirected graph representation
+- Add edges between $e$ and $e'$ per *transitivity* axioms
+
+**Note:** Reflex. and Symm. handled by graph representation
 
 **Output** For each $k,l$ in disequality atoms, 
 
@@ -738,14 +741,14 @@ union e1 e2 = do r1 <- find e1
 
 ## Union Find : Example
 
-Graph represents fact that $a=b=c=d$ and $e=f=g$.
+Graph represents fact that $a = b = c = d$ and $e = f = g$.
 
 ![Inital Union-Find Graph](../static/smt-eq-uf-1.png)
 
 
 ## Union-Find : Example
 
-Graph represents fact that $a=b=c=d$ and $e=f=g$.
+Graph represents fact that $a = b = c = d$ and $e = f = g$.
 
 **Updates**  graph with equality $a=e$ using `union a e` 
 
@@ -754,48 +757,37 @@ Graph represents fact that $a=b=c=d$ and $e=f=g$.
 
 ## Union-Find : Example
 
-After linking, graph represents fact that $a=b=c=d=e=f=g$.
+After linking, graph represents fact that $a = b = c = d = e = f = g$.
 
 ![Union The Sets of `a` and `e`](../static/smt-eq-uf-3.png)
 
-
-
 ## Solver for Theory of Equality: Union-Find Algorithm
 
-### Key Idea 
+### Algorithm 
 
-- Build **directed tree** of nodes for each equivalent set 
-- Tree root is **canonical representative** of equivalent set 
-- i.e. nodes are equal *iff* they have the **same root**
+~~~~~{.haskell}
+theorySolverEq atoms
+  = do _   <- forM_ eqs  union      -- 1. Build U-F Tree 
+       u   <- anyM  neqs checkEqual -- 2. Check Conflict 
+       return $ if u then UNSAT else SAT
+    where 
+      eqs     = [(e, e') | (e `Eq` e') <- atoms]
+      neqs    = [(e, e') | (e `Ne` e') <- atoms]
 
-### Solver Check Disequalities
-HEREHEREHEREHEREHERE
+checkEqual (e, e')
+  = do r     <- find e
+       r'    <- find e'
+       return $ r == r' 
+~~~~~
 
-- For some atom `ek /= el`, if `find(ek) == find(el)` return `UNSAT`
-- Otherwise return `SAT`
+## Solver for Theory of Equality: Missing Pieces
 
-## Solver for Theory of Equality 
+1. How to **discover equalities** ?
 
-**Input** $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = \e_l$
+2. How to **track causes** ?
 
-**Step 1** Build Union-Find Graph
+Figure it out in *homework*
 
-- For each equality atom $e_i = e_j$, call `union(ei, ej)`
-
-- *Vertices* $e_1, e_2, \ldots$
-- *Edges*    $e_i --- e_j$ for each 
-
-**Step 2** Compute Equivalence Closure
-
-- Keep adding edges between $e$ and $e'$ according to *transitivity* axioms
-- *Note:* Reflexivity and Symmetry handled by undirected graph representation
-
-**Output** For each $k,l$ in disequality atoms, 
-
-- If exists edge $e_k --- e_l$ in graph then return `UNSAT`
-- Else return `SAT`
-
-END HEREHEREHEREHERE
 
 ## Today 
 
@@ -807,6 +799,101 @@ END HEREHEREHEREHERE
     - **Theory of Uninterpreted Functions**
     - Theory of *Difference-Bounded Arithmetic*
 
+## Solver for Theory of Equality + Uninterpreted Functions
+
+**Recall** Only need to solve list of `Atom` 
+
+- i.e. formulas like $\bigwedge_{i,j} e_i = e_j \wedge \bigwedge_{k,l} e_k \not = e_l$
+
+### New: UIF Applications in Expressions
+
+- An expression $e$ can be of the form $f(e_1,\ldots,e_k)$ 
+
+- Where $f$ is an *uninterpreted function* of arity $k$
+
+**Question:** What does *uninterpreted* mean anyway ? 
+
+## Axioms for Theory of Equality + Uninterpreted Functions
+
+Rules defining when one expressions *is equal to* another. 
+
+### Equivalence Axioms
+
+- Reflexivity 
+- Symmetry 
+- Transitivity 
+
+### Congruence 
+
+If function arguments are equal, then outputs are equal
+
+$$\forall e_i, e_i'. \mbox{ If } \wedge_i e_i = e_i'  \mbox{ Then } f(e_1,\ldots,e_k) = f(e_1',\ldots,e_k')$$
+
+## Solver for Theory of Equality + Uninterpreted Functions 
+
+Let $R$ be a relation on expressions.
+
+### Congruence Closure of $R$ 
+
+Is the *smallest* relation containing $R$ that is *closed* under 
+
+- Reflexivity
+- Symmetry
+- Transitivity
+- Congruence
+
+### Solver: Compute Congruence Closure of Input Equalities
+
+- Compute **congruence closure** of input equality atoms
+- Return `UNSAT` if any *disequal* terms are in the closure 
+- Return `SAT` otherwise
+
+## Solver for EUF: Extended Union-Find Algorithm
+
+### Step 1: Represent Expressions With DAG 
+
+- Each **node** in DAG represents an expression
+- Implicitly represents *fresh variables*
+- Can be shared across theory solvers
+
+![DAG Representation of Expressions](../static/smt-uf-dag.png)
+
+## Solver for EUF: Extended Union-Find Algorithm
+
+### Step 2: Keep Parent Links to Function Symbols 
+
+![Parent Links](../static/smt-uf-dag-parent.png)
+
+## Solver for EUF: Extended Union-Find Algorithm
+
+### Step 3: Extend `union e1 e2` To Parents
+
+~~~~~{.haskell}
+union e1 e2 
+  = do e1' <- find e1
+       e2' <- find e2
+       link        e1' e2'
+       linkParents e1' e2'
+
+linkParents e1' e2' 
+  = do transferParents      e1' e2'
+       recursiveParentUnion e1' e2'
+~~~~~
+
+## Solver for EUF: Example
+
+**Input** $a = f(f(f(a))), a = f(f(f(f(f(a), x \not = f(a)$
+
+![Congruence Closure Example](../static/smt-congclos.png)
+
+## Solver for Theory of EUF: Missing Pieces
+
+1. How to **discover equalities** ?
+
+2. How to **track causes** ?
+
+Figure it out in *homework*
+
 ## Today 
 
 1. Combining SAT *and Theory* Solvers
@@ -816,6 +903,78 @@ END HEREHEREHEREHERE
     - Theory of Equality
     - Theory of Uninterpreted Functions
     - **Theory of Difference-Bounded Arithmetic**
+
+## Theory of Linear Arithmetic
+
+- Operators $+$, $-$, $=$, $<$, $0$, $1$, $-1$, $2$, $-2$, ...
+- Semantics: as expected
+- The most useful in program verification after equality
+- Example: $b > 2a + 1$, $a+b > 1$,  $b < 0$
+
+### Decision Procedure: 
+ 
+- Linear Programming / e.g. Simplex (Over Rationals)
+- Integer Linear Programming (Over Integers)
+
+
+## Theory of Difference Constraints
+
+Special case of linear arithmetic, with atoms 
+
+$$a - b \leq n$$
+
+where $a$, $b$ are variables, $n$ is constant integer.
+
+### Can express many common linear constraints
+
+Special variable $z$ representing $0$
+
+- $a=b$      $\equiv$ $a - b \leq 0$, $b - a \leq 0$
+- $a \leq n$ $\equiv$ $a - z \leq n$
+- $a \geq n$ $\equiv$ $z - a \leq -n$
+- $a < b$    $\equiv$ $a - b \leq -1$ 
+- *etc.*
+
+## Solver For Difference Constraints
+
+How to check satisfiability?
+
+## Directed Graph Based Procedure
+
+**Vertices** for each *variable*
+
+**Edges** for each *constraint*
+
+### Example: Atoms
+
+- $a - b \leq  0$
+- $b - c \leq -4$
+- $c - a \leq  2$
+- $c - d \leq -1$
+
+### Algorithm
+
+TODO
+
+
+## Solver For Difference Constraints
+
+**Theorem:**  A set of difference constraints is satisfiable 
+iff there is no **negative weight** cycle in the graph.
+
+- Can be solved in $O(V.E)$ [Bellman-Ford Algorithm](http://en.wikipedia.org/wiki/Bellman-Ford_algorithm)
+
+- $V=$ number of vertices
+- $E=$ number of edges
+
+
+### Issues
+
+1. Why does it work? 
+
+2. How to detect equalities?
+
+3. How to track causes?
 
 ## Today 
 
@@ -833,5 +992,4 @@ END HEREHEREHEREHERE
     - Sets
     - Bitvectors 
     - ...
-
 
