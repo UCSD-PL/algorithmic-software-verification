@@ -852,9 +852,8 @@ Is the *smallest* relation containing $R$ that is *closed* under
 
 ### Step 1: Represent Expressions With DAG 
 
-- Each **node** in DAG represents an expression
-- Implicitly represents *fresh variables*
-- Can be shared across theory solvers
+- Each DAG **node** implicit **fresh variable** for sub-expression 
+- Shared across theory solvers
 
 ![DAG Representation of Expressions](../static/smt-uf-dag.png)
 

@@ -10,9 +10,9 @@ title: Lectures
    *4/4*     Introduction                                       [pdf][lec1] 
    *4/9*     SAT Solvers                                        [pdf][lec2]
   *4/11*     SMT Solvers                                        [pdf][lec3]
-  *4/16*     Floyd-Hoare Logic & VC Generation 
-  *4/18*     Hindley-Milner
-  *4/23*     Subtyping, Bidirectional Checking
+  *4/16*     Floyd-Hoare Logic
+  *4/18*     Verification Conditions 
+  *4/23*     Types: HM, Subtyping, Bidirectional Checking
   *4/25*     Refinement Types
   *4/30*     "" 
    *5/2*     Horn Clauses & Abstract Interpretation 
