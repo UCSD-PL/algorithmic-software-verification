@@ -24,7 +24,8 @@ slides:
 #	for file in *.markdown; do $(HANDOUT) $$file -o $$file.handout.html; done
 #	for file in *.markdown; do $(PANDOC) $$file -o $$file.pdf; done
 
-alls:
+upload: slides
+	scp -r *.markdown.pdf rjhala@goto.ucsd.edu:/home/rjhala/public_html/classes/sp13/cse291/slides/
 
 .markdown.html:
 	$(DZSLIDES) $< -o $@
