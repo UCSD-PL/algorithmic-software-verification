@@ -555,6 +555,286 @@ Revisit Example With CDL
 
 ![Boolean Constraint Propagation (Courtesy: Lintao Zhang)](../static/sat-dll-21-small.png)
 
+## Backtracking Only (01/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-01.png)
+
+## Backtracking Only (02/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-02.png)
+
+## Backtracking Only (03/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-03.png)
+
+## Backtracking Only (04/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-04.png)
+
+## Backtracking Only (05/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-05.png)
+
+## Backtracking Only (06/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-06.png)
+
+## Backtracking Only (07/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-07.png)
+
+## Backtracking Only (08/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-08.png)
+
+## Backtracking Only (09/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-09.png)
+
+## Backtracking Only (10/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-10.png)
+
+## Backtracking Only (11/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-11.png)
+
+## Backtracking Only (12/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-12.png)
+
+## Backtracking Only (13/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-13.png)
+
+## Backtracking Only (14/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-14.png)
+
+## Backtracking Only (15/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-15.png)
+
+## Backtracking Only (16/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-16.png)
+
+## Backtracking Only (17/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-17.png)
+
+## Backtracking Only (18/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-18.png)
+
+## Backtracking Only (19/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-19.png)
+
+## Backtracking Only (20/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-20.png)
+
+## Backtracking Only (21/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-21.png)
+
+## Backtracking Only (22/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-22.png)
+
+## Backtracking Only (23/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-23.png)
+
+## Backtracking Only (24/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-24.png)
+
+## Backtracking Only (25/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-25.png)
+
+## Backtracking Only (26/26)
+
+![Backtracking Only](../static/alan/Backtracking/Backtracking-26.png)
+
+## Boolean Constraint Propagation (01/23)
+
+![BCP](../static/alan/BCP/BCP-01.png)
+
+## Boolean Constraint Propagation (02/23)
+
+![BCP](../static/alan/BCP/BCP-02.png)
+
+## Boolean Constraint Propagation (03/23)
+
+![BCP](../static/alan/BCP/BCP-03.png)
+
+## Boolean Constraint Propagation (04/23)
+
+![BCP](../static/alan/BCP/BCP-04.png)
+
+## Boolean Constraint Propagation (05/23)
+
+![BCP](../static/alan/BCP/BCP-05.png)
+
+## Boolean Constraint Propagation (06/23)
+
+![BCP](../static/alan/BCP/BCP-06.png)
+
+## Boolean Constraint Propagation (07/23)
+
+![BCP](../static/alan/BCP/BCP-07.png)
+
+## Boolean Constraint Propagation (08/23)
+
+![BCP](../static/alan/BCP/BCP-08.png)
+
+## Boolean Constraint Propagation (09/23)
+
+![BCP](../static/alan/BCP/BCP-09.png)
+
+## Boolean Constraint Propagation (10/23)
+
+![BCP](../static/alan/BCP/BCP-10.png)
+
+## Boolean Constraint Propagation (11/23)
+
+![BCP](../static/alan/BCP/BCP-11.png)
+
+## Boolean Constraint Propagation (12/23)
+
+![BCP](../static/alan/BCP/BCP-12.png)
+
+## Boolean Constraint Propagation (13/23)
+
+![BCP](../static/alan/BCP/BCP-13.png)
+
+## Boolean Constraint Propagation (14/23)
+
+![BCP](../static/alan/BCP/BCP-14.png)
+
+## Boolean Constraint Propagation (15/23)
+
+![BCP](../static/alan/BCP/BCP-15.png)
+
+## Boolean Constraint Propagation (16/23)
+
+![BCP](../static/alan/BCP/BCP-16.png)
+
+## Boolean Constraint Propagation (17/23)
+
+![BCP](../static/alan/BCP/BCP-17.png)
+
+## Boolean Constraint Propagation (18/23)
+
+![BCP](../static/alan/BCP/BCP-18.png)
+
+## Boolean Constraint Propagation (19/23)
+
+![BCP](../static/alan/BCP/BCP-19.png)
+
+## Boolean Constraint Propagation (20/23)
+
+![BCP](../static/alan/BCP/BCP-20.png)
+
+## Boolean Constraint Propagation (21/23)
+
+![BCP](../static/alan/BCP/BCP-21.png)
+
+## Boolean Constraint Propagation (22/23)
+
+![BCP](../static/alan/BCP/BCP-22.png)
+
+## Boolean Constraint Propagation (23/23)
+
+![BCP](../static/alan/BCP/BCP-23.png)
+
+## Conflict Driven Learning (01/21)
+
+![CDL](../static/alan/CDL/CDL-01.png)
+
+## Conflict Driven Learning (02/21)
+
+![CDL](../static/alan/CDL/CDL-02.png)
+
+## Conflict Driven Learning (03/21)
+
+![CDL](../static/alan/CDL/CDL-03.png)
+
+## Conflict Driven Learning (04/21)
+
+![CDL](../static/alan/CDL/CDL-04.png)
+
+## Conflict Driven Learning (05/21)
+
+![CDL](../static/alan/CDL/CDL-05.png)
+
+## Conflict Driven Learning (06/21)
+
+![CDL](../static/alan/CDL/CDL-06.png)
+
+## Conflict Driven Learning (07/21)
+
+![CDL](../static/alan/CDL/CDL-07.png)
+
+## Conflict Driven Learning (08/21)
+
+![CDL](../static/alan/CDL/CDL-08.png)
+
+## Conflict Driven Learning (09/21)
+
+![CDL](../static/alan/CDL/CDL-09.png)
+
+## Conflict Driven Learning (10/21)
+
+![CDL](../static/alan/CDL/CDL-10.png)
+
+## Conflict Driven Learning (11/21)
+
+![CDL](../static/alan/CDL/CDL-11.png)
+
+## Conflict Driven Learning (12/21)
+
+![CDL](../static/alan/CDL/CDL-12.png)
+
+## Conflict Driven Learning (13/21)
+
+![CDL](../static/alan/CDL/CDL-13.png)
+
+## Conflict Driven Learning (14/21)
+
+![CDL](../static/alan/CDL/CDL-14.png)
+
+## Conflict Driven Learning (15/21)
+
+![CDL](../static/alan/CDL/CDL-15.png)
+
+## Conflict Driven Learning (16/21)
+
+![CDL](../static/alan/CDL/CDL-16.png)
+
+## Conflict Driven Learning (17/21)
+
+![CDL](../static/alan/CDL/CDL-17.png)
+
+## Conflict Driven Learning (18/21)
+
+![CDL](../static/alan/CDL/CDL-18.png)
+
+## Conflict Driven Learning (19/21)
+
+![CDL](../static/alan/CDL/CDL-19.png)
+
+## Conflict Driven Learning (20/21)
+
+![CDL](../static/alan/CDL/CDL-20.png)
+
+## Conflict Driven Learning (21/21)
+
+![CDL](../static/alan/CDL/CDL-21.png)
+
 
 ## More Details about SAT Solvers
 
