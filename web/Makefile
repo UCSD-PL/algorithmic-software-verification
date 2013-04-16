@@ -14,5 +14,3 @@ update:
 	scp -r _site/* rjhala@goto.ucsd.edu:/home/rjhala/public_html/classes/sp13/cse291/
 	ssh rjhala@goto.ucsd.edu "chmod -R g+w /home/rjhala/public_html/classes/sp13/cse291/ && chmod -R ugo+r /home/rjhala/public_html/classes/sp13/cse291/"
 
-
-
