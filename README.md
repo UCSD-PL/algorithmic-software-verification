@@ -202,7 +202,7 @@ HW 1 <----------- HEREHEREHEREHERE
     - if-abs
     - while-array
     - while-binsearch
-    - adpm.c
+    - adpcmini.c
 
 2. Parse small functions : FilePath -> Com
 
