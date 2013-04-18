@@ -180,35 +180,30 @@ HW 3:
 - PA for Horn Clauses
 = Liquid Types for TJS
 
-HW 1
-1a. VCG 
-1b. Use ESC/J
-
-HW 2
-2a. ConsGen = VCG+K for LoopInv via FIXPOINT
-2b. Implement FIXPOINT (over liquid-fixpoint)
-
-HW 3
-3a. VCG for Refinement Type Checking
-3b. Consgen = VCG+K for Liquid Type Inference via FIXPOINT
 
 -----------------------------------------------------------
 
 HW 1 <----------- HEREHEREHEREHERE
 
+0. Wrap parser
+
 1. Port small tests 
     - int-incr
     - if-max
     - if-abs
-    - while-array
-    - while-binsearch
-    - adpcmini.c
-
+    
 2. Parse small functions : FilePath -> Com
 
 3. VCGen :: Com -> Pred
 
 4. valid :: Pred -> Bool [liquid-fixpoint wrapper for Pred]
+
+5. Port big tests
+
+    - while-array
+    - while-binsearch
+    - adpcmini.c
+
 
 -----------------------------------------------------------
 

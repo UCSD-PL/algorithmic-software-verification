@@ -56,14 +56,16 @@ vcgen (Skip) q
   = return q
 vcgen (Asgn x e) q  
   = return $ q `subst` (x, e)
+vcgen (Seq s1 s2) q
+  = vcgen s1 =<< vcgen s2 q
 vcgen (If b c1 c2) q
   = do q1    <- vcgen q c1
        q2    <- vcgen q c2
-       return $ (b `And` q1) `Or` (Not b `And` q2)
+       return $ (b `implies` q1) `And` (Not b `implies` q2)
 vcgen (While i b c) q 
-  = do q'    <- vcgen i c
-       valid  $ (i `And` Not b) `implies` q' 
-       valid  $ (i `And` b)     `implies` q  
+  = do q'    <- vcgen c i 
+       valid  $ (i `And` b)     `implies` q' 
+       valid  $ (i `And` Not b) `implies` q  
        return $ i                            
 ~~~~~
 
