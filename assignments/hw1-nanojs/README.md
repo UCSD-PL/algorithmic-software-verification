@@ -34,7 +34,7 @@ Make sure your machine has the above **requirements**.
     git clone git@github.com:ucsd-progsys/liquid-fixpoint.git 
     cd liquid-fixpoint && cabal install && cd ../
     
-    git clone git@github.com:ucsd-pl/language-ecmascript.git
+    git clone git@github.com:UCSD-PL/language-ecmascript.git
     cd language-ecmascript && cabal install && cd ../ 
     
     git clone git@github.com:ucsd-pl/algorithmic-software-verification.git
