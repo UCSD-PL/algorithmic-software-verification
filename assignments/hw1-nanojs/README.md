@@ -67,6 +67,29 @@ After building run the verifier with
 
 If all went well you should see something like
 
+
+    (liquid)rjhala@goto:~/teaching/algorithmic-software-verification/assignments/hw1-nanojs
+    (master)$ nanojs tests/pos/skip.js 
+    nano-js © Copyright 2013 Regents of the University of California.
+    All Rights Reserved.
+    nano-jsConfig {files = ["tests/pos/skip.js"], incdirs = []}
+    
+    main defined at (file: tests/pos/skip.js, 1, 1)
+    formals: 
+    requires:  true
+    ensures:  true
+    nanojs: 
+    ****************************** ERROR *****************************
+    ****************************** ERROR *****************************
+    ****************************** ERROR *****************************
+    FILL THIS IN 4
+    ****************************** ERROR *****************************
+    ****************************** ERROR *****************************
+    ****************************** ERROR *****************************
+
+After filling in the right code for `generateAssumeVC` (and `make`) you
+should see something like:
+
     nano-js © Copyright 2013 Regents of the University of California.
     All Rights Reserved.
     nano-jsConfig {files = ["skip.js"], incdirs = []}
