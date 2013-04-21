@@ -1,3 +1,5 @@
+**HW 1: Due May 5, 2013**
+
 README
 =======
 
@@ -29,27 +31,27 @@ Install
 
 Make sure your machine has the above **requirements**.
 
-1. Execute the following commands
+**Step 1** Execute the following commands
 
     git clone git@github.com:ucsd-progsys/liquid-fixpoint.git 
     cd liquid-fixpoint && cabal install && cd ../
     
-    git clone git@github.com:ucsd-pl/language-ecmascript.git
+    git clone git@github.com:UCSD-PL/language-ecmascript.git
     cd language-ecmascript && cabal install && cd ../ 
     
     git clone git@github.com:ucsd-pl/algorithmic-software-verification.git
     cd assignments/hw1-nanojs/ 
     cabal install 
 
-2. From now on, **we assume you are inside the directory**
+From now on, **we assume you are inside the directory**
 
     algorithmic-software-verification/assignments/hw1-nanojs
 
-3. After subsequent modifications, rebuild (in `assignments/hw1-nanojs`) with 
+**Step 2**. After subsequent modifications, rebuild (in `assignments/hw1-nanojs`) with 
 
     make
 
-   or if you prefer
+or if you prefer
 
     cabal install
 
@@ -193,13 +195,11 @@ HINTS:
 
 3. Instead of writing big invariants like:
 
-    invariant(p1 && p2 && p3);
+    `invariant(p1 && p2 && p3);`
 
    You can split it into:
 
-    invariant(p1);
-    invariant(p2);
-    invariant(p3);
+    `invariant(p1); invariant(p2); invariant(p3);`
 
    The same applies for `requires` and `ensures`.
 
@@ -207,16 +207,16 @@ HINTS:
    you may find the `<=<` operator quite handy. For example, to 
    generate the VC for a sequence of commands 
 
-      c1;c2;c3
+      `c1;c2;c3`
 
    that is to compute
 
-      generateVC (c1; c2; c3) vc 
+      `generateVC (c1; c2; c3) vc` 
 
    you can do something like
 
-      (generateVC c1 <=< generateVC c2 <=< generateVC c3) vc
-  
+      `(generateVC c1 <=< generateVC c2 <=< generateVC c3) vc`
+
    See the given implementation of `generateFunVC` for a complete example.
 
 
@@ -224,21 +224,27 @@ HINTS:
 
         `Language.Fixpoint.Types.Subable`
 
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Subable)
+   
    You will need to implement substitutions, as needed for x := e, etc.
 
         `Language.Fixpoint.Types.Symbolic`
 
-        http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Subable
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Symbolic)
 
    You may need this to convert program variables `Id a` to logical symbols `F.Symbol`
 
         `Language.Fixpoint.Types.Expression`
+   
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Expression)
 
-    You may need this to convert program expressions `Expression a` to logical expressions `F.Expr`
+   You may need this to convert program expressions `Expression a` to logical expressions `F.Expr`
 
         `Language.Fixpoint.Types.Predicate`
 
-    You may need this to convert program expressions `Expression a` to logical predicates `F.Pred`
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Predicate)
+    
+   You may need this to convert program expressions `Expression a` to logical predicates `F.Pred`
 
     (For the last three, the relevant class instances are in `Language.Nano.Types`)
 
