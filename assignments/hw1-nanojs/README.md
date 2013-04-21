@@ -246,26 +246,30 @@ HINTS:
 5. Make sure you understand:
 
         `Language.Fixpoint.Types.Subable`
-
-   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Subable)
+   
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquid-fixpoint/Language-Fixpoint-Types.html#t:Subable)
+   
    
    You will need to implement substitutions, as needed for x := e, etc.
 
         `Language.Fixpoint.Types.Symbolic`
 
-   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Symbolic)
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquid-fixpoint/Language-Fixpoint-Types.html#t:Symbolic)
+
 
    You may need this to convert program variables `Id a` to logical symbols `F.Symbol`
 
         `Language.Fixpoint.Types.Expression`
    
-   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Expression)
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquid-fixpoint/Language-Fixpoint-Types.html#t:Expression)
+
 
    You may need this to convert program expressions `Expression a` to logical expressions `F.Expr`
 
         `Language.Fixpoint.Types.Predicate`
 
-   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquidtypes/Language-Haskell-Liquid-Fixpoint.html#t:Predicate)
+   [see this](http://goto.ucsd.edu/~rjhala/llvm-haskell/doc/html/liquid-fixpoint/Language-Fixpoint-Types.html#t:Predicate)
+
     
    You may need this to convert program expressions `Expression a` to logical predicates `F.Pred`
 
