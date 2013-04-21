@@ -59,20 +59,20 @@ vcgen (Asgn x e) q
 vcgen (Seq s1 s2) q
   = vcgen s1 =<< vcgen s2 q
 vcgen (If b c1 c2) q
-  = do q1    <- vcgen q c1
-       q2    <- vcgen q c2
+  = do q1    <- vcgen c1 q
+       q2    <- vcgen c2 q
        return $ (b `implies` q1) `And` (Not b `implies` q2)
 vcgen (While i b c) q 
   = do q'    <- vcgen c i 
-       valid  $ (i `And` b)     `implies` q' 
-       valid  $ (i `And` Not b) `implies` q  
+       sideCondition $ (i `And` b)     `implies` q' 
+       sideCondition $ (i `And` Not b) `implies` q  
        return $ i                            
 ~~~~~
 
 ## `vcgen` Helper Logs All Side Conditions
 
 ~~~~~{.haskell}
-valid   :: Pred -> VC ()
-valid p = modifyState $ \conds -> p : conds 
+sideCond :: Pred -> VC ()
+sideCond p = modify $ \conds -> p : conds 
 ~~~~~
 

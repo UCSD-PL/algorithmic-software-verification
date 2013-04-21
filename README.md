@@ -159,9 +159,20 @@ List of Papers
 - *ADD MORE HERE*
 
 
-Homeworks
----------
+Homework Plan
+-------------
 
+HW 1
+1a. VCG 
+1b. Use ESC/J
+
+HW 2
+2a. ConsGen = VCG+K for LoopInv via FIXPOINT
+2b. Implement FIXPOINT (over liquid-fixpoint)
+
+HW 3
+3a. VCG for Refinement Type Checking
+3b. Consgen = VCG+K for Liquid Type Inference via FIXPOINT
 HW 1: 
 
 - EUIF + DIFF
