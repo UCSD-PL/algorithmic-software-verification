@@ -11,7 +11,7 @@ title: Lectures
    *4/9*     SAT Solvers                                        [pdf][lec2]
   *4/11*     SMT Solvers                                        [pdf][lec3]
   *4/16*     Floyd-Hoare Logic                                  [pdf][lec4]
-  *4/18*     Verification Conditions 
+  *4/18*     Verification Conditions                            [pdf][lec4] 
   *4/23*     Types: HM, Subtyping, Bidirectional Checking
   *4/25*     Refinement Types
   *4/30*     "" 
