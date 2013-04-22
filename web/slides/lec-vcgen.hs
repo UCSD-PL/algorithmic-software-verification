@@ -1,9 +1,7 @@
 module VCGen where
 
 data Var 
-
 data Exp 
-
 data Com = Asgn  Var Expr
          | Seq   Com Com
          | If    Exp Com Com
