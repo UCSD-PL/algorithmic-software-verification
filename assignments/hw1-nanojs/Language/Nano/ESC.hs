@@ -83,7 +83,6 @@ instance IsVerifiable (VarDecl SourcePos) where
   generateVC (VarDecl l x (Just e)) vc = generateAsgnVC l x e vc
   generateVC (VarDecl _ _ Nothing)  vc = return vc
 
-
 --------------------------------------------------------------------------------
 generateFunVC    :: Fun SourcePos -> VCM VCond
 --------------------------------------------------------------------------------
