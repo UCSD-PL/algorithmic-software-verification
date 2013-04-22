@@ -34,8 +34,8 @@ verifyFile f
        let vc  = genVC nano
        writeFile (f `addExtension` ".vc") (render $ pp vc)
        rs     <- mapM checkVC $ obligationsVCond vc
-       forM rs $ (putStrLn . render . pp)
-       return  $ mconcat rs
+       forM_ rs $ putStrLn . render . pp
+       return $ mconcat rs
 
 --------------------------------------------------------------------------------
 -- | Top-level VC Generator
@@ -124,19 +124,19 @@ generateStmtVC (VarDeclStmt _ ds) vc
   = generateVC ds vc
 
 -- assume(e)
-generateStmtVC e@(ExprStmt _ (CallExpr _ _ _)) vc
+generateStmtVC e@(ExprStmt _ (CallExpr{})) vc
   | isJust ep = generateAssumeVC (fromJust ep) vc
   where
     ep        = getAssume e
 
 -- assert(e)
-generateStmtVC e@(ExprStmt l (CallExpr _ _ _)) vc
+generateStmtVC e@(ExprStmt l (CallExpr{})) vc
   | isJust ep = generateAssertVC l (fromJust ep) vc
   where
     ep        = getAssert e
 
 -- ignore other specification statements
-generateStmtVC e@(ExprStmt _ (CallExpr _ _ _)) vc
+generateStmtVC e@(ExprStmt _ (CallExpr{})) vc
   | isSpecification e
   = return vc
 
