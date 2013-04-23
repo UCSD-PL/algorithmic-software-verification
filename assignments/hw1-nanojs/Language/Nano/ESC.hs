@@ -16,7 +16,7 @@ import           Language.ECMAScript3.PrettyPrint
 import           Language.ECMAScript3.Syntax
 import qualified Language.Fixpoint.Types as F
 import           Language.Fixpoint.Interface  (checkValid)
-import           Language.Fixpoint.Misc       (safeZip, sortNub)
+import           Language.Fixpoint.Misc       (errorstar, safeZip, sortNub)
 import           Language.Nano.Types
 import           Language.Nano.VCMonad
 import           Data.Monoid
@@ -74,7 +74,7 @@ instance IsVerifiable (Fun SourcePos) where
   generateVC fn _   = generateFunVC fn
 
 instance IsVerifiable a => IsVerifiable [a] where 
-  generateVC xs vc  = errorstar "FILL THIS IN" 
+  generateVC xs vc  = errorstar "FILL THIS IN 1"
 
 instance IsVerifiable (Statement SourcePos) where 
   generateVC        = generateStmtVC
@@ -111,7 +111,7 @@ generateStmtVC (BlockStmt _ ss) vc
 
 -- if b { s1 } else { s2 }
 generateStmtVC (IfStmt _ b s1 s2) vc 
-  = errorstar "FILL THIS IN"
+  = errorstar "FILL THIS IN 2"
 
 -- if b { s1 }
 generateStmtVC (IfSingleStmt l b s) vc
@@ -119,7 +119,7 @@ generateStmtVC (IfSingleStmt l b s) vc
 
 -- while (cond) { s }
 generateStmtVC (WhileStmt l cond s) vc 
-  = errorstar "FILL THIS IN"  
+  = errorstar "FILL THIS IN 3"  
   
 -- var x1 [ = e1 ]; ... ; var xn [= en];
 generateStmtVC (VarDeclStmt _ ds) vc
@@ -165,14 +165,14 @@ generateAsgnVC _ x e  vc
 -----------------------------------------------------------------------------------
 
 generateAssumeVC :: F.Pred -> VCond -> VCM VCond 
-generateAssumeVC = errorstar "FILL THIS IN" 
+generateAssumeVC = errorstar "FILL THIS IN 4" 
 
 generateAssertVC :: SourcePos -> F.Pred -> VCond -> VCM VCond 
-generateAssertVC = errorstar "FILL THIS IN" 
+generateAssertVC = errorstar "FILL THIS IN 5" 
 
 -- x = e; // where e is not a function call
 generateExprAsgnVC :: (F.Symbolic x, F.Expression e) => x -> e -> VCond -> VCM VCond 
-generateExprAsgnVC = errorstar "FILL THIS IN"
+generateExprAsgnVC = errorstar "FILL THIS IN 6"
 
 -- Do the next two last: You can knock off all the tests **WITHOUT**
 -- function calls (other than the spec calls -- invariant, assert, assume)
@@ -180,9 +180,9 @@ generateExprAsgnVC = errorstar "FILL THIS IN"
 
 -- x = f(e1,...,en)
 generateFunAsgnVC :: (F.Symbolic x, F.Expression e) => SourcePos -> x -> String -> [e] -> VCond -> VCM VCond 
-generateFunAsgnVC = errorstar "FILL THIS IN"
+generateFunAsgnVC = errorstar "FILL THIS IN 7"
 
 -- return e
 generateReturnVC :: SourcePos-> Expression SourcePos -> VCond-> VCM VCond
-generateReturnVC = errorstar "FILL THIS IN"
+generateReturnVC = errorstar "FILL THIS IN 8"
 
