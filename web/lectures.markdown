@@ -10,8 +10,8 @@ title: Lectures
    *4/4*     Introduction                                       [pdf][lec1] 
    *4/9*     SAT Solvers                                        [pdf][lec2]
   *4/11*     SMT Solvers                                        [pdf][lec3]
-  *4/16*     Floyd-Hoare Logic
-  *4/18*     Verification Conditions 
+  *4/16*     Floyd-Hoare Logic                                  [pdf][lec4]
+  *4/18*     Verification Conditions                            [pdf][lec4] 
   *4/23*     Types: HM, Subtyping, Bidirectional Checking
   *4/25*     Refinement Types
   *4/30*     "" 
@@ -34,4 +34,4 @@ title: Lectures
 [lec1]: slides/lec-intro.markdown.pdf
 [lec2]: slides/lec-sat.markdown.pdf
 [lec3]: slides/lec-smt.markdown.pdf
-
+[lec4]: static/lec-floyd-hoare.pdf
