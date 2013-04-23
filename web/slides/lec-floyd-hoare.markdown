@@ -6,29 +6,29 @@
 
 * Commands
 
-    * \texttt{C ::= skip | x := E | while B do C | C1; C2 | if B then C1 else C2}
+    C ::= skip | x := E | while B do C | C1; C2 | if B then C1 else C2
 
 * Arithmetic expressions:
 
-    * \texttt{E ::= 0, 1, ... | x, y, ... | E1 op E2}
+    E ::= 0, 1, ... | x, y, ... | E1 op E2
 
-        where \texttt{op ∈ \{ +, *, - \}}
+    * where $\text{op} \in \{ +, *, - \}$
 
 * Boolean expressions:
 
-    * \texttt{B ::= true | false | E1 = E2 | E1 < E2 | B1 \&\& B2 | B1 || B2 | !B1 | B1 => B2}
+    B ::= true | false | E1 = E2 | E1 < E2 | B1 \&\& B2 | B1 || B2 | !B1 | B1 => B2
 
 ## IMP: Operational semantics
 
-* Define a state \texttt{σ : Vars → Int}
+* Define a state $\sigma : Vars \rightarrow Int$
 
-* Define an evaluation judgement for expressions as a relation \texttt{<e,σ>⇓n}
+* Define an evaluation judgement for expressions as a relation $<e, \sigma> \Downarrow n$
 
-    * "In state \texttt{σ}, expression e evaluates to n"
+    * "In state $\sigma$, expression e evaluates to n"
 
-* Define an evaluation judgement for commands as a relation \texttt{<c,σ>⇓σ'}
+* Define an evaluation judgement for commands as a relation $<c, \sigma> \Downarrow \sigma'$
 
-    * "In state \texttt{σ}, executing command c takes the system into state \texttt{σ'}"
+    * "In state $\sigma$, executing command c takes the system into state $\sigma'$"
 
 ## Reasoning with operational semantics
 
@@ -46,7 +46,7 @@ Use Hoare triples of a precondition P, a command c, and a postcondition Q
 * "In a state where P holds, if running command c terminates, then it yields a
 state where Q holds"
 
-* \texttt{∀σ. <σ,P>⇓true → ∀σ'. <σ,c>⇓σ' → <σ,Q>⇓true}
+* $\forall \sigma. <\sigma, P> \Downarrow true \rightarrow \forall \sigma'. <\sigma, c> \Downarrow \sigma' \rightarrow <\sigma', Q> \Downarrow true$
 
 ### Total correctness
 
@@ -55,7 +55,7 @@ state where Q holds"
 * "In a state where P holds, running command c terminates and yields a state
 where Q holds"
 
-* \texttt{∀ σ. <σ,P>⇓true → ∃ σ'. <σ,c>⇓σ' → <σ,Q>⇓true}
+* $\forall \sigma. <\sigma, P> \Downarrow true \rightarrow \exists \sigma'. <\sigma, c> \Downarrow \sigma' \rightarrow <\sigma', Q> \Downarrow true$
 
 ## Derivation rules
 
