@@ -1,11 +1,11 @@
 #PANDOC=~/.cabal/bin/pandoc --columns=80  -s --mathjax --slide-level=2
-PANDOC=pandoc --columns=80  -s --mathjax --slide-level=2 --latex-engine=xetex
+PANDOC=pandoc --columns=80  -s --mathjax --slide-level=2
 SLIDY=$(PANDOC) -t slidy
 DZSLIDES=$(PANDOC) --highlight-style tango --css=slides.css -w dzslides
 HANDOUT=$(PANDOC) --highlight-style tango --css=text.css -w html5
 
 WEBTEX=$(PANDOC) -s --webtex -i -t slidy
-BEAMER=pandoc -t beamer --latex-engine=xelatex  --include-in-header=header.tex
+BEAMER=pandoc -t beamer
 
 ####################################################################
 
