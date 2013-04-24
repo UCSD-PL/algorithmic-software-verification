@@ -26,9 +26,47 @@
 
     * "In state $\sigma$, expression e evaluates to n"
 
-* Define an evaluation judgement for commands as a relation $<c, \sigma> \Downarrow \sigma'$
+* Define an evaluation judgement for commands as a relation $<c, \sigma> \Downarrow \sigma\prime$
 
-    * "In state $\sigma$, executing command c takes the system into state $\sigma'$"
+    * "In state $\sigma$, executing command c takes the system into state $\sigma\prime$"
+
+## IMP: Operational semantics (arithmetic expressions)
+
+$$\frac{  }{ <n, \sigma> \Downarrow n }$$
+
+$$\frac{  }{ <x, \sigma> \Downarrow \sigma(x) }$$
+
+$$\frac{ <e1, \sigma> \Downarrow n1 \quad <e2, \sigma> \Downarrow n2 }{ <e1 \  \text{op} \  e2, \sigma> \Downarrow n1 \  \text{op} \  n2 }$$
+
+* where $\text{op} \in \{ +, *, - \}$
+
+## IMP: Operational semantics (boolean expressions)
+
+$$\frac{  }{ <\text{true}, \sigma> \Downarrow \text{true} }$$
+
+$$\frac{  }{ <\text{false}, \sigma> \Downarrow \text{false} }$$
+
+$$\frac{ <e1, \sigma> \Downarrow n1 \quad <e2, \sigma> \Downarrow n2 \quad n1 \ \text{op} \  n2 \text{ is true} }{ <e1 \  \text{op} \  e2, \sigma> \Downarrow \text{true} }$$
+
+$$\frac{ <e1, \sigma> \Downarrow n1 \quad <e2, \sigma> \Downarrow n2 \quad n1 \ \text{op} \  n2 \text{ is false} }{ <e1 \  \text{op} \  e2, \sigma> \Downarrow \text{false} }$$
+
+* where $\text{op} \in \{ =, < \}$
+
+## IMP: Operational semantics (boolean expressions)
+
+$$\frac{ <b1, \sigma> \Downarrow b1 \quad <b2, \sigma> \Downarrow p2 }{ <e1 \  \text{op} \  e2, \sigma> \Downarrow p1 \  \text{op} \ p2 }$$
+
+* where $\text{op} \in \{ \&\&, || \}$
+
+$$\frac{ <b, \sigma> \Downarrow p }{ < ! b, \sigma> \Downarrow ! p }$$
+
+## IMP: Operational semantics (commands)
+
+$$\frac{  }{ <\text{skip}, \sigma> \Downarrow \sigma }$$
+
+$$\frac{ <c1, \sigma> \Downarrow \sigma\prime \quad <c2, \sigma\prime> \Downarrow \sigma\prime\prime }{ <c1 ; c2, \sigma> \Downarrow \sigma\prime\prime }$$
+
+$$\frac{ <b1, \sigma> \Downarrow b1 \quad <b2, \sigma> \Downarrow p2 }{ <e1 \  \text{op} \  e2, \sigma> \Downarrow p1 \  \text{op} \ p2 }$$
 
 ## Reasoning with operational semantics
 
@@ -46,7 +84,7 @@ Use Hoare triples of a precondition P, a command c, and a postcondition Q
 * "In a state where P holds, if running command c terminates, then it yields a
 state where Q holds"
 
-* $\forall \sigma. <\sigma, P> \Downarrow true \rightarrow \forall \sigma'. <\sigma, c> \Downarrow \sigma' \rightarrow <\sigma', Q> \Downarrow true$
+* $\forall \sigma. <\sigma, P> \Downarrow true \rightarrow \forall \sigma\prime. <\sigma, c> \Downarrow \sigma\prime \rightarrow <\sigma\prime, Q> \Downarrow true$
 
 ### Total correctness
 
@@ -55,7 +93,7 @@ state where Q holds"
 * "In a state where P holds, running command c terminates and yields a state
 where Q holds"
 
-* $\forall \sigma. <\sigma, P> \Downarrow true \rightarrow \exists \sigma'. <\sigma, c> \Downarrow \sigma' \rightarrow <\sigma', Q> \Downarrow true$
+* $\forall \sigma. <\sigma, P> \Downarrow true \rightarrow \exists \sigma\prime. <\sigma, c> \Downarrow \sigma\prime \rightarrow <\sigma\prime, Q> \Downarrow true$
 
 ## Derivation rules
 
