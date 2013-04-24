@@ -357,13 +357,116 @@ assert(r == n * n);
 
 ## IMP + Functions
 
-- COPY FROM PPT
+~~~~~{.haskell}
+data Fun = F String [Var] Com
+
+data Com = ...
+         | Call   Var Fun [Expr]
+         | Return Expr
+
+data Pgm = [Fun]
+~~~~~
+
+## IMP + Functions
+
+A *function* is a big sequence of `Com` which **does not modify** formals
+
+~~~~~{.javascript}
+function f(x1,...,xn){
+  requires(pre);
+  ensures(post);
+  body;
+  return e;
+}
+~~~~~
+
+### Precondition
+
+- Predicate over the **formal** parameters `x1,...,xn`
+- That records **assumption** about inputs
+
+### Postcondition
+
+- Predicate over the **formals** and **return value** `$result`
+- That records **assertion** about outputs 
+
+## Modular Verification With Contracts 
+
+- Together, *pre-* and *post-* conditions called **contracts**
+- We can generate VC (hence, verify) **one-function-at-a-time**
+- Using just *contracts* for all called functions
+
+### Questions
+
+1. How to verify *each* function with *callee* contracts? 
+
+2. How to verify `Call` commands?
+
+## Verifying A Single Function
+
+To verify a single function
+
+~~~~~{.javascript}
+function f(x1,...,xn){
+  requires(pre);
+  ensures(post);
+  body;
+  return e;
+}
+~~~~~
+
+we need to just verify the Hoare-triple
+
+~~~~~{.haskell}
+{pre} body ; $result := r {post}
+~~~~~
+
+**Exercise** How will you handle `return` sprinkled within `body` ?
+
+## Verifying A Single Call Command 
+
+To establish a Hoare-triple for a single **call** command 
+
+~~~~~{.haskell}
+{P} 
+   y := f(e) 
+{Q}
+~~~~~
+
+1. We must **guarantee** that `pre` (of `f`) holds *before* the call
+2. We can **assume** that `post (of `f`) holds *after* the call
+
+Hence, the above triple reduces to verifying that
+
+~~~~~{.haskell}
+{P} 
+   assert (pre[e1/x1,...,en/xn]) ; 
+   assume (post[e1/x1,...,en/xn, y/$result];  
+{Q}
+~~~~~
+
+## Caller-Callee Contract Duality
+
+Note that at the **callsite** for a function, we
+
+- **assert** the pre-condition
+- **assume** the post-condition
+
+while when checking the **callee** we
+
+- **assume** the pre-condition
+- **assert** the post-condition
+
+This is key for **modular verification**
+
+- Breaks verification up into pieces matching function abstraction 
+
+## Example: A Locking Protocol
+
 - Lock/Unlock
 - Protocol
-- Functions
-- Req/Ensure
-- CallSite Check
-- Function Check Rule
+
+COPY FROM PPT
 
 ## Adding Features To IMP
 
@@ -374,3 +477,22 @@ assert(r == n * n);
 ## IMP + Pointers
 
 COPY FROM PPT
+
+## Deductive Verifiers
+
+We have just scratched the surface 
+
+Many *industrial strength* verifiers for real languages
+
+- [Why3](http://krakatoa.lri.fr/jessie.html)
+- [ESC-Java](http://kindsoftware.com/products/opensource/ESCJava2/)
+
+And these, which you can play with [online](http://rise4fun.com)
+
+- [VCC](http://rise4fun.com/Vcc/lsearch) 
+- [Spec# 1](http://rise4fun.com/SpecSharp/Add) [Spec# 2](http://rise4fun.com/SpecSharp/BinarySearch)
+- [Verifast](http://rise4fun.com/VeriFast/list%20reverse)
+
+All very impressive: Try them out and see! 
+
+Main hassle: writing invariants, pre and post...
