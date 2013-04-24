@@ -441,9 +441,12 @@ Hence, the above triple reduces to verifying that
 ~~~~~{.haskell}
 {P} 
    assert (pre[e1/x1,...,en/xn]) ; 
-   assume (post[e1/x1,...,en/xn, y/$result];  
+   assume (post[e1/x1,...,en/xn, tmp/$result]; 
+   y := tmp; 
 {Q}
 ~~~~~
+
+where `tmp` is a fresh temporary variable.
 
 ## Caller-Callee Contract Duality
 
@@ -461,12 +464,143 @@ This is key for **modular verification**
 
 - Breaks verification up into pieces matching function abstraction 
 
+## Example
+
+Consider a function
+
+~~~~~{.javascript}
+function binarySearch(a, v){ 
+  requires(sorted(a));
+  ensures($result == -1 
+         || 0 <= $result < a.length && a[$result] == v
+         );
+  ...
+}
+~~~~~
+
+where we want to verify
+
+~~~~~{.javascript}
+assume(sorted(arr));
+y = binarySearch(arr, 12);
+if (y != -1){
+  assert (arr[y] == 12)
+  ...
+}
+~~~~~
+
+## Example: Precondition VC 
+
+Consider a function
+
+~~~~~{.javascript}
+function binarySearch(a, v){ 
+  requires(sorted(a));
+  ensures($result == -1 
+         || 0 <= $result < a.length && a[$result] == v
+         );
+  ...
+}
+~~~~~
+
+Replace call with `assert` and `assume` 
+
+~~~~~{.javascript}
+
+//pre[arr/a, 12/v]
+assert(sorted(arr));                   
+
+//post[arr/a, 12/v, y/$result]
+assume(y==-1 
+      || 0<=y<a.length && a[y] == 12);    
+
+if (y != -1){
+  assert (arr[y] == 12)
+  ...
+}
+~~~~~
+
+Verify as before...
+
 ## Example: A Locking Protocol
 
-- Lock/Unlock
-- Protocol
+![Calls to `lock` and `unlock` Must Alternate](../static/lec-vcgen-dblock.png "Double Locking")
 
-COPY FROM PPT
+
+## Example: A Locking Protocol
+
+The `lock` and `unlock` functions
+
+~~~~~{.javascript}
+function lock(l){
+  assert(l == 0); //UNLOCKED
+  return 1;       //LOCKED
+}
+
+function unlock(l){
+  assert(l == 1); //UNLOCKED
+  return 0;        //LOCKED
+}
+~~~~~
+
+State of lock encoded in value
+
+What are the **contracts** ? Pretty easy...
+
+
+## Example: A Locking Protocol
+
+The `lock` and `unlock` functions with contracts
+
+~~~~~{.javascript}
+function lock(l){
+  requires(l == 0);
+  ensures($result == 1);
+
+  assert(l == 0); //UNLOCKED
+  return 1;       //LOCKED
+}
+
+function unlock(l){
+  requires(l == 1);
+  ensures($result == 0);
+
+  assert(l == 1); //UNLOCKED
+  return 0;        //LOCKED
+}
+~~~~~
+
+## Example: Lock Verification 
+
+To verify this program
+
+~~~~~{.javascript}
+assume(l == 0);  
+if (n % 2 == 0) {
+  l = lock(l);
+}
+...
+if (n % 2 == 0) {
+  l = unlock(l);
+}
+~~~~~
+
+we just verify
+
+~~~~~{.javascript}
+assume(l == 0);  
+if (n % 2 == 0) {
+  assert(l == 0);
+  assume(tmpa == 1);
+  l = tmpa;
+}
+...
+if (n % 2 == 0) {
+  assert(l==1);
+  assume(tmpb==0);
+  l = tmpb; 
+}
+~~~~~
 
 ## Adding Features To IMP
 
@@ -476,7 +610,152 @@ COPY FROM PPT
 
 ## IMP + Pointers
 
-COPY FROM PPT
+Let us add references to IMP
+
+~~~~~{.haskell}
+data Com = Deref     Var Var        --  x := *y
+         | DerefAsgn Var Expr       -- *x := e
+~~~~~
+
+We find that our **assignment** rule **does not work** with **aliasing**
+
+## Assignments and Aliasing 
+
+As `*x` and `*y` are aliased, the following is valid
+
+~~~~~{.javascript}
+{x == y}    *x = 5   {*x + *y == 10}
+~~~~~
+
+## Assignments and Aliasing 
+
+In general, for what `P` is the following valid?
+
+~~~~~{.javascript}
+{P}    *x = 5   {*x + *y == 10}
+~~~~~
+
+Intuitively, `P` is something like
+
+~~~~~{.javascript}
+*y == 5 || x = y 
+~~~~~
+
+- In the first case, the two sum upto 10.
+- In the second case, the aliasing kicks in.
+
+
+## Assignments and Aliasing 
+
+In general, for what `P` is the following valid?
+
+~~~~~{.javascript}
+{P}    *x = 5   {*x + *y == 10}
+~~~~~
+
+But the Hoare-rule gives us
+
+~~~~~{.javascript}
+(*x + *y == 10)[5 / *x]
+
+== (5 + *y == 10)
+
+== (*y == 5)
+~~~~~
+
+
+## Assignments and Aliasing
+
+Uh oh! We lost one case! What happened?!
+
+The substitution `[e/x]` only works when 
+
+- `x` is the **only** representation for the value in the predicate
+
+Here, there were **two possible** representations
+
+- `*x`
+
+- `*y`
+
+and we say *possible* because it depends on the aliasing.
+
+- This is why **aliasing is tricky**
+
+## Verification With References
+
+### Key idea
+
+Beef up our logic to handle memory as a *monolithic entity* 
+
+1. Extend **logic theory** (and SMT solver)
+
+2. Extend **Hoare-Rule** 
+
+**Note:** Classical solution due to [McCarthy](http://fill.this.in)
+
+- It has its issues but thats another story...
+
+## A Logic For Modelling References
+
+1. Memory **Variables** `M :: Mem`
+
+2. **Select** Operator for reading memory `sel` 
+
+3. **Update** Operator for writing memory `upd`
+
+4. **Axioms** for reasoning about `sel` and `upd`
+
+~~~~~{.haskell}
+forall M, A1, A2, V.
+    A1 == A2 => sel(upd(M, A1, V), A2) == V
+
+forall M, A1, A2, V.
+    A1 /= A2 => sel(upd(M, A1, V), A2) == sel(M, A2)
+~~~~~
+
+## Updated Hoare-Rule for References
+
+New rule for **deref-read**
+
+~~~~~{.haskell}
+{B [sel(M,y)/x]} x := *y {B}
+~~~~~
+
+New rule for **deref-write**
+
+~~~~~{.haskell}
+{B [upd(M,x,e)/M]} *x := e {B}
+~~~~~
+
+## Assignments and Aliasing Revisited 
+
+In general, for what `P` is the following valid?
+
+~~~~~{.javascript}
+{P}    *x = 5   {*x + *y == 10}
+~~~~~
+
+Or rather,
+
+~~~~~{.javascript}
+{P}    *x = 5   {sel(M,x) + sel(M,y) == 10}
+~~~~~
+
+Now, with the new **deref-write** rule `P` becomes
+
+TODO FIX THIS
+~~~~~{.javascript}
+A = [upd(M, x, 5)/M] (*x+*y=10)
+      = [upd(M, x, 5)/M] (sel(M,x) + sel(M,y) = 10)
+      = sel(upd(M, x, 5), x) + sel(upd(M, x, 5), y) = 10
+      = 5 + sel(upd(M, x, 5), y) = 10
+      = sel(upd(M, x, 5), y) = 5
+      = (x = y & 5 = 5) || (x != y & sel(M, y) = 5)
+      = x=y || *y = 5
+~~~~~
+
+Which is exactly what we wanted!
 
 ## Deductive Verifiers
 

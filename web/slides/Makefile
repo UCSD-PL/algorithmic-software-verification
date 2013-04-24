@@ -1,11 +1,11 @@
-#PANDOC=~/.cabal/bin/pandoc --columns=80  -s --mathjax --slide-level=2  
-PANDOC=pandoc --columns=80  -s --mathjax --slide-level=2  
+#PANDOC=~/.cabal/bin/pandoc --columns=80  -s --mathjax --slide-level=2
+PANDOC=pandoc --columns=80  -s --mathjax --slide-level=2
 SLIDY=$(PANDOC) -t slidy
-DZSLIDES=$(PANDOC) --highlight-style tango --css=slides.css -w dzslides 
-HANDOUT=$(PANDOC) --highlight-style tango --css=text.css -w html5 
+DZSLIDES=$(PANDOC) --highlight-style tango --css=slides.css -w dzslides
+HANDOUT=$(PANDOC) --highlight-style tango --css=text.css -w html5
 
 WEBTEX=$(PANDOC) -s --webtex -i -t slidy
-BEAMER=pandoc -t beamer 
+BEAMER=pandoc -t beamer
 
 ####################################################################
 
@@ -17,7 +17,7 @@ OBJS	= ${SRCS:.markdown=.html}
 # list only those we use
 .SUFFIXES: .html .markdown
 
-slides: 
+slides:
 	for file in *.markdown; do $(BEAMER) $$file -o $$file.pdf; done
 #	for file in *.markdown; do $(WEBTEX) $$file -o $$file.html; done
 #	for file in *.markdown; do $(DZSLIDES) $$file -o $$file.slides.html; done
