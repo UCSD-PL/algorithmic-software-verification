@@ -23,6 +23,8 @@ verify       :: Pred -> Com -> Pred -> Bool
 --   input  : precondition `p`, command `c` andpostcondition `q`
 --   output : TRUE iff {p} c {q} is a valid Hoare-Triple
 
+verify          :: Pred -> Com -> Pred -> Bool
+
 verify p c q    = all smtValid queries
   where 
     (q', conds) = runState (vcgen q c) []  
