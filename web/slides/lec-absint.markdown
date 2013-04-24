@@ -6,7 +6,7 @@
 
 **How to infer (loop) invariants** ?
 
-### Classic Problem
+## Fundamental Challenge of Program Analysis
 
 - Key issue for any analysis or verification
 
@@ -14,17 +14,22 @@
 
 - See [Suzuki & Ishihata, POPL 1977](http://dl.acm.org/citation.cfm?id=512963)
 
-- Most can be formalized in the framework of **Abstract Interpretation**
+- Most formalizable in framework of **Abstract Interpretation**
 
-## Today: Abstract Interpretation
+## Abstract Interpretation
 
 ``A systematic basis for *approximating* the semantics of programs"
 
 - Deep and broad area
 
-- Rich theory, profound practical impact
+- Rich theory
 
-- We look at a tiny slice: in context of algorithmic verification of **IMP**
+- Profound practical impact
+
+We look at a tiny slice
+
+- In context of algorithmic verification of **IMP**
+
 
 ## IMP: A Small Imperative Language
 
@@ -57,20 +62,23 @@ A `State` is a map from `Var` to the set of `Values`
 type State = Map Var Value
 ~~~~~
 
-### Transitions
+## IMP: Operational Semantics
 
-**Transition relation** is a subset of `State` $\times$ `Com` $\times$ `State`
+### Transition Relation
 
-Formalized by `eval s c` which returns `[s' |` command `c` transitions state `s` to `s']`
+A subset of `State` $\times$ `Com` $\times$ `State` formalized by
+
+- `eval s c ==  [s' |` command `c` transitions state `s` to `s']`
 
 ~~~~~{.haskell}
-eval                 :: State -> Com -> [State]
-eval s (Assume e)    = if eval s e then [s] else []
-eval s (x  :=  e)    = [ add x (eval s e) s ]
-eval s (c1 ;  c2)    = [s'' | s' <- eval s c1, s'' <- eval s' c2]
-eval s (c1 |  c2)    = eval s c1 ++ eval s c2
-eval s w@(While e c) = eval s (Assume !e | (Assume e; c; w))  
+eval                :: State -> Com -> [State]
+eval s (Assume e)   = if eval s e then [s] else []
+eval s (x  :=  e)   = [ add x (eval s e) s ]
+eval s (c1 ; c2)    = [s2 | s1 <- eval s c1, s2 <- eval s' c2]
+eval s (c1 | c2)    = eval s c1 ++ eval s c2
+eval s w@(Whle e c) = eval s $ Assume !e | (Assume e; c; w)) 
 ~~~~~
+
 
 ## IMP: Axiomatic Semantics
 
@@ -94,9 +102,15 @@ Describe execution via **Predicate Transformers**
 SP :: Pred -> Com -> Pred
 ~~~~~
 
-- `SP P c` : Predicate describing states **reachable from** `P` by executing `c`
+`SP P c` : States **reachable from** `P` by executing `c`
 
-- `states (SP P c) == [s' | s <- states P, s' <- eval s c]`
+~~~~~{.haskell}
+states (SP P c) == [s' | s <- states P, s' <- eval s c]
+~~~~~
+
+## IMP: Axiomatic Semantics 
+
+Describe execution via **Predicate Transformers** 
 
 ### Weakest Precondition 
 
@@ -104,57 +118,53 @@ SP :: Pred -> Com -> Pred
 WP :: Com -> Pred -> Pred
 ~~~~~
 
-- `WP c Q` : Predicate describing states that **can reach** `Q` by executing `c`
+`WP c Q` : States that **can reach** `Q` by executing `c`
 
-- `states (WP c Q)` = [s | s' <- eval s c, eval s' Q ]
+~~~~~{.haskell}
+states (WP c Q)` = [s | s' <- eval s c, eval s' Q ]
+~~~~~
 
 ## Strongest Postcondition 
 
-- `SP P c` : Predicate describing states **reachable from** `P` by executing `c`
-
-- `states (SP P c) == [s' | s <- states P, s' <- eval s c]`
+`SP P c` : States **reachable from** `P` by executing `c`
 
 ~~~~~{.haskell}
-SP                 :: Pred -> Com -> Pred
+SP              :: Pred -> Com -> Pred
 
-SP P (Assume e)    = P `&&` e
+SP P (Assume e) = P `&&` e
 
-SP P (x := e)      = \exists x'. P[x'/x] `&&`  x `==` e[x'/x]
+SP P (x := e)   = Exists x'. P[x'/x] `&&`  x `==` e[x'/x]
 
-SP P (c1 ; c2)     = SP (SP P c1) c2 
+SP P (c1 ; c2)  = SP (SP P c1) c2 
 
-SP P (c1 | c2)     = SP P c1 `||` SP p c2
+SP P (c1 | c2)  = SP P c1 `||` SP p c2
 
-SP P w@(While e c) = SP s (Assume !e | (Assume e; c; w))  
+SP P w@(W e c)  = SP s (Assume !e | (Assume e; c; w))  
 ~~~~~
 
 - **Uh Oh!** last case is non-terminating ...
 
 ## Weakest Precondition 
 
-- `WP c Q` : Predicate describing states that **can reach** `Q` by executing `c`
-
-- `states (WP c Q)` = [s | s' <- eval s c, eval s' Q ]
+`WP c Q` : States that **can reach** `Q` by executing `c`
 
 ~~~~~{.haskell}
-WP                 :: Com -> Pred -> Pred
+WP              :: Com -> Pred -> Pred
 
-WP (Assume e)    Q = e `=>` Q
+WP (Assume e) Q = e `=>` Q
 
-WP (x := e)      Q = Q[e/x] 
+WP (x := e)   Q = Q[e/x] 
 
-WP (c1 ; c2)     Q = WP c1 (WP c2 Q) 
+WP (c1 ; c2)  Q = WP c1 (WP c2 Q) 
 
-WP (c1 | c2)     Q = WP c1 Q `&&` WP c2 Q
+WP (c1 | c2)  Q = WP c1 Q `&&` WP c2 Q
 
-WP w@(While e c) Q = WP (Assume !e | (Assume e; c; w)) Q
+WP w@(W e c)  Q = WP (Assume !e | (Assume e; c; w)) Q
 ~~~~~
 
 - **Uh Oh!** last case is non-terminating ...
 
-## IMP: Verification 
-
-(For a moment, suspend disbelief regarding loops)
+## IMP: Verification (Suspend disbelief regarding loops)
 
 ### Goal: Verify Hoare-Triples
 
@@ -164,7 +174,9 @@ Given
 - `P` precondition 
 - `Q` postcondition
 
-Prove **Hoare-Triple** `{P} c {Q}` which denotes
+Prove 
+
+- **Hoare-Triple** `{P} c {Q}` which denotes 
 
 ~~~~~{.haskell}
 forall s s'. if s  `in` (states P) && 
@@ -201,14 +213,15 @@ forall s s'. if s  `in` (states P) &&
 
 - ... Require **invariants**
 
-- Lets **infer** invariants by **approximation**
+
+Next: Lets **infer** invariants by **approximation**
 
 
 ## Approximate Verification Strategy
 
 0. Compute **Over-approximate** Postcondition `SP#` s.t.
 
-    - `SP P c` implies `SP# P c`
+    - `(SP P c) => (SP# P c)`
 
 1. Compute Verification Condition (VC)
 
@@ -220,11 +233,10 @@ forall s s'. if s  `in` (states P) &&
 
 ### Key Requirement 
 
-- Compute `SP#` *without* computing `SP` ...
+- Compute `SP#` **without** computing `SP` ...
 
-- But guaranteeing *over-approximation`
+- But **guaranteeing** over-approximation
 
-- How ?!!!
 
 ## What Makes Loops Special?
 
@@ -233,6 +245,7 @@ Why different from other constructs? Let
 - `c` be a loop-free (i.e. has no `While` inside it)
 
 - `W` be the loop `While b c`
+
 
 ## Loops as Limits 
 
@@ -244,9 +257,13 @@ W_0   = Skip
 W_1   = W_0 | Assume b; c; W_0
 
 W_2   = W_1 | Assume b; c; W_1
-...
+.
+.
+.
 W_i+1 = W_i | Assume b; c; W_i
-...
+.
+.
+.
 ~~~~~
 
 ## Loops as Limits 
@@ -259,40 +276,42 @@ Intuitively
 
 Formally, we can prove (**exercise**)
 
-1. `eval s W  == eval s W_0 ++ eval s W_1 ++ eval s W_2 ++ ...`
+~~~~~{.haskell}
+1. eval s W  == eval s W_0 ++ eval s W_1 ++ ...
 
-2. `SP P W    == SP P W_0   || SP P W_1   || SP P W_2   || ...`
+2. SP P W    == SP P W_0   || SP P W_1   || ...
 
-3. `WP W Q    == WP W_0 Q   && WP W_1 Q   && SP W_2 Q   && ...`
+3. WP W Q    == WP W_0 Q   && WP W_1 Q   && ...
+~~~~~
 
 So what? Still cannot **compute** `SP` or `WP` ...!
 
 ## Loops as Limits 
 
-So what? Still cannot **compute** `SP` or `WP` ...
-
-... but notice that
+So what? Still cannot **compute** `SP` or `WP` ... but notice
 
 ~~~~~{.haskell}
 SP P W_i+1 == SP P (W_i | assume b; c; W_i)
            
            == SP P W_i  || SP (SP P (assume b; c)) W_i
+
+           <= SP P W_i 
 ~~~~~
 
 That is, `SP P W_i` form an **increasing chain**
 
 ~~~~~{.haskell}
-SP P W_0 => SP P W_1 => SP P W_2 => ... => SP P W_i => ...
+SP P W_0 => SP P W_1 => ... => SP P W_i => ...
 ~~~~~
 
-... **Problem** Chain does not converge! *ONION RINGS*
+... **Problem:** Chain does not converge! *ONION RINGS*
 
 ## Approximate Loops as Approximate Limits 
 
-To compute `SP#` such that `SP P c => SP# P c`, we compute a chain
+To find `SP#` such that `SP P c => SP# P c`, we compute chain
 
 ~~~~~{.haskell}
-SP# P W_0 => SP# P W_1 => SP# P W_2 => ... => SP# P W_i => ...
+SP# P W_0 => SP# P W_1 => ... => SP# P W_i => ...
 ~~~~~
 
 where each `SP#` is over-approximates the corresponding `SP`
@@ -317,14 +336,77 @@ SP# P W == SP# P W_j
 
 ### Many Questions Remain Around Our Strategy
 
-- What is the `SP#` ?
+How to compute `SP#` so that we can ensure 
 
-- How to ensure **convergence** ?
+1. **Convergence** to a fixpoint ? 
 
-- How to ensure **over-approximation** ?
+2. Result is an **over-approximation** of `SP` ?
 
 ### Answer: Abstract Interpretation
 
-``A systematic basis for *approximating* the semantics of programs"
+``Systematic basis for **approximating the semantics** of programs"
 
--------------------------------------------------------------------------------------------------
+<!-- 
+## TODO 
+
+- AExp Syntax
+- AExp Semantics
+- AExp Abstract Semantics
+- AExp Theorem
+- AExp but how? [by induction on structure, yada]
+
+- Lets formalize and generalize the recipe
+
+- Conc vs Abs Value
+- \alpha, \gamma 
+- Pic
+- Rephrase theorem
+- Yes, but HOW? What if we had new operators?
+
+- Systematic OP#
+
+- Relate 
+    op# x# y# = \alpha({x op y | x <- gamma(x#), y <- gamma(y#)})
+
+- Picture
+
+- Our first ABSINT
+
+    Define 
+        AbsValue
+        ConcValue
+        alpha 
+
+    Get   
+        Gamma
+        Abstract Operators
+        Abstract Semantics
+        Soundness Theorem
+
+- Our second ABSINT: + "UMINUS"
+
+- Our third ABSINT: + "+"
+
+- Value as CPO
+    - \lub, \glb, \sqcup
+    - Lift alpha to sets
+
+- Our third ABSINT
+
+    Define 
+        AbsValue + CPO
+        ConcValue
+        alpha 
+
+    Get   
+        Gamma
+        Alpha+SET
+        Abstract Operators with LUB
+        Abstract Semantics
+        Soundness Theorem
+
+STOP AT: Abstract Interpretation for IMP
+
+-->
+
+
