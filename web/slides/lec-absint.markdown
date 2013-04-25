@@ -304,6 +304,8 @@ That is, `SP P W_i` form an **increasing chain**
 SP P W_0 => SP P W_1 => ... => SP P W_i => ...
 ~~~~~
 
+<!-- _z -->
+
 ... **Problem:** Chain does not converge! *ONION RINGS*
 
 ## Approximate Loops as Approximate Limits 
@@ -313,6 +315,8 @@ To find `SP#` such that `SP P c => SP# P c`, we compute chain
 ~~~~~{.haskell}
 SP# P W_0 => SP# P W_1 => ... => SP# P W_i => ...
 ~~~~~
+
+<!-- _z -->
 
 where each `SP#` is over-approximates the corresponding `SP`
 
@@ -346,67 +350,594 @@ How to compute `SP#` so that we can ensure
 
 ``Systematic basis for **approximating the semantics** of programs"
 
-<!-- 
-## TODO 
+## Abstract Interpretation
 
-- AExp Syntax
-- AExp Semantics
-- AExp Abstract Semantics
-- AExp Theorem
-- AExp but how? [by induction on structure, yada]
+Plan
 
-- Lets formalize and generalize the recipe
+1. Simple language of arithmetic expressions
 
-- Conc vs Abs Value
-- \alpha, \gamma 
-- Pic
-- Rephrase theorem
-- Yes, but HOW? What if we had new operators?
+2. IMP
 
-- Systematic OP#
+3. Predicate Abstraction (AI using SMT)
 
-- Relate 
-    op# x# y# = \alpha({x op y | x <- gamma(x#), y <- gamma(y#)})
+## A Language of Arithmetic
 
-- Picture
+Our language, just has numbers and multiplication
 
-- Our first ABSINT
+## A Language of Arithmetic: Syntax
 
-    Define 
-        AbsValue
-        ConcValue
-        alpha 
+~~~~~{.haskell}
+data AExp = N Int | AExp `Mul` AExp
+~~~~~
 
-    Get   
-        Gamma
-        Abstract Operators
-        Abstract Semantics
-        Soundness Theorem
+Example Expressions
 
-- Our second ABSINT: + "UMINUS"
+~~~~~{.haskell}
+N 7
 
-- Our third ABSINT: + "+"
+N 7 `Mul` N (-3)
 
-- Value as CPO
-    - \lub, \glb, \sqcup
-    - Lift alpha to sets
+N 0 `Mul` N 7 `Mul` N (-3)
+~~~~~
 
-- Our third ABSINT
+## Concrete Semantics 
 
-    Define 
-        AbsValue + CPO
-        ConcValue
-        alpha 
+<!-- _z -->
 
-    Get   
-        Gamma
-        Alpha+SET
-        Abstract Operators with LUB
-        Abstract Semantics
-        Soundness Theorem
+To define the **(concrete)** or **exact** semantics, we need 
 
-STOP AT: Abstract Interpretation for IMP
+~~~~~{.haskell}
+type Value = Int
+~~~~~
 
--->
+and an `eval` function that maps `AExp` to `Value`
+
+~~~~~{.haskell}
+eval             :: AExp -> Value
+eval (N n)       = n
+eval (Mul e1 e2) = mul (eval e1) (eval e2)
+
+mul n m          = n * m 
+~~~~~
+
+## Signs Abstraction
+
+Suppose that we only care about the **sign** of the number.
+
+Can define an *abstract* semantics
+
+1. Abstract Values
+
+2. Abstract Operators
+
+3. Abstract Evaluators
+
+## Signs Abstraction: Abstract Values
+
+Abstract values just preserve the **sign** of the number
+
+~~~~~{.haskell}
+data Value# = Neg | Zero | Pos
+~~~~~
+
+![Abstract and Concrete Values](../static/absint-int-signs.png "Signs Abstraction")
 
 
+## Signs Abstraction: Abstract Evaluator 
+
+Abstract evaluator just uses sign information
+
+~~~~~{.haskell}
+eval#             :: AExp -> Value#
+eval# | n > 0     = Pos 
+      | n < 0     = Neg
+      | otherwise = Zero
+eval# (Mul e1 e2) = mul# (eval# e1) (eval# e2)
+~~~~~
+
+## Signs Abstraction: Abstract Evaluator 
+
+`mul#` is the **abstract multiplication** operators
+
+~~~~~{.haskell}
+mul#             :: Value# -> Value# -> Value#
+mul# Zero _       = Zero
+mul# _   Zero     = Zero
+mul# Pos Pos      = Pos
+mul# Neg Neg      = Pos 
+mul# Pos Neg      = Neg
+mul# Neg Pos      = Neg
+~~~~~
+
+## Connecting the Concrete and Abstract Semantics
+
+**Theorem** For all `e :: AExp` we have
+
+1. `(eval e) > 0` iff `(eval# e) = Pos`
+2. `(eval e) < 0` iff `(eval# e) = Neg`
+3. `(eval e) = 0` iff `(eval# e) = Zero`
+
+**Proof** By induction on the structure of `e`
+
+- Base Case: `e == N n`
+
+- Ind. Step: Assume above for `e1` and `e2` prove for `Mul e1 e2`  
+
+## Relating the Concrete and Abstract Semantics
+
+Next, let us **generalize** what we did into a **framework**
+
+- Allows us to use **different** `Value#`
+
+- Allows us to get **connection theorem** by construction 
+
+
+## Key Idea: Provide Abstraction Function $\alpha$ 
+
+We only have to provide connection between `Value` and `Value#`
+
+~~~~~{.haskell}
+alpha :: Value -> Value#
+~~~~~
+
+
+## Key Idea: Provide Abstraction Function $\alpha$ 
+
+We only have to provide connection between `Value` and `Value#`
+
+~~~~~{.haskell}
+alpha :: Value -> Value#
+~~~~~
+
+For *signs* abstraction
+
+~~~~~{.haskell}
+alpha n | n > 0       = Pos
+        | n < 0       = Neg
+        | otherwise   = Zero
+~~~~~
+
+## Key Idea: $\alpha$ induces Concretization $\gamma$
+
+Given `alpha :: Value -> Value#`
+
+we get for free a **concretization function**
+
+~~~~~{.haskell}
+gamma    :: Value# -> [Value]
+gamma v# =  [ v | (alpha v) == v# ] 
+~~~~~
+
+For *signs* abstraction
+
+~~~~~{.haskell}
+gamma Pos  == [1,2..]
+gamma Neg  == [-1,-2..]
+gamma Zero == [0]
+~~~~~
+
+## Key Idea: $\alpha$ induces Abstract Operator 
+
+Given `alpha :: Value -> Value#`
+
+we get for free a **abstract operator**
+
+~~~~~{.haskell}
+op# x# y# = alpha (op (gamma x#) (gamma y#))
+~~~~~
+
+(actually, there is some *cheating* above...can you spot it?)
+
+## Key Idea: $\alpha$ induces Abstract Operator 
+
+Given `alpha :: Value -> Value#`
+
+we get for free a **abstract operator**
+
+![Abstract Operator](../static/absint-op.png "Op#")
+
+## Key Idea: $\alpha$ induces Abstract Evaluator 
+
+Given `alpha :: Value -> Value#`
+
+we get for free a **abstract evaluator**
+
+~~~~~{.haskell}
+eval#            :: AExp -> Value# 
+eval# (N n)      = (alpha n)  
+eval# (Op e1 e2) = op# (eval# e1) (eval# e2)
+~~~~~
+
+## Key Idea: $\alpha$ induces Connection Theorem
+
+Given `alpha :: Value -> Value#`
+
+we get for free a **connection theorem**
+
+**Theorem** For all `e::AExp` we have
+
+1. `(eval e) in gamma (eval# e)`
+2. `alpha(eval e) = (eval# e)`
+
+**Proof** Exercise (same as before, but generalized)
+
+## Key Idea: $\alpha$ induces Connection Theorem
+
+Given `alpha :: Value -> Value#`
+
+we get for free a **connection theorem**
+
+![Connection Theorem](../static/absint-alpha-gamma.png "Connection")
+
+## Our First Abstract Interpretation
+
+### Given: Language `AExp` and Concrete Semantics
+
+~~~~~{.haskell}
+data AExp  
+data Value
+
+op    :: Value -> Value -> Value
+eval  :: AExp  -> Value
+~~~~~
+
+### Given: Abstraction
+
+~~~~~{.haskell}
+data Value#
+alpha :: Value -> Value# 
+~~~~~
+
+## Our First Abstract Interpretation
+
+### Obtain for free: Abstract Semantics
+
+~~~~~{.haskell}
+op#   :: Value# -> Value# -> Value#
+eval# :: AExp -> Value# 
+~~~~~
+
+### Obtain for free: Connection 
+
+**Theorem:** Abstract Semantics **approximates** Concrete Semantics
+
+## Our Second Abstract Interpretation
+
+Let us extend `AExp` with new operators
+
+- **Negation**
+
+- Addition
+
+- Division
+
+## `AExp` with Unary Negation
+
+### Extended Syntax
+
+~~~~~{.haskell}
+data AExp = ... | Neg AExp
+~~~~~
+
+### Extended Concrete Semantics
+
+~~~~~{.haskell}
+eval (Neg e) = neg (eval e)
+~~~~~
+
+## `AExp` with Unary Negation
+
+### Derive Abstract Operator
+
+~~~~~{.haskell}
+neg# :: Value# -> Value#
+neg# = alpha . neg . gamma
+~~~~~
+
+Which is equivalent to (if you do the math)
+
+~~~~~{.haskell}
+neg# Pos  = Neg
+neg# Zero = Zero
+neg# Neg  = Pos
+~~~~~
+
+**Theorem** holds as before!
+
+## Our Third Abstract Interpretation
+
+Let us extend `AExp` with new operators
+
+- Negation
+
+- **Addition**
+
+- Division
+
+## `AExp` with Addition
+
+### Extended Syntax
+
+~~~~~{.haskell}
+data AExp = ... | Add AExp AExp
+~~~~~
+
+### Extended Concrete Semantics
+
+~~~~~{.haskell}
+eval (Add e1 e2) = plus (eval e1) (eval e2)
+~~~~~
+
+## `AExp` with Addition 
+
+### Derive Abstract Operator
+
+~~~~~{.haskell}
+plus#         :: Value# -> Value# -> Value#
+plus# v1# v2# = alpha (plus (gamma v1#) (gamma v2#))
+~~~~~
+
+That is,
+
+~~~~~{.haskell}
+plus# Zero v# = v#
+plus# Pos Pos = Pos
+plus# Neg Neg = Neg
+~~~~~
+
+but ...
+
+~~~~~{.haskell}
+plus# Pos Neg = ???
+plus# Neg Pos = ??? 
+~~~~~
+
+
+## Problem: Require Better Abstract Values
+
+Need new value to represent **union of** *positive* and *negative* 
+
+- `T` (read: **Top**), denotes **any** integer
+
+Now, we can define
+
+~~~~~{.haskell}
+plus# Zero v# = v#
+plus# Top  v# = Top
+plus# Pos Pos = Pos
+plus# Neg Neg = Neg
+plus# Pos Neg = Top 
+plus# Neg Pos = Top 
+~~~~~
+
+## Semantics is now Over-Approximate
+
+Notice that now,
+
+~~~~~{.haskell}
+eval  (N 1 `Add` N 2 `Add` (Neg 3)) == 0
+eval# (N 1 `Add` N 2 `Add` (Neg 3)) == T
+~~~~~
+
+That is, we have **lost all information** about the sign!
+
+- This is **good**
+
+- Exact semantics **not computable** for real PL!
+
+
+## Our Fourth Abstract Interpretation
+
+Let us extend `AExp` with new operators
+
+- Negation
+
+- Addition
+
+- **Division**
+
+## `AExp` with Division 
+
+### Extended Syntax
+
+~~~~~{.haskell}
+data AExp = ... | Div AExp AExp
+~~~~~
+
+### Extended Concrete Semantics
+
+~~~~~{.haskell}
+eval (Add e1 e2) = div (eval e1) (eval e2)
+~~~~~
+
+## `AExp` with Division: Abstract Semantics
+
+How to define
+
+~~~~~{.haskell}
+div# v# Zero = ?
+~~~~~
+
+Need new value to represent **empty set** of integers
+
+- `_|_` (read: **Bottom**), denotes **no** integer
+
+- Abstract operator on `_|_` returns `_|_`
+
+- Wait, this is getting rather *ad-hoc* ... 
+
+- Need more **structure** on `Value#`
+
+## Abstract Values Form Complete Partial Order
+
+![`Value#` Forms Complete Partial Order](../static/absint-cpo.png "CPO")
+
+## Abstract Values Form Complete Partial Order
+
+~~~~~{.haskell}
+-- Partial Order
+(<=) :: Value# -> Value# -> Bool
+
+-- Greatest Lower Bound
+glb :: Value# -> Value# -> Value#
+
+-- Least Upper Bound
+lub :: Value# -> Value# -> Value#
+~~~~~
+
+`leq v1# v2#` means `v1#` corresponds to **fewer** concrete values than `v2#`
+
+Examples
+
+- `leq _|_ Zero` 
+
+- `leq Pos Top` 
+
+## Abstract Values: Least Upper Bound
+
+~~~~~{.haskell}
+forall v1# v2#.  v1# <= lub v1# v2#
+forall v1# v2#.  v2# <= lub v1# v2#
+forall v      .  if v1# <= v && v2# <= v then lub v1# v2# <= v
+~~~~~
+
+Examples
+
+- `(lub _|_ Zero) == Zero`
+
+- `(lub Neg Pos) == Top`
+
+
+~~~~~
+
+## Abstract Values: Greatest Lower Bound
+
+~~~~~{.haskell}
+forall v1# v2#.  glb v1# v2# <= v1#
+forall v1# v2#.  glb v1# v2# <= v2#
+forall v      .  if v <= v1# && v <= v2# then v <= glb v1# v2# 
+~~~~~
+
+Examples
+
+- `(glb Pos Zero) == _|_`
+
+- `(lub Top Pos)  == Pos`
+
+## Key Idea: $\alpha$ and CPO induces Concretization $\gamma$
+
+Given
+
+- $\alpha$      `:: Value -> Value#` 
+- $\sqsubseteq$ `:: Value# -> Value# -> Bool`
+
+We get for free a **concretization function**
+
+- $\gamma$      `:: Value# -> [Value]` 
+
+~~~~~{.haskell}
+gamma    :: Value# -> [Value]
+gamma v# =  [ v | (alpha v) <= v# ] 
+~~~~~
+
+**Theorem** `v1#` $\sqsubseteq$ `v2#` iff `(gamma v1#)` $\subseteq$ `(gamma v2#)`
+
+That is,
+
+- `v1#` $\sqsubseteq$ `v2#` means `v1#` represents **fewer** `Value` than `v2#`
+
+## Key Idea: $\alpha$ and CPO induces $\alpha$ over `[Value]`
+
+We can now lift $\alpha$ to work on **sets** of values
+
+~~~~~{.haskell}
+alpha    :: [Value] -> Value# 
+alpha vs = lub [alpha v | v <- vs]
+~~~~~
+
+For example
+
+~~~~~{.haskell}
+alpha [3, 4]  == Pos
+alpha [-3, 4] == Top
+alpha [0]     == Zero
+~~~~~
+
+## Key Idea: $\alpha$ + CPO induces Abstract Operator 
+
+Given
+
+- $\alpha$      `:: Value -> Value#` 
+- $\sqsubseteq$ `:: Value# -> Value# -> Bool`
+
+
+We get for free a **abstract operator**
+
+~~~~~{.haskell}
+op# x# y# = alpha [op x y | x <- gamma x#, y <- gamma y#]
+~~~~~
+
+i.e., `lub` of results of point-wise concrete operator (*no cheating*!)
+
+For example
+
+~~~~~{.haskell}
+plus# Pos Neg 
+  == alpha [x + y | x <- gamma Pos, y <- gamma Neg]
+  == alpha [x + y | x <- [1,2..]  , y <- [-1,-2..]]
+  == alpha [0,1,-1,2,-2..]
+  == Top
+~~~~~
+
+## Key Idea: $\alpha$ + CPO induces Abstract Operator 
+
+Given `alpha :: Value -> Value#`
+
+we get for free a **abstract operator**
+
+![Abstract Operator](../static/absint-op.png "Op#")
+
+## Key Idea: $\alpha$ + CPO induces Evaluator 
+
+As before, we get for free a **abstract evaluator**
+
+~~~~~{.haskell}
+eval#            :: AExp -> Value# 
+eval# (N n)      = (alpha n)  
+eval# (Op e1 e2) = op# (eval# e1) (eval# e2)
+~~~~~
+
+## Key Idea: $\alpha$ + CPO induces Evaluator 
+
+And, more importantly, the semantics connection 
+
+**Theorem** For all `e::AExp` we have
+
+1. `(eval e)` $\in$ `gamma (eval# e)`
+2. `alpha (eval e)` $\sqsubseteq$ `(eval# e)`
+
+### Over-Approximation
+
+In bare `AExp` we had **exact** abstract semantics 
+
+- `alpha (eval e)` $=$ `(eval# e)`
+
+Now, we have **over-approximate** abstract semantics
+
+- `alpha (eval e)` $\sqsubseteq$ `(eval# e)`
+
+That is, information is lost.
+
+## Next Time: Abstract Interpretation For IMP
+
+So far, abstracted values for `AExp`
+
+- Concrete `Value`  = `Int`
+- Abstract `Value#` = `Signs`
+
+Next time: apply these ideas to IMP
+
+- Concrete `Value`  = `State` at program points
+- Abstract `Value#` = ???
+
+Abstract Semantics yields **loop invariants**
