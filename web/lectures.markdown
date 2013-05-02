@@ -12,17 +12,17 @@ title: Lectures
   *4/11*     SMT Solvers                                        [pdf][lec3]
   *4/16*     Floyd-Hoare Logic                                  [pdf][lec4]
   *4/18*     Verification Conditions                            [pdf][lec4] 
-  *4/23*     Types: HM, Subtyping, Bidirectional Checking
-  *4/25*     Refinement Types
-  *4/30*     "" 
-   *5/2*     Horn Clauses & Abstract Interpretation 
-   *5/4*     Intervals, Octagons, Polyhedra
-   *5/7*     Predicate Abstraction, Liquid Types
-   *5/9*     Separation Logic
-  *5/14*     "" 
-  *5/16*     Nested Refinements 
-  *5/21*     Project Presentations
-  *5/23*     "" 
+  *4/23*     VC for Functions and Pointers                      [pdf][lec4] 
+  *4/25*     Abstract Interpretation                            [pdf][lec5]
+  *4/30*     Predicate Abstraction                              [pdf][lec6] 
+  *5/2*      Type Systems 
+  *5/4*      Refinement Types 
+   *5/7*     Liquid Types 
+   *5/9*     Abstract Refinements
+  *5/14*     Alias Types & Separation Logic
+  *5/16*     "" 
+  *5/21*     
+  *5/23*     Project Presentations 
   *5/28*     ""
   *5/30*     ""
    *6/4*     ""
@@ -35,3 +35,5 @@ title: Lectures
 [lec2]: slides/lec-sat.markdown.pdf
 [lec3]: slides/lec-smt.markdown.pdf
 [lec4]: static/lec-floyd-hoare.pdf
+[lec5]: slides/lec-absint.markdown.pdf
+[lec6]: slides/lec-predabs.markdown.pdf

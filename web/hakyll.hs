@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Control.Arrow ((>>>))
+import Control.Monad
 
 import Hakyll
 
@@ -24,7 +25,7 @@ main = hakyll $ do
     match "templates/*" $ compile templateCompiler
     match "lectures/*"  $ myMakeHTML
     match "homeworks/*" $ myMakeHTML
-    match (list tops)   $ myMakeHTML
+    match "*.markdown"  $ myMakeHTML
 
 tops = [ "index.markdown"
        , "grades.markdown"
@@ -34,7 +35,7 @@ tops = [ "index.markdown"
 
 myMakeHTML 
   = do route   $ setExtension "html"
-       route   $ setExtension "lhs"
-       compile $ pageCompiler
-         >>> applyTemplateCompiler "templates/default.html"
-         >>> relativizeUrlsCompiler
+       -- route   $ setExtension "lhs"
+       compile $ pandocCompiler
+                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
+                 >>= relativizeUrls

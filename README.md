@@ -94,7 +94,6 @@ List of Topics
 - Types, Polymorphism, Subtyping
 - Refinement Types
 - Abstract Interpretation
-
 - Horn Clauses/Fixpoint
 - Liquid Types
 - Heap & State
@@ -105,6 +104,8 @@ List of Topics
 
 List of Papers
 --------------
+
+- Separation Logic [Peter O'Hearn, CAV 2008](http://www.eecs.qmul.ac.uk/~ohearn/Talks/CAV08tutorial.pdf)
 
 - Termination (papers from Rybalchenko, et al) [here](http://research.microsoft.com/en-us/people/bycook/)
 
