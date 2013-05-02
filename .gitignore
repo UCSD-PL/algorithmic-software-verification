@@ -1,2 +1,7 @@
+*.log
+*.pyc
 *.swp
 *.swo
+*.vc
+/assignments/*/tests/logs
+/assignments/*/dist*
