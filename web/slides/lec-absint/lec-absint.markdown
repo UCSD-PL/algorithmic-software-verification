@@ -149,7 +149,7 @@ of logic, set thoery and Constraint Programming:
   Logic                Sets           CPO     
 ---------------    ------------   --------------
 $\wedge$           $\cap$         $\sqcap$          
-$\vee$             $\sqcup$       $\sqcup$          
+$\vee$             $\cup$         $\sqcup$          
 $\rightarrow$      $\subseteq$    $\sqsubseteq$      
 
 - A final extension that needs to be done before expressing the constraint in
