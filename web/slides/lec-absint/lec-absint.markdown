@@ -63,7 +63,7 @@ $K_l \supseteq K_i \wedge K_l\supseteq K_j$
 ## Example:
 
 ~~~~~{.javascript}
-var x = nonNeg();
+var x = nonNeg(); // assume x >= 0
 var y = 1;
 while(x > 0) {
   y = y * x;
@@ -73,6 +73,11 @@ while(x > 0) {
 
 ![](figs/example.svg)
 
+In the above table:
+
+- The vertical axis refers to the labels present in the program.
+- The horizontal axis refers to loop iterations.
+- Results for every label are sqashed into the same iteration cycle.
 
 ### Concrete Semantics
 
@@ -86,42 +91,48 @@ The states at every point in the flow chart above satisfy the following constrai
 * $k_{.5} \supseteq K_{.3}[\text{x}_0/\text{x}] \wedge \text{x} = \text{x}_0 - 1$
 * $k_{.6} \supseteq K_{.2} \cap \{\text{x} \leq 0\}$
 
-The *collecting semantics* is the smallest set of $K_i$'s such that the above
-constrainst are satisfied. $K_i$'s belong to the range of a function $K:: Labels
-\mapsto 2^{\Sigma}$, so the above constraints can be summarized in the
-following: $K \supseteq F(K)$, where $F$ is a function from the current states
-to the next ones. Our goal is to compute the smallest map $K$, for which this
-constraint holds. We note that inclusion between two maps $K \subseteq K'$ means 
-that $\forall l\ K.l \subseteq K'.l$.
+### Collecting semantics
+- The smallest set of $K_i$'s such that the above constraints are satisfied. 
 
-A simple algorithm to compute this is the following:
+- $K_i$'s belong to the range of a function $K:: Labels \mapsto 2^{\Sigma}$
 
-~~~~~{.c}
+- So the above constraints can be summarized as: $K \supseteq F(K)$, 
+  where $F$ is a function from the current states to the next ones. 
+  
+- Our goal is to compute the smallest map $K$ for which this constraint holds. 
+
+- Note that inclusion between two maps $K \subseteq K'$ means that 
+  $\forall l\ K.l \subseteq K'.l$.
+
+### Simple fixpoint algorithm
+
+~~~~~
 K = \l -> {}
-do {
-  K_old = K;
-  K = F(K_old);
-} until (K == K_old)
+repeat
+  K_old = K
+  K = F(K_old)
+until (K == K_old)
 ~~~~~
 
-What this algorithm implies is that we can define a $K_l^i$, which is the set of
-states reached at a point with label $l$ after a at most $i$ execution steps. 
-The set we are looking for is $K^l = \bigcup_{i\in \mathbb{N}}  K_l^i$, which 
-includes all the possible steps after any number of executions.
+- We can define a $K_l^i$: set of states reached at a point with label $l$
+  after a at most $i$ execution steps.
+  
+- $K^l = \bigcup_{i\in \mathbb{N}}  K_l^i$ includes all the possible steps 
+  after any number of executions.
 
-In terms of the algorithmic procedure we describe4d above this corresponds to the 
-fixed-point: $K^* = F(K^*)$. 
+- In terms of our algorithm this corresponds to the fixed-point: $K^* = F(K^*)$. 
 
-$K^*$ is the collecting semantics for this program.
+- $K^*$ is the collecting semantics for this program.
 
 Returning to the example above, the following table describes for every label 
-$l$ and iteration step $i$, the set of values that the variables of the program 
+$l$ and loop iteration $i$, the set of values that the variables of the program 
 can take.
 
 ![](lec-absint-table-conc.png)
 
-So, unlike examples we have seen earlier, like *eval*, this procedure never 
-converges, so it is not as useful as we would like. 
+- Examples we have seen earlier, like *eval*, always terminated.
+
+- This procedure, however, never converges, so it is not as useful as we would like. 
 
 
 ### Abstract Semantics
@@ -143,8 +154,8 @@ $State^{\#} : Var \mapsto Value^{\#}$
 
 **How do we transform the constraints into abstract ones?**
 
-- The table below shows the corresponde between the main operators in the fields
-of logic, set thoery and Constraint Programming:
+- Below lies the correspondence between the main operators in the 
+fields of logic, set theory and constraint programming (CPO):
 
   Logic                Sets           CPO
 ---------------    ------------   --------------
@@ -152,12 +163,14 @@ $\wedge$           $\cap$         $\sqcap$
 $\vee$             $\cup$         $\sqcup$          
 $\rightarrow$      $\subseteq$    $\sqsubseteq$      
 
-- A final extension that needs to be done before expressing the constraint in
-the abstract domain is defining the $\sqcup$ and $\sqcap$ for sets of abstract
-values. This is done in a straight-forward manner:\
+- Also, need to define $\sqcup$ and $\sqcap$ for sets of abstract values. 
+
+- This is done in a straight-forward manner:
+
 $K_1 \sqcup K_2 = \lambda l \mapsto K_1.l \sqcup K_2.l$\
 $K_1 \sqcap K_2 = \lambda l \mapsto K_1.l \sqcap K_2.l$
 
+### Abstract constraints for the above example:
 
 * $K_{.0} \sqsupseteq (+, \top)$
 * $k_{.1} \sqsupseteq K_{.0}[\text{y}_0/\text{y}] \sqcap (+,\top)$
@@ -172,19 +185,24 @@ We can now execute the same algorithm as above but using the abstract values.
 
 ![](lec-absint-table-abs.png)
 
-The result that we'll get will be $K^{\#} = (\top, +)$, instead of the more
-precise $K^* = [(0,1),(0,1),(0,2),\dots]$. However, we sitll get a sound
-solution since: $\alpha(K^*) \sqsubseteq K^{\#}$, or $K^* \subseteq
-\gamma(K^{\#})$.
+- As result we get $K^{\#} = (\top, +)$.
+
+- Instead of the more precise $K^* = [(0,1),(0,1),(0,2),\dots]$. 
+
+- However, we still get a sound solution since: 
+  $\alpha(K^*) \sqsubseteq K^{\#}$, or $K^* \subseteq \gamma(K^{\#})$.
 
 
 ## Q & A
 
 **Do we know it will terminate?**
+
 Yes, because:
+
 - we are moving within a finite height lattice,
 - we are using monotone functions.
 
 **Doesn't the meet operator take you lower in the lattice?**
-- Yes, but the containment restriction ($\sqsupseteq), does not let us.
+
+- Yes, but the containment restriction ($\sqsupseteq$), does not let us.
 - The left hand side is bound to be as big as the right hand side.
