@@ -118,7 +118,7 @@ Returning to the example above, the following table describes for every label
 $l$ and iteration step $i$, the set of values that the variables of the program 
 can take.
 
-![](lec-absint-table.svg)
+![](lec-absint-table-conc.png)
 
 So, unlike examples we have seen earlier, like *eval*, this procedure never 
 converges, so it is not as useful as we would like. 
@@ -146,7 +146,7 @@ $State^{\#} : Var \mapsto Value^{\#}$
 - The table below shows the corresponde between the main operators in the fields
 of logic, set thoery and Constraint Programming:
 
-  Logic                Sets           CPO     
+  Logic                Sets           CPO
 ---------------    ------------   --------------
 $\wedge$           $\cap$         $\sqcap$          
 $\vee$             $\cup$         $\sqcup$          
@@ -170,7 +170,7 @@ $K_1 \sqcap K_2 = \lambda l \mapsto K_1.l \sqcap K_2.l$
 We can now execute the same algorithm as above but using the abstract values.
 
 
-## TODO -- abs. table
+![](lec-absint-table-abs.png)
 
 The result that we'll get will be $K^{\#} = (\top, +)$, instead of the more
 precise $K^* = [(0,1),(0,1),(0,2),\dots]$. However, we sitll get a sound

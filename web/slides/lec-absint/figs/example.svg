@@ -1,407 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created by diasvg.py -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="332.64999"
-   height="508.53"
-   viewBox="2.508 -1.114 11.499815 13.423177"
-   id="svg3143"
-   version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="example.svg">
-  <metadata
-     id="metadata3261">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs3259" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1391"
-     inkscape:window-height="876"
-     id="namedview3257"
-     showgrid="false"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:zoom="1.1540686"
-     inkscape:cx="197.53937"
-     inkscape:cy="261.62986"
-     inkscape:window-x="49"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg3143" />
-  <rect
-     x="3.707731"
-     y="8.1341524"
-     width="4.059"
-     height="1.194"
-     id="rect3145"
-     style="fill:#ffffff;stroke:none" />
-  <rect
-     x="3.707731"
-     y="8.1341524"
-     width="4.059"
-     height="1.194"
-     id="rect3147"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <text
-     x="5.737731"
-     y="8.9191561"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3149"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">y = y * x</text>
-  <line
-     x1="5.737731"
-     y1="9.3281565"
-     x2="5.7347307"
-     y2="10.676157"
-     id="line3151"
-     style="stroke:#000000;stroke-width:0.077" />
-  <polygon
-     points="5.555,12.655 5.805,12.53 5.554,13.03 5.305,12.529 "
-     id="polygon3153"
-     style="fill:#000000;stroke:none"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="5.555,12.655 5.805,12.53 5.554,13.03 5.305,12.529 "
-     id="polygon3155"
-     style="fill:none;stroke:#000000;stroke-width:0.077"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="9.073,9.617 6.961,7.583 9.073,5.549 11.185,7.583 "
-     id="polygon3157"
-     style="fill:#ffffff;stroke:none"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="9.073,9.617 6.961,7.583 9.073,5.549 11.185,7.583 "
-     id="polygon3159"
-     style="fill:none;stroke:#000000;stroke-width:0.077"
-     transform="translate(0.17973099,-1.9788465)" />
-  <text
-     x="9.2527313"
-     y="5.7701511"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3161"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">x &gt; 0</text>
-  <polyline
-     points="6.961,7.583 6.961,7.603 5.558,7.603 5.558,9.652 "
-     id="polyline3163"
-     style="fill:none;stroke:#000000;stroke-width:0.077"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="5.558,9.652 5.808,9.527 5.558,10.027 5.308,9.527 "
-     id="polygon3165"
-     style="fill:#000000;stroke:none"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="5.558,9.652 5.808,9.527 5.558,10.027 5.308,9.527 "
-     id="polygon3167"
-     style="fill:none;stroke:#000000;stroke-width:0.077"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polyline
-     points="11.185,7.583 11.185,7.579 12.771,7.579 12.771,9.569 "
-     id="polyline3169"
-     style="fill:none;stroke:#000000;stroke-width:0.077"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="12.771,9.569 13.021,9.444 12.771,9.944 12.521,9.444 "
-     id="polygon3171"
-     style="fill:#000000;stroke:none"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="12.771,9.569 13.021,9.444 12.771,9.944 12.521,9.444 "
-     id="polygon3173"
-     style="fill:none;stroke:#000000;stroke-width:0.077"
-     transform="translate(0.17973099,-1.9788465)" />
-  <text
-     x="5.8377309"
-     y="5.3341513"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="400"
-     id="text3175"
-     style="font-size:0.68000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#0000ff;font-family:sans">True</text>
-  <text
-     x="11.439732"
-     y="5.2101512"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="400"
-     id="text3177"
-     style="font-size:0.68000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#0000ff;font-family:sans">False</text>
-  <line
-     x1="9.2527313"
-     y1="2.1831532"
-     x2="9.2527313"
-     y2="3.1091537"
-     id="line3179"
-     style="stroke:#000000;stroke-width:0.077" />
-  <polygon
-     points="9.073,5.088 9.323,4.963 9.073,5.463 8.823,4.963 "
-     id="polygon3181"
-     style="fill:#000000;stroke:none"
-     transform="translate(0.17973099,-1.9788465)" />
-  <polygon
-     points="9.073,5.088 9.323,4.963 9.073,5.463 8.823,4.963 "
-     id="polygon3183"
-     style="fill:none;stroke:#000000;stroke-width:0.077"
-     transform="translate(0.17973099,-1.9788465)" />
-  <rect
-     x="3.6597309"
-     y="11.137156"
-     width="4.1490002"
-     height="1.194"
-     id="rect3185"
-     style="fill:#ffffff;stroke:none" />
-  <rect
-     x="3.6597309"
-     y="11.137156"
-     width="4.1490002"
-     height="1.194"
-     id="rect3187"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <text
-     x="5.7337308"
-     y="11.921156"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3189"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">x = x - 1</text>
-  <polyline
-     points="5.492,14.363 5.538,14.363 5.538,15.199 2.568,15.199 2.568,3.514 9.105,3.514 "
-     id="polyline3191"
-     style="fill:none;stroke:#000000;stroke-width:0.12"
-     transform="translate(0.17973099,-1.9788465)" />
-  <line
-     x1="9.2697315"
-     y1="-0.1098472"
-     x2="9.2487316"
-     y2="2.2771533"
-     id="line3193"
-     style="stroke:#000000;stroke-width:0.077" />
-  <path
-     d="m 9.248731,2.2771535 c -0.05,-10e-4 -0.099,-0.051 -0.099,-0.101 0.001,-0.05 0.051,-0.1 0.101,-0.099 0.05,0 0.1,0.05 0.099,0.1 0,0.05 -0.051,0.1 -0.101,0.1"
-     id="path3195"
-     inkscape:connector-curvature="0"
-     style="fill:#000000;stroke:none" />
-  <path
-     d="m 9.248731,2.2771535 c -0.05,-10e-4 -0.099,-0.051 -0.099,-0.101 0.001,-0.05 0.051,-0.1 0.101,-0.099 0.05,0 0.1,0.05 0.099,0.1 0,0.05 -0.051,0.1 -0.101,0.1"
-     id="path3197"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <line
-     x1="9.2697315"
-     y1="-0.1098472"
-     x2="9.2507315"
-     y2="0.92115271"
-     id="line3199"
-     style="stroke:#000000;stroke-width:0.077" />
-  <path
-     d="m 9.250731,0.92115283 c -0.05,-0.001 -0.099,-0.052 -0.098,-0.102 0.001,-0.05 0.052,-0.099 0.102,-0.098 0.05,0.001 0.099,0.052 0.098,0.102 -0.001,0.05 -0.052,0.099 -0.102,0.098"
-     id="path3201"
-     inkscape:connector-curvature="0"
-     style="fill:#000000;stroke:none" />
-  <path
-     d="m 9.250731,0.92115283 c -0.05,-0.001 -0.099,-0.052 -0.098,-0.102 0.001,-0.05 0.052,-0.099 0.102,-0.098 0.05,0.001 0.099,0.052 0.098,0.102 -0.001,0.05 -0.052,0.099 -0.102,0.098"
-     id="path3203"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <line
-     x1="5.7397308"
-     y1="5.687151"
-     x2="5.7347307"
-     y2="6.7271514"
-     id="line3205"
-     style="stroke:#000000;stroke-width:0.077" />
-  <path
-     d="m 5.734731,6.7271535 c -0.05,0 -0.1,-0.05 -0.099,-0.1 0,-0.05 0.05,-0.1 0.1,-0.1 0.05,0.001 0.1,0.051 0.1,0.101 -0.001,0.05 -0.051,0.1 -0.101,0.099"
-     id="path3207"
-     inkscape:connector-curvature="0"
-     style="fill:#000000;stroke:none" />
-  <path
-     d="m 5.734731,6.7271535 c -0.05,0 -0.1,-0.05 -0.099,-0.1 0,-0.05 0.05,-0.1 0.1,-0.1 0.05,0.001 0.1,0.051 0.1,0.101 -0.001,0.05 -0.051,0.1 -0.101,0.099"
-     id="path3209"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <line
-     x1="5.7397308"
-     y1="9.4891567"
-     x2="5.7397308"
-     y2="10.083157"
-     id="line3211"
-     style="stroke:#000000;stroke-width:0.077" />
-  <path
-     d="m 5.739731,10.083153 c -0.05,0 -0.1,-0.05 -0.1,-0.1 0,-0.05 0.05,-0.1 0.1,-0.1 0.05,0 0.1,0.05 0.1,0.1 0,0.05 -0.05,0.1 -0.1,0.1"
-     id="path3213"
-     inkscape:connector-curvature="0"
-     style="fill:#000000;stroke:none" />
-  <path
-     d="m 5.739731,10.083153 c -0.05,0 -0.1,-0.05 -0.1,-0.1 0,-0.05 0.05,-0.1 0.1,-0.1 0.05,0 0.1,0.05 0.1,0.1 0,0.05 -0.05,0.1 -0.1,0.1"
-     id="path3215"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <line
-     x1="4.9437308"
-     y1="13.208158"
-     x2="4.0937309"
-     y2="13.203156"
-     id="line3217"
-     style="stroke:#000000;stroke-width:0.077" />
-  <path
-     d="m 4.093731,13.203148 c 0.001,-0.05 0.051,-0.1 0.101,-0.1 0.05,0 0.1,0.051 0.099,0.101 0,0.05 -0.05,0.099 -0.1,0.099 -0.05,0 -0.1,-0.05 -0.1,-0.1"
-     id="path3219"
-     inkscape:connector-curvature="0"
-     style="fill:#000000;stroke:none" />
-  <path
-     d="m 4.093731,13.203148 c 0.001,-0.05 0.051,-0.1 0.101,-0.1 0.05,0 0.1,0.051 0.099,0.101 0,0.05 -0.05,0.099 -0.1,0.099 -0.05,0 -0.1,-0.05 -0.1,-0.1"
-     id="path3221"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <rect
-     x="7.2717309"
-     y="-1.3028476"
-     width="3.9949999"
-     height="1.194"
-     id="rect3223"
-     style="fill:#ffffff;stroke:none" />
-  <rect
-     x="7.2717309"
-     y="-1.3028476"
-     width="3.9949999"
-     height="1.194"
-     id="rect3225"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <text
-     x="9.2697315"
-     y="-0.51884735"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3227"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">y = y * x</text>
-  <line
-     x1="9.2587318"
-     y1="-3.054846"
-     x2="9.256731"
-     y2="-2.0238461"
-     id="line3229"
-     style="stroke:#000000;stroke-width:0.077" />
-  <path
-     d="m 9.256731,-2.0238465 c -0.05,0 -0.1,-0.051 -0.1,-0.101 0,-0.05 0.05,-0.099 0.1,-0.099 0.05,0 0.1,0.05 0.1,0.1 0,0.05 -0.05,0.1 -0.1,0.1"
-     id="path3231"
-     inkscape:connector-curvature="0"
-     style="fill:#000000;stroke:none" />
-  <path
-     d="m 9.256731,-2.0238465 c -0.05,0 -0.1,-0.051 -0.1,-0.101 0,-0.05 0.05,-0.099 0.1,-0.099 0.05,0 0.1,0.05 0.1,0.1 0,0.05 -0.05,0.1 -0.1,0.1"
-     id="path3233"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <line
-     x1="9.2587318"
-     y1="-2.3398461"
-     x2="9.2697315"
-     y2="-1.3028476"
-     id="line3235"
-     style="stroke:#000000;stroke-width:0.077" />
-  <line
-     x1="12.952731"
-     y1="5.9341512"
-     x2="12.952731"
-     y2="6.6361508"
-     id="line3237"
-     style="stroke:#000000;stroke-width:0.077" />
-  <path
-     d="m 12.952731,6.6361535 c -0.05,0 -0.1,-0.05 -0.1,-0.1 0,-0.05 0.05,-0.1 0.1,-0.1 0.05,0 0.1,0.05 0.1,0.1 0,0.05 -0.05,0.1 -0.1,0.1"
-     id="path3239"
-     inkscape:connector-curvature="0"
-     style="fill:#000000;stroke:none" />
-  <path
-     d="m 12.952731,6.6361535 c -0.05,0 -0.1,-0.05 -0.1,-0.1 0,-0.05 0.05,-0.1 0.1,-0.1 0.05,0 0.1,0.05 0.1,0.1 0,0.05 -0.05,0.1 -0.1,0.1"
-     id="path3241"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.077" />
-  <text
-     x="5.1827307"
-     y="6.7601514"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3243"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">3</text>
-  <text
-     x="13.673732"
-     y="6.7151513"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3245"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">6</text>
-  <text
-     x="9.8207312"
-     y="-1.9628462"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3247"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">0</text>
-  <text
-     x="9.7847309"
-     y="1.0341524"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3249"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">1</text>
-  <text
-     x="9.8027315"
-     y="2.3541536"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3251"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">2</text>
-  <text
-     x="4.290731"
-     y="13.993157"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3253"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">5</text>
-  <text
-     x="5.0037308"
-     y="10.126156"
-     font-size="0.68"
-     font-style="normal"
-     font-weight="700"
-     id="text3255"
-     style="font-size:0.68000001px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace">4</text>
+<svg width="11.150cm" height="17.216cm" viewBox="2.508 -1.114 13.658 16.102"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="3.528" y="10.113" width="4.059" height="1.194" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="3.528" y="10.113" width="4.059" height="1.194" fill="none" stroke="#000000" stroke-width="0.077" />
+<text x="5.558" y="10.898"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+y = y * x</text>
+<line x1="5.558" y1="11.307" x2="5.555" y2="12.655" stroke="#000000" stroke-width="0.077" />
+<polygon fill="#000000" stroke="none" stroke-width="0.077" points="5.554,13.030 5.305,12.529 5.555,12.655 5.805,12.530 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.077"  points="5.554,13.030 5.305,12.529 5.555,12.655 5.805,12.530 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.077" points="9.073,5.549 11.185,7.583 9.073,9.617 6.961,7.583 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.077"  points="9.073,5.549 11.185,7.583 9.073,9.617 6.961,7.583 "/>
+<text x="9.073" y="7.749"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+x &gt; 0</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.077"  points="6.961,7.583 6.961,7.603 5.558,7.603 5.558,9.652 "/>
+<polygon fill="#000000" stroke="none" stroke-width="0.077" points="5.558,10.027 5.308,9.527 5.558,9.652 5.808,9.527 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.077"  points="5.558,10.027 5.308,9.527 5.558,9.652 5.808,9.527 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.077"  points="11.185,7.583 11.185,7.579 12.771,7.579 12.771,9.569 "/>
+<polygon fill="#000000" stroke="none" stroke-width="0.077" points="12.771,9.944 12.521,9.444 12.771,9.569 13.021,9.444 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.077"  points="12.771,9.944 12.521,9.444 12.771,9.569 13.021,9.444 "/>
+<text x="5.658" y="7.313"  fill="#0000FF" text-anchor="start" font-size="0.68" font-family="sans" font-style="normal" font-weight="400">
+True</text>
+<text x="11.260" y="7.189"  fill="#0000FF" text-anchor="start" font-size="0.68" font-family="sans" font-style="normal" font-weight="400">
+False</text>
+<line x1="9.073" y1="4.162" x2="9.073" y2="5.088" stroke="#000000" stroke-width="0.077" />
+<polygon fill="#000000" stroke="none" stroke-width="0.077" points="9.073,5.463 8.823,4.963 9.073,5.088 9.323,4.963 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.077"  points="9.073,5.463 8.823,4.963 9.073,5.088 9.323,4.963 "/>
+<rect x="3.480" y="13.116" width="4.149" height="1.194" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="3.480" y="13.116" width="4.149" height="1.194" fill="none" stroke="#000000" stroke-width="0.077" />
+<text x="5.554" y="13.900"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+x = x - 1</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.120"  points="5.492,14.363 5.538,14.363 5.538,15.199 2.568,15.199 2.568,3.514 8.596,3.514 "/>
+<polygon fill="#000000" stroke="none" stroke-width="0.120" points="8.971,3.514 8.471,3.764 8.596,3.514 8.471,3.264 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.120"  points="8.971,3.514 8.471,3.764 8.596,3.514 8.471,3.264 "/>
+<line x1="9.090" y1="1.869" x2="9.069" y2="4.256" stroke="#000000" stroke-width="0.077" />
+<path stroke="none" fill="#000000" stroke-width="0.077" d="M 9.069,4.256 C 9.019,4.255 8.970,4.205 8.970,4.155 C 8.971,4.105 9.021,4.055 9.071,4.056 C 9.121,4.056 9.171,4.106 9.170,4.156 C 9.170,4.206 9.119,4.256 9.069,4.256 "/>
+<path stroke="#000000" fill="none" stroke-width="0.077"  d="M 9.069,4.256 C 9.019,4.255 8.970,4.205 8.970,4.155 C 8.971,4.105 9.021,4.055 9.071,4.056 C 9.121,4.056 9.171,4.106 9.170,4.156 C 9.170,4.206 9.119,4.256 9.069,4.256 "/>
+<line x1="9.090" y1="1.869" x2="9.071" y2="2.900" stroke="#000000" stroke-width="0.077" />
+<path stroke="none" fill="#000000" stroke-width="0.077" d="M 9.071,2.900 C 9.021,2.899 8.972,2.848 8.973,2.798 C 8.974,2.748 9.025,2.699 9.075,2.700 C 9.125,2.701 9.174,2.752 9.173,2.802 C 9.172,2.852 9.121,2.901 9.071,2.900 "/>
+<path stroke="#000000" fill="none" stroke-width="0.077"  d="M 9.071,2.900 C 9.021,2.899 8.972,2.848 8.973,2.798 C 8.974,2.748 9.025,2.699 9.075,2.700 C 9.125,2.701 9.174,2.752 9.173,2.802 C 9.172,2.852 9.121,2.901 9.071,2.900 "/>
+<line x1="5.560" y1="7.666" x2="5.555" y2="8.706" stroke="#000000" stroke-width="0.077" />
+<path stroke="none" fill="#000000" stroke-width="0.077" d="M 5.555,8.706 C 5.505,8.706 5.455,8.656 5.456,8.606 C 5.456,8.556 5.506,8.506 5.556,8.506 C 5.606,8.507 5.656,8.557 5.656,8.607 C 5.655,8.657 5.605,8.707 5.555,8.706 "/>
+<path stroke="#000000" fill="none" stroke-width="0.077"  d="M 5.555,8.706 C 5.505,8.706 5.455,8.656 5.456,8.606 C 5.456,8.556 5.506,8.506 5.556,8.506 C 5.606,8.507 5.656,8.557 5.656,8.607 C 5.655,8.657 5.605,8.707 5.555,8.706 "/>
+<line x1="5.560" y1="11.468" x2="5.560" y2="12.062" stroke="#000000" stroke-width="0.077" />
+<path stroke="none" fill="#000000" stroke-width="0.077" d="M 5.560,12.062 C 5.510,12.062 5.460,12.012 5.460,11.962 C 5.460,11.912 5.510,11.862 5.560,11.862 C 5.610,11.862 5.660,11.912 5.660,11.962 C 5.660,12.012 5.610,12.062 5.560,12.062 "/>
+<path stroke="#000000" fill="none" stroke-width="0.077"  d="M 5.560,12.062 C 5.510,12.062 5.460,12.012 5.460,11.962 C 5.460,11.912 5.510,11.862 5.560,11.862 C 5.610,11.862 5.660,11.912 5.660,11.962 C 5.660,12.012 5.610,12.062 5.560,12.062 "/>
+<line x1="4.764" y1="15.187" x2="3.914" y2="15.181" stroke="#000000" stroke-width="0.077" />
+<path stroke="none" fill="#000000" stroke-width="0.077" d="M 3.914,15.181 C 3.915,15.132 3.965,15.082 4.015,15.082 C 4.065,15.082 4.115,15.133 4.114,15.183 C 4.114,15.233 4.064,15.282 4.014,15.282 C 3.964,15.282 3.914,15.231 3.914,15.181 "/>
+<path stroke="#000000" fill="none" stroke-width="0.077"  d="M 3.914,15.181 C 3.915,15.132 3.965,15.082 4.015,15.082 C 4.065,15.082 4.115,15.133 4.114,15.183 C 4.114,15.233 4.064,15.282 4.014,15.282 C 3.964,15.282 3.914,15.231 3.914,15.181 "/>
+<rect x="7.092" y="0.676" width="3.995" height="1.194" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="7.092" y="0.676" width="3.995" height="1.194" fill="none" stroke="#000000" stroke-width="0.077" />
+<text x="9.090" y="1.460"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+y = 1</text>
+<line x1="9.079" y1="-1.076" x2="9.077" y2="-0.045" stroke="#000000" stroke-width="0.077" />
+<path stroke="none" fill="#000000" stroke-width="0.077" d="M 9.077,-0.045 C 9.027,-0.045 8.977,-0.096 8.977,-0.146 C 8.977,-0.196 9.027,-0.245 9.077,-0.245 C 9.127,-0.245 9.177,-0.195 9.177,-0.145 C 9.177,-0.095 9.127,-0.045 9.077,-0.045 "/>
+<path stroke="#000000" fill="none" stroke-width="0.077"  d="M 9.077,-0.045 C 9.027,-0.045 8.977,-0.096 8.977,-0.146 C 8.977,-0.196 9.027,-0.245 9.077,-0.245 C 9.127,-0.245 9.177,-0.195 9.177,-0.145 C 9.177,-0.095 9.127,-0.045 9.077,-0.045 "/>
+<line x1="9.079" y1="-0.361" x2="9.090" y2="0.676" stroke="#000000" stroke-width="0.077" />
+<line x1="12.773" y1="7.913" x2="12.773" y2="8.615" stroke="#000000" stroke-width="0.077" />
+<path stroke="none" fill="#000000" stroke-width="0.077" d="M 12.773,8.615 C 12.723,8.615 12.673,8.565 12.673,8.515 C 12.673,8.465 12.723,8.415 12.773,8.415 C 12.823,8.415 12.873,8.465 12.873,8.515 C 12.873,8.565 12.823,8.615 12.773,8.615 "/>
+<path stroke="#000000" fill="none" stroke-width="0.077"  d="M 12.773,8.615 C 12.723,8.615 12.673,8.565 12.673,8.515 C 12.673,8.465 12.723,8.415 12.773,8.415 C 12.823,8.415 12.873,8.465 12.873,8.515 C 12.873,8.565 12.823,8.615 12.773,8.615 "/>
+<text x="5.003" y="8.739"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+3</text>
+<text x="13.494" y="8.694"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+6</text>
+<text x="9.641" y="0.016"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+0</text>
+<text x="9.605" y="3.013"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+1</text>
+<text x="9.623" y="4.333"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+2</text>
+<text x="4.111" y="15.972"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+5</text>
+<text x="4.824" y="12.105"  fill="#000000" text-anchor="middle" font-size="0.68" font-family="monospace" font-style="normal" font-weight="700">
+4</text>
 </svg>

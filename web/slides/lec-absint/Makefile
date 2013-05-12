@@ -1,7 +1,8 @@
 all:
-	#pdflatex lec-absint-table.tex
-	#pdfcrop lec-absint-table.pdf
-	#inkscape lec-absint-table-crop.pdf --export-plain-svg=lec-absint-table.svg
+	pdflatex lec-absint-table-conc.tex
+	pdflatex lec-absint-table-abs.tex
+	convert -verbose -density 130 lec-absint-table-conc.pdf -trim -quality 100 lec-absint-table-conc.png
+	convert -verbose -density 180 lec-absint-table-abs.pdf -trim -quality 100 lec-absint-table-abs.png
 	pandoc --columns=80  -s --css text.css --highlight-style tango -w html5 --mathjax --slide-level=2 -o lec-absint.html lec-absint.markdown
 
 clean:
