@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="4cm" height="5cm" viewBox="104 96 61 92" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="105.388" y="133.117" width="59.3749" height="19.8993"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x="105.388" y="133.117" width="59.3749" height="19.8993"/>
+  </g>
+  <text font-size="9.03111" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:700" x="135.075" y="146.192">
+    <tspan x="135.075" y="146.192">x:=e</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="135.121" y1="105.725" x2="135.09" y2="124.186"/>
+    <polygon style="fill: #000000" points="135.078,131.686 130.094,121.678 135.09,124.186 140.094,121.694 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" points="135.078,131.686 130.094,121.678 135.09,124.186 140.094,121.694 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="136.054" y1="158.061" x2="136.054" y2="177.13"/>
+    <polygon style="fill: #000000" points="136.054,184.63 131.054,174.63 136.054,177.13 141.054,174.63 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" points="136.054,184.63 131.054,174.63 136.054,177.13 141.054,174.63 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="135.115" y1="96.6622" x2="135.115" y2="114.662"/>
+    <path style="fill: #000000" d="M 135.115 114.662 C 134.115,114.662 133.115,113.662 133.115,112.662 C 133.115,111.662 134.115,110.662 135.115,110.662 C 136.115,110.662 137.115,111.662 137.115,112.662 C 137.115,113.662 136.115,114.662 135.115,114.662z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" d="M 135.115 114.662 C 134.115,114.662 133.115,113.662 133.115,112.662 C 133.115,111.662 134.115,110.662 135.115,110.662 C 136.115,110.662 137.115,111.662 137.115,112.662 C 137.115,113.662 136.115,114.662 135.115,114.662"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="136" y1="153.48" x2="136" y2="165.48"/>
+    <path style="fill: #000000" d="M 136 165.48 C 135,165.48 134,164.48 134,163.48 C 134,162.48 135,161.48 136,161.48 C 137,161.48 138,162.48 138,163.48 C 138,164.48 137,165.48 136,165.48z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" d="M 136 165.48 C 135,165.48 134,164.48 134,163.48 C 134,162.48 135,161.48 136,161.48 C 137,161.48 138,162.48 138,163.48 C 138,164.48 137,165.48 136,165.48"/>
+  </g>
+  <text font-size="9.03111" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:700" x="148.435" y="115.125">
+    <tspan x="148.435" y="115.125">i</tspan>
+  </text>
+  <text font-size="9.03111" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:700" x="148.641" y="165.334">
+    <tspan x="148.641" y="165.334">j</tspan>
+  </text>
+</svg>

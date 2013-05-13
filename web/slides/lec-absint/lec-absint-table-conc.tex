@@ -1,0 +1,97 @@
+\documentclass{report}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{array}% http://ctan.org/pkg/array
+\usepackage{slashbox}
+\usepackage[landscape, top=0.1in, bottom=0in, left=0in, right=0in]{geometry}
+\pagestyle{empty}
+
+\begin{document}\fontsize{11.5}{14}\rm
+\small
+
+\begin{tabular}{c  c  c  c  c  c  c  }
+  \toprule
+  \backslashbox{Lab.}{Loop\\Iter.}  & 0 & 1 & 2 & 3 & i \\
+  \midrule
+  \\
+
+  \textbf{0}    & $[(n,\_)|n \geq 0]$  &  &  &  & \\ \\ \hline\\ 
+
+  \textbf{1}    & $[(n,1)|n \geq 0]$   &  &  &  & \\ \\ \hline \\
+
+  \textbf{2}    & $[(n,1)|n \geq 0]$
+                & \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0]$                                                                             \end {tabular}
+                & \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0] ++$ \\ $[(n-2,(n-1)n)|n>1]$                                                  \end {tabular}
+                & \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0] ++$ \\ $[(n-2,(n-1)n)|n>1]++$ \\ $[(n-3,(n-2)(n-1)n)|n>2]$                   \end {tabular}
+                %&
+                & \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0] ++$ \\ $[(n-2,(n-1)n)|n>1]++$ \\ $\dots$ \\ $[(n-i,(n-i+1)\dots n)|n>i-1]$ \end {tabular} \\ \\ \hline \\
+
+  \textbf{3}    & $[(n,1)|n > 0]$
+                & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>0]$                                                                             \end {tabular}
+                & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>1] ++$ \\ $[(n-2,(n-1)n)|n>2]$                                                  \end {tabular}
+                & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>1] ++$ \\ $[(n-2,(n-1)n)|n>2]++$ \\ $[(n-3,(n-2)(n-1)n)|n>3]$                   \end {tabular}
+                %&
+                & \begin{tabular}{c} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>1] ++$ \\ $[(n-2,(n-1)n)|n>2]++$ \\ $\dots$ \\ $[(n-i,(n-i+1)\dots n)|n>i]$ \end {tabular} \\  \\ \hline \\
+
+  \textbf{4}    & $[(n,n)|n > 0]$
+                & \begin{tabular}{c} $[(n,n)|n>0 ] ++$ \\ $[(n-1,(n-1)n)|n>1]$                                                                        \end {tabular}
+                & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>1] ++$ \\ $[(n-2,(n-2)(n-1)n)|n>2]$                                             \end {tabular}
+                & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,(n-1)n)|n>1] ++$ \\ $[(n-2,(n-2)(n-1)n)|n>2]++$ \\ $[(n-3,(n-3)(n-2)(n-1)n)|n>3]$    \end {tabular}
+                %&
+                & \begin{tabular}{c} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>1] ++$ \\ $[(n-2,(n-1)n)|n>2]++$ \\ $\dots$ \\ $[(n-i,(n-i+1)\dots n)|n>i]$        \end {tabular} \\ \\ \hline \\
+
+  \textbf{5}    & $[(n-1,n)|n > 0]$
+                & \begin{tabular}{c} $[(n-1,n)|n>0 ] ++$ \\ $[(n-2,(n-1)n)|n>1]$                                                                        \end {tabular}
+                & \begin{tabular}{c} $[(n-1,1)|n>0 ] ++$ \\ $[(n-2,(n-1)n|n>1] ++$ \\ $[(n-3,(n-2)(n-1)n)|n>2]$                                         \end {tabular}
+                & \begin{tabular}{c} $[(n,1)|n>0 ]   ++$ \\ $[(n-1,(n-1)n)|n>1] ++$ \\ $[(n-2,(n-2)(n-1)n)|n>2]++$ \\ $[(n-4,(n-3)(n-2)(n-1)n)|n>3]$    \end {tabular}
+                %&
+                & \begin{tabular}{c} $[(n-1,1)|n\geq 0] ++$ \\ $[(n-2,n)|n>1] ++$ \\ $[(n-3,(n-1)n)|n>2]++$ \\ $\dots$ \\ $[(n-i-1,(n-i)\dots n)|n>i]$ \end {tabular} \\ \\ \hline \\
+  
+  \textbf{6}    & $[(0,1)]$          & $[(0,1)]$          & $[(0,1),(0,2)]$  & $[(0,1),(0,2),(0,6)]$             & $[(0,1),(0,2),(0,6),\dots, (0,i!)]$ \\ \\
+
+
+%\begin{tabular}{c  c  c  c  c  c  c  c }
+%  \toprule
+%   \backslashbox{Lab.}{Iter.}  & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+%  \midrule
+%  \\
+  %\textbf{0}    & $[(n,\_)|n \geq 0]$  &  &  &  &  &  & \\\hline
+  %\textbf{1}    & & $[(n,1)|n \geq 0]$ &  &  & & & \\ \hline
+  %\textbf{2}    & & & $[(n,1)|n \geq 0]$ &  & & & \\ \hline
+  %\textbf{3}    & & & & $[(n,1)|n > 0]$ &  &  & \\ \hline
+  %\textbf{4}    & & & & & $[(n,n)|n > 0]$ &  &\\ \hline
+  %\textbf{5}    & & & & & & $[(n,n-1)|n > 0]$  &\\ \hline
+  %\textbf{6}    & & & & & & & $[(0,1)]$ \\ \hline
+
+
+  %\textbf{ + 0} &   & &  \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0]$ \end {tabular} & & & &     \\ \hline 
+  %\textbf{ + 1} &   & & & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>0]$ \end{tabular}      & & &     \\ \hline 
+  %\textbf{ + 2} &   & & & & \begin{tabular}{c} $[(n,n)|n>0 ] ++$ \\ $[(n-1,(n-1)n)|n>1]$ \end {tabular} & &    \\ \hline
+  %\textbf{ + 3} &   & & & & & \begin{tabular}{c} $[(n-1,n)|n>0 ] ++$ \\ $[(n-2,(n-1)n)|n>1]$ \end {tabular} &  \\ \hline
+  %\textbf{ + 4} &   & & & & & & $[(0,1)]$ \\ \hline
+
+  %\textbf{ + 0} & & & \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0]  ++$ \\ $[(n-2,(n-1)n)|n>1]$\end {tabular} & & & & \\ \hline
+  %\textbf{ + 1} & & & & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>1]  ++$ \\ $[(n-2,(n-1)n)|n>2]$ \end {tabular} & & &  \\ \hline
+  %\textbf{ + 2} & & & & & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>1]++$ \\ $[(n-2,(n-2)(n-1)n)|n>2]$  \end{tabular} & & \\ \hline
+  %\textbf{ + 3} & & & & & & \begin{tabular}{c} $[(n-1,1)|n>0 ] ++$ \\ $[(n-2,(n-1)n|n>1] ++$ \\ $[(n-3,(n-2)(n-1)n)|n>2]$ \end {tabular} & \\ \hline
+  %\textbf{ + 4} & & & & & & & $[(0,1), (0,2)]$ \\ \hline
+
+  %\textbf{ + 0} & & & \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0]  ++$ \\ $[(n-2,(n-1)n)|n>1]++$ \\ $[(n-3,(n-2)(n-1)n)|n>2]$  \end {tabular} & &  & & \\ \hline
+  %\textbf{ + 1} & & & & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\ $[(n-1,n)|n>1]  ++$ \\ $[(n-2,(n-1)n)|n>2]++$ \\ $[(n-3,(n-2)(n-1)n)|n>3]$  \end  {tabular} & & & \\ \hline
+  %\textbf{ + 2} & & & & & \begin{tabular}{c} $[(n,1)|n>0 ] ++$ \\  $[(n-1,(n-1)n)|n>1] ++$ \\ $[(n-2,(n-2)(n-1)n)|n>2]++$ \\  $[(n-3,(n-3)(n-2)(n-1)n)|n>3]$ \end {tabular} & & \\ \hline
+  %\textbf{ + 3} & & & & & & \begin{tabular}{c} $[(n,1)|n>0 ]   ++$ \\  $[(n-1,(n-1)n)|n>1] ++$ \\ $[(n-2,(n-2)(n-1)n)|n>2]++$ \\  $[(n-4,(n-3)(n-2)(n-1)n)|n>3]$ \end {tabular} & \\ \hline
+  %\textbf{ + 4} & & & & & & & $[(0,1), (0,2), (0,6)]$ \\ \hline
+   
+
+  %\textbf{ + 0} & & & \begin{tabular}{l} $[(n,1)|n\geq 0] ++$ \\ $[(n-1,n)|n>0]  ++$ \\ $[(n-2,(n-1)n)|n>1]++$ \\ $\dots$ \\ $[(n-i,(n-i+1)(n-i+2)...n)|n>i]$  \end {tabular} & & & & \\\hline
+  %\textbf{+ 1}  & & & & \begin{tabular}{c} $[(n,1)|n\geq 0] ++$ \\   $[(n-1,n)|n>1] ++$ \\ $[(n-2,(n-1)n)|n>2]++$ \\ $\dots$ \\  $[(n-i,(n-i+1)(n-i+2)...n)|n>i]$ \end {tabular} & & & \\ \hline 
+  %\textbf{+ 2}  & & & & & \begin{tabular}{c} $[(n,1)|n\geq 0] ++$ \\  $[(n-1,n)|n>1] ++$ \\ $[(n-2,(n-1)n)|n>2]++$ \\ $\dots$ \\  $[(n-i,(n-i+1)...n)|n>i]$        \end {tabular} & & \\ \hline 
+  %\textbf{+ 3}  & & & & & & \begin{tabular}{c} $[(n-1,1)|n\geq 0] ++$ \\   $[(n-2,n)|n>1] ++$ \\ $[(n-3,(n-1)n)|n>2]++$ \\ $\dots$ \\  $[(n-i-1,(n-i)(n-i+1)...n)|n>i]$ \end {tabular} & \\ \hline   
+  %\textbf{6}    & & & & & & & $[(0,1),(0,2),(0,6),\dots, (0,i!)]$ \\
+
+  \bottomrule
+\end{tabular}
+\let\cleardoublepage\clearpage
+\end{document}
+
+
+

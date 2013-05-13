@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="3cm" height="4cm" viewBox="166 103 53 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="168.291" y1="104.091" x2="186.976" y2="130.923"/>
+    <polygon style="fill: #000000" points="191.262,137.077 181.444,131.728 186.976,130.923 189.65,126.014 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" points="191.262,137.077 181.444,131.728 186.976,130.923 189.65,126.014 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="216.97" y1="104.537" x2="197.278" y2="131.102"/>
+    <polygon style="fill: #000000" points="192.812,137.127 194.75,126.116 197.278,131.102 202.784,132.071 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" points="192.812,137.127 194.75,126.116 197.278,131.102 202.784,132.071 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="192.222" y1="138.26" x2="192.274" y2="162.398"/>
+    <polygon style="fill: #000000" points="192.289,169.898 187.268,159.909 192.274,162.398 197.268,159.888 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" points="192.289,169.898 187.268,159.909 192.274,162.398 197.268,159.888 "/>
+  </g>
+  <text font-size="9.03111" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:700" x="168.777" y="121.574">
+    <tspan x="168.777" y="121.574">i</tspan>
+  </text>
+  <text font-size="9.03111" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:700" x="215.269" y="121.442">
+    <tspan x="215.269" y="121.442">j</tspan>
+  </text>
+  <text font-size="9.03111" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:700" x="202.226" y="150.829">
+    <tspan x="202.226" y="150.829">l</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="169.122" y1="105.367" x2="178.502" y2="118.729"/>
+    <path style="fill: #000000" d="M 178.502 118.729 C 177.684,119.304 176.291,119.06 175.716,118.241 C 175.142,117.423 175.386,116.03 176.204,115.455 C 177.023,114.881 178.416,115.125 178.99,115.943 C 179.565,116.762 179.321,118.155 178.502,118.729z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" d="M 178.502 118.729 C 177.684,119.304 176.291,119.06 175.716,118.241 C 175.142,117.423 175.386,116.03 176.204,115.455 C 177.023,114.881 178.416,115.125 178.99,115.943 C 179.565,116.762 179.321,118.155 178.502,118.729"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="216.564" y1="105.136" x2="206.814" y2="118.104"/>
+    <path style="fill: #000000" d="M 206.814 118.104 C 206.015,117.503 205.817,116.103 206.418,115.304 C 207.019,114.504 208.419,114.306 209.218,114.907 C 210.017,115.508 210.216,116.908 209.615,117.707 C 209.014,118.507 207.614,118.705 206.814,118.104z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" d="M 206.814 118.104 C 206.015,117.503 205.817,116.103 206.418,115.304 C 207.019,114.504 208.419,114.306 209.218,114.907 C 210.017,115.508 210.216,116.908 209.615,117.707 C 209.014,118.507 207.614,118.705 206.814,118.104"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" x1="192.221" y1="138.979" x2="192.252" y2="150.041"/>
+    <path style="fill: #000000" d="M 192.252 150.041 C 191.252,150.044 190.249,149.047 190.246,148.047 C 190.244,147.047 191.241,146.044 192.241,146.041 C 193.241,146.039 194.244,147.036 194.246,148.036 C 194.249,149.036 193.252,150.039 192.252,150.041z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 1.28; stroke: #000000" d="M 192.252 150.041 C 191.252,150.044 190.249,149.047 190.246,148.047 C 190.244,147.047 191.241,146.044 192.241,146.041 C 193.241,146.039 194.244,147.036 194.246,148.036 C 194.249,149.036 193.252,150.039 192.252,150.041"/>
+  </g>
+</svg>
