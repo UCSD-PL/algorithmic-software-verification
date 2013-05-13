@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="305.16"
+   height="461.04001"
+   viewBox="50 -23 160.76278 249.38851"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="example.svg">
+  <metadata
+     id="metadata182">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs180" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1871"
+     inkscape:window-height="1176"
+     id="namedview178"
+     showgrid="false"
+     inkscape:zoom="1.4800987"
+     inkscape:cx="92.385501"
+     inkscape:cy="258.63"
+     inkscape:window-x="49"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <g
+     id="g4"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <rect
+       style="fill:#ffffff"
+       x="70.5606"
+       y="202.26401"
+       width="81.187202"
+       height="23.879101"
+       id="rect6" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x="70.5606"
+       y="202.26401"
+       width="81.187202"
+       height="23.879101"
+       id="rect8" />
+  </g>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="95.319252"
+     y="151.04724"
+     id="text10">
+    <tspan
+       x="95.319252"
+       y="151.04724"
+       id="tspan12">y = y * x</tspan>
+  </text>
+  <g
+     id="g14"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="111.154"
+       y1="226.142"
+       x2="111.101"
+       y2="253.097"
+       id="line16" />
+    <polygon
+       style="fill:#000000"
+       points="106.106,250.587 111.101,253.097 116.106,250.607 111.086,260.597 "
+       id="polygon18" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       points="106.106,250.587 111.101,253.097 116.106,250.607 111.086,260.597 "
+       id="polygon20" />
+  </g>
+  <g
+     id="g22"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <polygon
+       style="fill:#ffffff"
+       points="223.705,151.661 181.461,192.346 139.216,151.661 181.461,110.977 "
+       id="polygon24" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       points="223.705,151.661 181.461,192.346 139.216,151.661 181.461,110.977 "
+       id="polygon26" />
+    <text
+       font-size="10.8373"
+       style="font-size:10.8373003px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+       x="181.461"
+       y="154.98801"
+       id="text28">
+      <tspan
+         x="181.461"
+         y="154.98801"
+         id="tspan30">x &gt; 0</tspan>
+    </text>
+  </g>
+  <g
+     id="g32"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       points="139.216,151.661 139.216,152.07 111.154,152.07 111.154,193.047 "
+       id="polyline34" />
+    <polygon
+       style="fill:#000000"
+       points="106.154,190.547 111.154,193.047 116.154,190.547 111.154,200.547 "
+       id="polygon36" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       points="106.154,190.547 111.154,193.047 116.154,190.547 111.154,200.547 "
+       id="polygon38" />
+  </g>
+  <g
+     id="g40"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       points="223.706,151.661 223.706,151.587 255.42,151.587 255.42,191.387 "
+       id="polyline42" />
+    <polygon
+       style="fill:#000000"
+       points="250.42,188.887 255.42,191.387 260.42,188.887 255.42,198.887 "
+       id="polygon44" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       points="250.42,188.887 255.42,191.387 260.42,188.887 255.42,198.887 "
+       id="polygon46" />
+  </g>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:normal;text-anchor:start;fill:#0000ff;font-family:sans-serif"
+     x="96.760696"
+     y="99.429695"
+     id="text48">
+    <tspan
+       x="96.760696"
+       y="99.429695"
+       id="tspan50">True</tspan>
+  </text>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:normal;text-anchor:start;fill:#0000ff;font-family:sans-serif"
+     x="177.43669"
+     y="97.644081"
+     id="text52">
+    <tspan
+       x="177.43669"
+       y="97.644081"
+       id="tspan54">False</tspan>
+  </text>
+  <g
+     id="g56"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="181.45399"
+       y1="83.230598"
+       x2="181.459"
+       y2="101.76"
+       id="line58" />
+    <polygon
+       style="fill:#000000"
+       points="176.458,99.2607 181.459,101.76 186.458,99.2583 181.46,109.259 "
+       id="polygon60" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       points="176.458,99.2607 181.459,101.76 186.458,99.2583 181.46,109.259 "
+       id="polygon62" />
+  </g>
+  <g
+     id="g64"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <rect
+       style="fill:#ffffff"
+       x="69.5924"
+       y="262.314"
+       width="82.979599"
+       height="23.879101"
+       id="rect66" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x="69.5924"
+       y="262.314"
+       width="82.979599"
+       height="23.879101"
+       id="rect68" />
+  </g>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="95.26741"
+     y="194.2847"
+     id="text70">
+    <tspan
+       x="95.26741"
+       y="194.2847"
+       id="tspan72">x = x - 1</tspan>
+  </text>
+  <g
+     id="g74"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:1.60000002"
+       points="109.345,287.262 110.251,287.262 110.251,303.978 50.8542,303.978 50.8542,70.2724 172.316,70.2724 "
+       id="polyline76" />
+    <polygon
+       style="fill:#000000"
+       points="169.816,75.2724 172.316,70.2724 169.816,65.2724 179.816,70.2724 "
+       id="polygon78" />
+    <polygon
+       style="fill:none;stroke:#000000;stroke-width:1.60000002"
+       points="169.816,75.2724 172.316,70.2724 169.816,65.2724 179.816,70.2724 "
+       id="polygon80" />
+  </g>
+  <g
+     id="g82"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="181.79601"
+       y1="37.389801"
+       x2="181.38901"
+       y2="85.112198"
+       id="line84" />
+    <path
+       style="fill:#000000"
+       d="m 181.389,85.1122 c -1,-0.0085 -1.991,-1.017 -1.983,-2.017 0.009,-0.9999 1.017,-1.9914 2.017,-1.9829 1,0.0086 1.992,1.017 1.983,2.017 -0.008,1 -1.017,1.9914 -2.017,1.9829 z"
+       id="path86"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       d="m 181.389,85.1122 c -1,-0.0085 -1.991,-1.017 -1.983,-2.017 0.009,-0.9999 1.017,-1.9914 2.017,-1.9829 1,0.0086 1.992,1.017 1.983,2.017 -0.008,1 -1.017,1.9914 -2.017,1.9829"
+       id="path88"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     id="g90"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="181.79601"
+       y1="37.389801"
+       x2="181.418"
+       y2="57.993801"
+       id="line92" />
+    <path
+       style="fill:#000000"
+       d="m 181.418,57.9938 c -1,-0.0183 -1.981,-1.0365 -1.963,-2.0363 0.018,-0.9998 1.036,-1.9814 2.036,-1.963 1,0.0183 1.982,1.0365 1.963,2.0363 -0.018,0.9998 -1.036,1.9813 -2.036,1.963 z"
+       id="path94"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       d="m 181.418,57.9938 c -1,-0.0183 -1.981,-1.0365 -1.963,-2.0363 0.018,-0.9998 1.036,-1.9814 2.036,-1.963 1,0.0183 1.982,1.0365 1.963,2.0363 -0.018,0.9998 -1.036,1.9813 -2.036,1.963"
+       id="path96"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     id="g98"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="111.201"
+       y1="153.32201"
+       x2="111.101"
+       y2="174.12601"
+       id="line100" />
+    <path
+       style="fill:#000000"
+       d="m 111.101,174.126 c -1,-0.005 -1.995,-1.01 -1.99,-2.01 0.005,-1 1.009,-1.995 2.009,-1.99 1,0.005 1.996,1.01 1.991,2.01 -0.005,1 -1.01,1.995 -2.01,1.99 z"
+       id="path102"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       d="m 111.101,174.126 c -1,-0.005 -1.995,-1.01 -1.99,-2.01 0.005,-1 1.009,-1.995 2.009,-1.99 1,0.005 1.996,1.01 1.991,2.01 -0.005,1 -1.01,1.995 -2.01,1.99"
+       id="path104"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     id="g106"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="111.201"
+       y1="229.364"
+       x2="111.191"
+       y2="241.248"
+       id="line108" />
+    <path
+       style="fill:#000000"
+       d="m 111.191,241.248 c -1,-10e-4 -1.999,-1.002 -1.998,-2.002 0.001,-1 1.001,-1.999 2.001,-1.998 1,0.001 2,1.002 1.999,2.002 -0.001,1 -1.002,1.999 -2.002,1.998 z"
+       id="path110"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       d="m 111.191,241.248 c -1,-10e-4 -1.999,-1.002 -1.998,-2.002 0.001,-1 1.001,-1.999 2.001,-1.998 1,0.001 2,1.002 1.999,2.002 -0.001,1 -1.002,1.999 -2.002,1.998"
+       id="path112"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     id="g114"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="95.280998"
+       y1="303.73599"
+       x2="78.286003"
+       y2="303.63"
+       id="line116" />
+    <path
+       style="fill:#000000"
+       d="m 78.286,303.63 c 0.0062,-1 1.0125,-1.994 2.0124,-1.987 1,0.006 1.9938,1.012 1.9875,2.012 -0.0062,1 -1.0124,1.994 -2.0124,1.987 -1,-0.006 -1.9937,-1.012 -1.9875,-2.012 z"
+       id="path118"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       d="m 78.286,303.63 c 0.0062,-1 1.0125,-1.994 2.0124,-1.987 1,0.006 1.9938,1.012 1.9875,2.012 -0.0062,1 -1.0124,1.994 -2.0124,1.987 -1,-0.006 -1.9937,-1.012 -1.9875,-2.012"
+       id="path120"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     id="g122"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <rect
+       style="fill:#ffffff"
+       x="141.84599"
+       y="13.5107"
+       width="79.900101"
+       height="23.879101"
+       id="rect124" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x="141.84599"
+       y="13.5107"
+       width="79.900101"
+       height="23.879101"
+       id="rect126" />
+  </g>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="146.1815"
+     y="15.14591"
+     id="text128">
+    <tspan
+       x="146.1815"
+       y="15.14591"
+       id="tspan130">y = 1</tspan>
+  </text>
+  <g
+     id="g132"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="181.58701"
+       y1="-21.511"
+       x2="181.535"
+       y2="-0.90706402"
+       id="line134" />
+    <path
+       style="fill:#000000"
+       d="m 181.535,-0.907064 c -1,-0.002533 -1.997,-1.005066 -1.995,-2.005056 0.003,-1 1.005,-1.99746 2.005,-1.99493 1,0.00253 1.998,1.00506 1.995,2.00506 -0.002,1 -1.005,1.997459 -2.005,1.994926 z"
+       id="path136"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       d="m 181.535,-0.907064 c -1,-0.002533 -1.997,-1.005066 -1.995,-2.005056 0.003,-1 1.005,-1.99746 2.005,-1.99493 1,0.00253 1.998,1.00506 1.995,2.00506 -0.002,1 -1.005,1.997459 -2.005,1.994926"
+       id="path138"
+       inkscape:connector-curvature="0" />
+  </g>
+  <line
+     style="fill:none;stroke:#000000;stroke-width:1.10592008"
+     x1="146.02167"
+     y1="-11.082892"
+     x2="146.1815"
+     y2="3.8494616"
+     id="line140" />
+  <g
+     id="g142"
+     transform="matrix(0.72,0,0,0.72,15.28839,-5.8782409)">
+    <line
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       x1="255.46001"
+       y1="158.25101"
+       x2="255.46001"
+       y2="172.302"
+       id="line144" />
+    <path
+       style="fill:#000000"
+       d="m 255.46,172.302 c -1,0 -2,-1 -2,-2 0,-1 1,-2 2,-2 1,0 2,1 2,2 0,1 -1,2 -2,2 z"
+       id="path146"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.53600001"
+       d="m 255.46,172.302 c -1,0 -2,-1 -2,-2 0,-1 1,-2 2,-2 1,0 2,1 2,2 0,1 -1,2 -2,2"
+       id="path148"
+       inkscape:connector-curvature="0" />
+  </g>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="87.33374"
+     y="119.9576"
+     id="text150">
+    <tspan
+       x="87.33374"
+       y="119.9576"
+       id="tspan152">3</tspan>
+  </text>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="209.59911"
+     y="119.31534"
+     id="text154">
+    <tspan
+       x="209.59911"
+       y="119.31534"
+       id="tspan156">6</tspan>
+  </text>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="154.11807"
+     y="-5.647223"
+     id="text158">
+    <tspan
+       x="154.11807"
+       y="-5.647223"
+       id="tspan160">0</tspan>
+  </text>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="153.60397"
+     y="37.50536"
+     id="text162">
+    <tspan
+       x="153.60397"
+       y="37.50536"
+       id="tspan164">1</tspan>
+  </text>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="153.86102"
+     y="56.513081"
+     id="text166">
+    <tspan
+       x="153.86102"
+       y="56.513081"
+       id="tspan168">2</tspan>
+  </text>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="74.491096"
+     y="224.11429"
+     id="text170">
+    <tspan
+       x="74.491096"
+       y="224.11429"
+       id="tspan172">5</tspan>
+  </text>
+  <text
+     font-size="10.8373"
+     style="font-size:7.80285645px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:monospace"
+     x="84.756714"
+     y="168.43813"
+     id="text174">
+    <tspan
+       x="84.756714"
+       y="168.43813"
+       id="tspan176">4</tspan>
+  </text>
+</svg>

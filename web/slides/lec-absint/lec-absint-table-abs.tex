@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{array}% http://ctan.org/pkg/array
+\usepackage{slashbox}
+\usepackage[landscape, left=0.5in, right=0.5in]{geometry}
+\pagestyle{empty}
+
+\begin{document}
+
+\small
+
+\begin{tabular}{*{7}{c}}
+  \toprule
+  \backslashbox{Lab.}{Loop\\Iter.} & 0 & 1 & Fixpoint  \\
+  \midrule
+  \textbf{0} & $(\top,\top)$ &  &  \\ \hline
+
+  \textbf{1} & $(\bot,\bot)$ & $(\top,+)$  &  \\ \hline
+
+  \textbf{2} & $(\bot,\bot)$ & $(\top,+)$    & $(\top,+)$     \\ \hline
+
+  \textbf{3} & $(\bot,\bot)$ & $(+,+)$    & $(+,+)$  \\ \hline
+
+  \textbf{4} & $(\bot,\bot)$ & $(+,+)$    & $(+,+)$ \\ \hline
+
+  \textbf{5} & $(\bot,\bot)$ & $(\top,+)$ & $(\top, +)$ \\ \hline
+
+  \textbf{6} & $(\bot,\bot)$ & $(\top,+)$ & $(\top, +)$ \\
+
+  \bottomrule
+\end{tabular}
+\end{document}
+
+
+
