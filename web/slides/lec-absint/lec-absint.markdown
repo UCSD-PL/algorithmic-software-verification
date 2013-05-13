@@ -175,13 +175,13 @@ $K_1 \sqcap K_2 = \lambda l \mapsto K_1.l \sqcap K_2.l$
 
 ### Abstract constraints for the above example:
 
-* $K_{.0} \sqsupseteq (+, \top)$
-* $k_{.1} \sqsupseteq K_{.0}[\text{y}_0/\text{y}] \sqcap (+,\top)$
+* $K_{.0} \sqsupseteq (\top, \top)$
+* $K_{.1} \sqsupseteq K_{.0}[\text{y}_0/\text{y}] \sqcap (\top,+)$
 * $K_{.2} \sqsupseteq K_{.1} \sqcap K_{.2} \sqsupseteq K_{.5}$
-* $k_{.3} \sqsupseteq K_{.2} \sqcap (+, \top)$
-* $k_{.4} \sqsupseteq K_{.3}[\text{y}_0/\text{y}] \sqcap \alpha(\text{y} = \text{y}_0 * \text{x})$
-* $k_{.5} \sqsupseteq K_{.3}[\text{x}_0/\text{x}] \sqcap \alpha(\text{x} = \text{x}_0 * 1)$
-* $k_{.6} \sqsupseteq K_{.2} \sqcap (\top, \top)$
+* $K_{.3} \sqsupseteq K_{.2} \sqcap (+, \top)$
+* $K_{.4} \sqsupseteq K_{.3}[\text{y}_0/\text{y}] \sqcap \alpha(\text{y} = \text{y}_0 * \text{x})$
+* $K_{.5} \sqsupseteq K_{.3}[\text{x}_0/\text{x}] \sqcap \alpha(\text{x} = \text{x}_0 * 1)$
+* $K_{.6} \sqsupseteq K_{.2} \sqcap (\top, \top)$
 
 We can now execute the same algorithm as above but using the abstract values.
 
@@ -207,5 +207,5 @@ Yes, because:
 
 **Doesn't the meet operator take you lower in the lattice?**
 
-- Yes, but the containment restriction ($\sqsupseteq$), does not let us.
+- Yes, but the containment restriction ($\sqsupseteq$), does not let us move lower.
 - The left hand side is bound to be as big as the right hand side.
