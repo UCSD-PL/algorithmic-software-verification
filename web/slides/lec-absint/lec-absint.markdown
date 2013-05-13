@@ -20,18 +20,18 @@ An alternative way to represent programs in IMP is using **Flow-charts**:
 
 ![](figs/flow-charts.svg)
 
-What are the semantics of a program in the form of a flow-chart?
+**What are the semantics of a program in the form of a flow-chart?**
 
 State of a program point is a mapping from variables to values: $\Sigma = Vars \mapsto Value$
 
 ## Concrete Semantics ("Collecting Semantics")
 
-Each program point has a label. The set of all states that can be reached at a
-label is called the **collecting semantics**. 
+- Each program point has a label. 
+- The set of all states that can be reached at a label is called the **collecting semantics**. 
 
 **Definition.** $K_i$ : the set of states that are visible from label $i$.
 
-What follows is the definition of collecting semantics at different labels.
+What follow are definitions of collecting semantics for various flow chart constructs:
 
 ### For the single assignment:
 
@@ -48,7 +48,7 @@ There are two ways to express $K_j$ in terms of $K_i$:
 ![](figs/if.svg)
 
 
-$K_l \supseteq K_i \cap \{\rho\} \qquad\qquad\qquad K_m\supseteq K_i \cap \{\neg\rho\}$ 
+$K_l \supseteq K_i \cap \{\rho\} \qquad\qquad\qquad\qquad K_m\supseteq K_i \cap \{\neg\rho\}$ 
 
 
 ### For the join statement:
@@ -73,11 +73,6 @@ while(x > 0) {
 
 ![](figs/example.svg)
 
-In the above table:
-
-- The vertical axis refers to the labels present in the program.
-- The horizontal axis refers to loop iterations.
-- Results for every label are sqashed into the same iteration cycle.
 
 ### Concrete Semantics
 
@@ -86,15 +81,15 @@ The states at every point in the flow chart above satisfy the following constrai
 * $K_{.0} \supseteq \{\text{x} > 0\}$
 * $k_{.1} \supseteq K_{.0}[\text{y}_0/\text{y}] \wedge \text{y} = 1$
 * $K_{.2} \supseteq K_{.1} \wedge K_{.2} \supseteq K_{.5}$
-* $k_{.3} \supseteq K_{.2} \cap \{\text{x} > 0\}$
-* $k_{.4} \supseteq K_{.3}[\text{y}_0/\text{y}] \wedge \text{y} = \text{y}_0 * \text{x}$
-* $k_{.5} \supseteq K_{.3}[\text{x}_0/\text{x}] \wedge \text{x} = \text{x}_0 - 1$
-* $k_{.6} \supseteq K_{.2} \cap \{\text{x} \leq 0\}$
+* $K_{.3} \supseteq K_{.2} \cap \{\text{x} > 0\}$
+* $K_{.4} \supseteq K_{.3}[\text{y}_0/\text{y}] \wedge \text{y} = \text{y}_0 * \text{x}$
+* $K_{.5} \supseteq K_{.3}[\text{x}_0/\text{x}] \wedge \text{x} = \text{x}_0 - 1$
+* $K_{.6} \supseteq K_{.2} \cap \{\text{x} \leq 0\}$
 
 ### Collecting semantics
 - The smallest set of $K_i$'s such that the above constraints are satisfied. 
 
-- $K_i$'s belong to the range of a function $K:: Labels \mapsto 2^{\Sigma}$
+- $K_i$'s belong to the range of the function $K:: Labels \mapsto 2^{\Sigma}$
 
 - So the above constraints can be summarized as: $K \supseteq F(K)$, 
   where $F$ is a function from the current states to the next ones. 
@@ -114,7 +109,7 @@ repeat
 until (K == K_old)
 ~~~~~
 
-- We can define a $K_l^i$: set of states reached at a point with label $l$
+- We can define $K_l^i$: set of states reached at a point with label $l$
   after a at most $i$ execution steps.
   
 - $K^l = \bigcup_{i\in \mathbb{N}}  K_l^i$ includes all the possible steps 
@@ -129,6 +124,14 @@ $l$ and loop iteration $i$, the set of values that the variables of the program
 can take.
 
 ![](lec-absint-table-conc.png)
+
+In the above table:
+
+- The vertical axis refers to the labels present in the program.
+- The horizontal axis refers to loop iterations.
+- Results for every label are squashed into the same iteration cycle.
+
+As far as termination is concerned:
 
 - Examples we have seen earlier, like *eval*, always terminated.
 
