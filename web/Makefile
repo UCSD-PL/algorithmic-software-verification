@@ -7,7 +7,7 @@ clean:
 
 update:
 	cp css/syntax-rj.css _site/css/syntax.css
-	# cp -r slides _site/
+	cp -r slides _site/
 	# cp -f lectures/*.lhs _site/lectures/
 	# cp homeworks/*.lhs _site/homeworks/
 	ssh rjhala@goto.ucsd.edu "chgrp -R cse230 /home/rjhala/public_html/classes/sp13/cse291/"
