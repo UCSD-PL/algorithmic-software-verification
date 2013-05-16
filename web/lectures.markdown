@@ -11,7 +11,7 @@ title: Lectures
    *4/9*     SAT Solvers                                        [pdf][lec2]
   *4/11*     SMT Solvers                                        [pdf][lec3]
   *4/16*     Floyd-Hoare Logic                                  [pdf][lec4]
-  *4/18*     Verification Conditions                            [pdf][lec4] 
+  *4/18*     Verification Conditions                            [pdf][lec4] [pdf][lec4a] 
   *4/23*     VC for Functions and Pointers                      [pdf][lec4] 
   *4/25*     Abstract Interpretation I                          [pdf][lec5]
   *4/30*     Abstract Interpretation II                         [pdf][lec6] 
@@ -31,5 +31,8 @@ title: Lectures
 [lec2]: slides/lec-sat.markdown.pdf
 [lec3]: slides/lec-smt.markdown.pdf
 [lec4]: static/lec-floyd-hoare.pdf
+[lec4a]: slides/lec-vcgen.markdown.pdf
 [lec5]: slides/lec-absint-1.markdown.pdf
-[lec6]: slides/lec-absint-2.markdown.pdf
+[lec6]: https://github.com/UCSD-PL/algorithmic-software-verification/blob/master/web/slides/lec-absint-2.markdown
+
+[lec6-bad]: slides/lec-absint-2.markdown.pdf
