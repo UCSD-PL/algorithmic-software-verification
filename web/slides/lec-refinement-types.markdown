@@ -1,3 +1,28 @@
+% Refinement Types 
+% Ranjit Jhala, UC San Diego 
+% May 16, 2013
+
+
+## Motivation
+
+~~~~~{.javascript}
+function expand(f, xs){
+  if null(xs) {
+    return nil();
+  } else {
+    var h = head(xs);
+    var t = tail(xs);
+    return append(f(h), expand(f,t));
+  }
+}
+
+function group(kvs) {
+  
+}
+~~~~~
+
+~~~~~{.javascript}
+/*@ min_index :: (array int) => int */
 function min_index(a){
   function loop(min, i){
     var min_next = min;
@@ -9,8 +34,26 @@ function min_index(a){
   }
   return loop(0, 0);
 }
+~~~~~
 
+## A Simple NanoJS Program
+
+~~~~~{.javascript}
 /*@ min_index :: (array int) => int */
+function min_index(a){
+  function loop(min, i){
+    var min_next = min;
+    if (i < length(a)) {
+      if (a[i] < a[min]) { min_next = i; } 
+      return loop(min_new, i+1)
+    }
+    return min;
+  }
+  return loop(0, 0);
+}
+~~~~~
+
+
 /*@ min_index :: (a:{v:array int | 0 < (len v)}) => {v:int | 0 <= v < (len a)} */
 
 /*@ loop :: (int, int) => int */
