@@ -17,19 +17,28 @@ Requirements
     - prepare slides and get vetted by me
     - synthesize and present
 
+Project Presentations
+---------------------
+
+* Tatlock & Bakst : Separation Logic + Bedrock
+* Chugh           : DJS + J-Star
+* Vazou & Vekris  : Abduction
+* Ptival & Seidel : AGDA
+* Wood & Bounov   : ConcSL
+
+
+
+
 Plan
 ----
 
 Deductive Verification
 
 1. Decision Procedures/SMT  [2]
-    
     - EUIF
     - DIFF
-    
     - DPLL
     - SMT
-    
     - Proofs?
 
 2. Contd.
@@ -192,40 +201,3 @@ HW 3:
 - PA for Horn Clauses
 = Liquid Types for TJS
 
-
------------------------------------------------------------
-
-HW 1 <----------- HEREHEREHEREHERE
-
-0. Wrap parser
-
-1. Port small tests 
-    - int-incr
-    - if-max
-    - if-abs
-    
-2. Parse small functions : FilePath -> Com
-
-3. VCGen :: Com -> Pred
-
-4. valid :: Pred -> Bool [liquid-fixpoint wrapper for Pred]
-
-5. Port big tests
-
-    - while-array
-    - while-binsearch
-    - adpcmini.c
-
-
------------------------------------------------------------
-
-
- 
-Lecture Links
--------------
-
-SAT
-
-Lintao Zhang 
-  - [SAT 1](http://research.microsoft.com/en-us/people/lintaoz/sat_course1.pdf) 
-  - [SAT 2](http://research.microsoft.com/en-us/people/lintaoz/sat_course1.pdf)

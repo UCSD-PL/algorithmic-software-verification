@@ -7,16 +7,19 @@ Consider the following NanoJS program:
 
     function minIndex(a){
       requires(length(a) > 0);
-      ensures(0 <= $result && $result < (length(a)))
+      ensures(0 <= $result && $result < length(a))
       var i   = 0;
       var min = 0;
       while(i < length(a)){
+        invariant(0 <= min && min < length(a));
+        invariant(0 <= i);
         if (a[i] < a[min]){ 
           min = i; 
         } 
       }
       return min;
     }
+
 
 How would we verify the `requires` and `ensures` clauses?
 
