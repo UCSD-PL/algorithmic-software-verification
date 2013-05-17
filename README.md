@@ -20,12 +20,15 @@ Requirements
 Project Presentations
 ---------------------
 
-* Tatlock & Bakst : Separation Logic + Bedrock
-* Chugh           : DJS + J-Star
-* Vazou & Vekris  : Abduction
-* Ptival & Seidel : AGDA
-* Wood & Bounov   : ConcSL
+1. Vazou & Vekris  : Abduction
+2. Zohour          : Terminator/Eurosys
 
+3. Ptival & Seidel : AGDA
+4. Tatlock & Bakst : Separation Logic + Bedrock
+
+5. Wood & Bounov   : Concurrency/Separation Logic
+
+6. Chugh           : DJS + J-Star
 
 
 
