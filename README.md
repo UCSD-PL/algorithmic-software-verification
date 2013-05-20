@@ -22,19 +22,22 @@ Project Presentations
 
 **May 30**
 
-1. Vazou & Vekris  : Abduction
-2. Zohour          : Terminator/Eurosys
+* Vazou & Vekris             : Abduction
+* Zohour & Mouradian & Ellis : Terminator/Eurosys
 
 **June 4**
-3. Ptival & Seidel : AGDA
-4. Tatlock & Bakst : Separation Logic + Bedrock
+
+* Ptival & Seidel            : AGDA
+* Tatlock & Bakst            : Separation Logic + Bedrock
 
 **June 6**
-5. Leung & Jang    : Containers
-6. Wood & Bounov   : Concurrency/Separation Logic
+
+* Leung & Jang               : Containers
+* Wood & Bounov              : Concurrency/Separation Logic
 
 **Jun 11 (Final SLOT)** or **May 28**
-7. Chugh           : DJS + J-Star
+
+7. Chugh                     : DJS + J-Star
 
 
 
