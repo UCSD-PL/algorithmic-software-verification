@@ -20,19 +20,20 @@ Requirements
 Project Presentations
 ---------------------
 
-May 30
+**May 30**
+
 1. Vazou & Vekris  : Abduction
 2. Zohour          : Terminator/Eurosys
 
-June 4
+**June 4**
 3. Ptival & Seidel : AGDA
 4. Tatlock & Bakst : Separation Logic + Bedrock
 
-June 6
+**June 6**
 5. Leung & Jang    : Containers
 6. Wood & Bounov   : Concurrency/Separation Logic
 
-Jun 11 (Final SLOT) or May 28
+**Jun 11 (Final SLOT)** or **May 28**
 7. Chugh           : DJS + J-Star
 
 
