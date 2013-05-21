@@ -86,22 +86,14 @@ lattice is given by the shortest path from $\bot$ to $\top$.
 $\{\} \sqsubseteq \{\bot\} \sqsubseteq \{\bot,0\} \sqsubseteq \{\bot,0,-\} \sqsubseteq \{\bot,0,-,+\} \sqsubseteq \{\bot,0,-,+,\top\}$
 
 As we can see, the height of the powerset lattice is $|V| + 1$. This
-works in our case, but if the base lattice is inifinitely wide (as in
-constant propagation), the powerset lattice would be inifinitely tall
-and we could no longer guarantee termination!
+works in our case, but if the base lattice is inifinitely wide, the
+powerset lattice would be inifinitely tall and we could no longer
+guarantee termination!
 
 ## Interval Domain
+Consider the domain of integer intervals, in which we can express constraints like $x > 0$, or $3 < y \leq 7$. Since our running example only has two variables, we can conveniently depict the interval domain as a 2-dimensional graph.
 
-\begin{columns}
-\column{.7\textwidth}
-\includegraphics[width=\linewidth]{../static/absint/intervals.pdf}
-\column{.3\textwidth}
-$x > 0$
-
-$5 < x \leq 10$
-
-$3 < y \leq 7$
-\end{columns}
+\includegraphics[width=.7\linewidth]{../static/absint/intervals.pdf}
 
 ## Interval Lattice
 $Bot = ([5,4],[5,4]),\ Top = ([-\infty,\infty],[-\infty,\infty])$
@@ -160,14 +152,17 @@ $Bot = ([5,4],[5,4]),\ Top = ([-\infty,\infty],[-\infty,\infty])$
 
 
 ## Predicate Abstraction
+Finally, let us consider the domain of predicates, by which we mean "anything an SMT solver can understand."
+
+\vspace{.5cm}
 
 $P = \{P_1, P_2, P_3, \ldots\}$
 
-$\Sigma^\# = P \mapsto (T,F)$ "Does it Hold?"
+$\Sigma^\# = P \mapsto (T,F)$\ \ \ (Read: "Does it Hold?")
 
 Alternatively, $\Sigma^\# = 2^P$
 
-\vspace{1cm}
+\vspace{.5cm}
 
 Using the following definitions for $P_1 - P_3$
 
