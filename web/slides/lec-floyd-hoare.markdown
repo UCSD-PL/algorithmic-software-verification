@@ -3,6 +3,7 @@
 % April 16, 2013
 
 ## IMP: Syntax
+
 * Commands
 
     C ::= skip | x := E | while B do C | C1; C2 | if B then C1 else C2
