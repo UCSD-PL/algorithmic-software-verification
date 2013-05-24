@@ -1,4 +1,4 @@
-**HW 2: Due Jun 10, 2013**
+**HW 2: Due Jun 14, 2013**
 
 README
 =======
