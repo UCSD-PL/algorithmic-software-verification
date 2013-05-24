@@ -156,14 +156,20 @@ First Order Programs
     
 
 
+       K2 /\ K1     => K98
+       K912 /\ K131 => V >= 0
+       K912 /\ K11  => K12 
+       K912 /\ K31  => V >= 0
+
 
 
 **Subtyping: Base Types**
 
-       (embed G) /\ p1 => p2
+       (embed G) /\ K1 => K98
     _____________________________ [Sub-Base]
 
-    G |- {v:b | p1} <: {v:b | p2}
+
+    G |- {v:b | K1} <: {v:b | K98}
 
 
 
@@ -171,9 +177,9 @@ First Order Programs
 **Subtyping: Function Types**
 
     
-    G,yi:Ti' |- Ti' <: (Ti θ)  foreach i in 1..n
+    G, yi:Ti' |- Ti' <: (Ti θ)  foreach i in 1..n
     
-    G,yi:Ti' |- T θ <: T'
+    G, yi:Ti' |- T θ <: T'
 
     θ = [y1..yn/x1..xn]
     ______________________________________________________ [Sub-Fun]
@@ -724,7 +730,6 @@ START HERE: RECAP from TUE.
 
 
 **Subtyping: Function Types**
-
     
     G,yi:Ti' |- Ti' <: (Ti θ)  foreach i in 1..n
     
@@ -739,6 +744,7 @@ START HERE: RECAP from TUE.
 **Example 2**
 
     /*@ abs :: ((({z:int|z>=0}) => {v>=z})
+                
                 , int
                ) 
                => {v:int|v >= 0} */ 
@@ -751,12 +757,12 @@ START HERE: RECAP from TUE.
       return f(r);
     }
 
-    /*@ double :: ({x:int|true}) => {v:int| v=x+x} */
+    /*@ double :: (x:int) => {v:int| v = x + x } */
     function double(x){ return x + x }
 
     /*@ main :: (int) => {v:int | v>=0} */
     function main(x){
-      return abs(double, x);
+      return /* G */ abs(double, x);
     }
 
 
@@ -764,44 +770,57 @@ START HERE: RECAP from TUE.
                G |- { x:int | x>=0 }    <: {x:int|true}
                
     G,x:{v:int|v>=0} |- {v:int| v=x+x}  <: {v:int | v>=x}
+
+
+
+    G |- {z:int| z>=0}     <: {x:int| true }
+    
+    G, z:{z:int| z>= 0}  |- {v:int| v=z+z}   <: {v:int| v>=z }
     _____________________________________________________
 
-    G |- ({x:int|true}) => {v:int| v=x+x}
+    G |- ({z:int|true}) => {v:int| v=z+z}
          <: 
          (({z:int|z>=0}) => {v>=z})
 
+        (embed G) && z >= 0 && v = z + z => v >= z
+    _____________________________________________________
+    
+    G, z:{z:int| z>= 0}  |- {v:int| v=z+z}   <: {v:int| v>=z }
 
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 
 **Polymorphism** 
 
 Consider this variant.
 
 **Example 3**
+    
+    /*@ idt :: forall A. (A) => A */
+    function idt(x){ return x}
 
-    /*@ abs :: ((({z:int|z>=0}) => {v>=z}), {x:int|true}) => {v:int|v >= 0} */ 
-    function abs(f, x){
+    /*@ idt :: (T) => T*/
+    function idtT(x){ return x}
+
+    /*@ abs :: (x:int) => {v:int | v >= 0} */
+    function abs(x){
       var r = x;
       if (x < 0){
         r = 0 - x;
-      } 
-      return f(r);
+      }
+      assert(r >= 0);
+      r = idt[T](r);
+      return r;
     }
-
-    /*@ double :: ({x:int|true}) => {v:int| v=x+x} */
-    function double(x){ return x + x }
-
-    /*@ id :: forall A. (A) => A */
-    function id(x){ return x}
 
     /*@ main :: (int) => {v:int | v>=0} */
     function main(x){
       var z = abs(double, x);
+      assert(z >= 0);
       return id(z);
     }
 
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 **Types**
 
@@ -841,25 +860,24 @@ Consider this variant.
 
     E := ...
        | f[T1,...,Tm](e1,...,en)    // Function Call 
-
+       
        c.f. @instantiate@ in Language.Nano.Liquid.Liquid.hs
 
 
 **Typing ANF + Polymorphic Function Calls**
 
-    G(f) = (x1:T1...) => T     
+    G(f) = forall A1...Am.TBODY 
     
-    G |- yi:Ti'         foreach i in 1..n
+    TBODY[S1...Sm/A1...Am] = (x1:T1...) => T     
     
-    G |- Ti' <: Ti θ    foreach i in 1..n
+    G |- yi:Ti'                 foreach i in 1..n
+    
+    G |- Ti' <: Ti θ            foreach i in 1..n
 
     Θ = [y1...yn/x1...xn]
-    
-    ???
-
     ______________________________________[E-Call]
 
-    G |- f[T1...Tm](y1...yn) : T θ 
+    G |- f[S1...Sm](y1...yn) : T θ 
 
     Result type is just output type with [actuals/formals]
 
@@ -883,7 +901,7 @@ Lets go back to our example and see the constraints...
       if (x < 0){
         r = 0 - x;
       } 
-      return idt(r);
+      return idt[{v:int|v>=0}](r);
     }
 
     /*@ main :: (int) => {v:int | v>=0} */
@@ -907,12 +925,14 @@ Lets go back to our example and see the constraints...
         r1 = r0
       } /* G2' */
       /* G3 */
-      return idt[????](r1);
+      return idt[{v>=0}](r1);
     }
 
     G3: x  : true
         r0 : v =  x
         r1 : v >= 0
+        {v = r1} <: v>=0  OK
+
 
 
     What are the type instantiation parameters?
@@ -927,19 +947,21 @@ Lets go back to our example and see the constraints...
 
     All solves out easily.
 
+
+
 **Reasoning About Data Structures**
 
 Example: find *index* of smallest element in a list.
 
-         prove that data
+         prove that data-structure accesses are SAFE 
+         (within bounds)
           
     tests/liquid/pos/minindex01.js
 
-    /*@ loop :: (list [int], int, int) => int */ 
+    /*@ loop :: (b:ilist, {min:int | (0 <= min && min < (len b)), {i:int | 0 <= i})                    => {v:int | 0 <= v && v < (len b)} */ 
     function loop(b, min, i){
       if (i < length(b)) {
         var min_ = min;
-        assert(i < length(b));
         if (nth(b, i) < nth(b, min)) { 
           min_ = i; 
         } 
@@ -948,13 +970,46 @@ Example: find *index* of smallest element in a list.
       return min;
     }
 
-    /*@ minIndex :: (list [int]) => int */ 
+    /*@ minIndex :: (list) => int */ 
     function minIndex(a){
       var r = loop(a, 0, 0);
       return r;
     }
 
+
+
+
 **Types?**
+
+    Just think of "int-list" as a type (like int)
+
+    T = {v: ilist | p}
+
+
+**Properties: Uninterpreted Functions in SMT logic**
+    
+    len :: (ilist) => int
+
+    So if `a` is a `ilist` of size 10, then
+
+    a   :: {v: ilist | (len v) = 10}
+
+
+    //LIBRARY
+    nth    :: (a:ilist, {i:int | 0 <= i && i < (len a) }) => int
+    length :: (a:ilist) => {v:int | v = (len a)}
+
+
+    
+
+
+
+    Give the access "library" function a suitable type
+
+    nth     :: (xs:ilist, {i:int| ((0 <= i) && i < (len xs))}) => int
+    
+    length  :: (xs:ilist) => {v:int | (v = (len xs))}               
+
 
 **Expressions?**
 
@@ -967,37 +1022,69 @@ Example: find *index* of smallest element in a list.
 
 
 
-**Adding Containers**
+    
 
-    How to verify properties of data INSIDE containers?
+
+
+
+
+
+
+**How to verify properties of data INSIDE containers**
 
     How shall we prove this assert? [tests/liquid/pos/list00.js]
 
-    /*@ hop :: (list [int]) => {v:int | true} */
+    /*@ hop :: (list [{v:int | v >= 0}]) => void */
     function hop(xs){
-      if (empty(xs)) {
-        return 0;
+      if (empty[true](xs)) {
+        return;
       } else {
-        var h = head(xs);
-        var t = tail(xs);
+        var h = safehead[{v >= 0}](xs);
         assert(0 <= h);    
-        return hop(xs);
+        hop(safetail[{v>=0}](xs));
       }
     }
 
-**Types?**
-
-**Expressions?**
-
-**Wellformedness?**
-
-**Subtyping?**
-
-**Typechecking?**
+    empty     :: forall A. (xs:list [A]) => {v: boolean | ((Prop v) <=> ((len xs) == 0))} 
+    safehead  :: forall A. ({v: list [A] | (0 < (len v))) => A
+    safetail  :: forall A. ({v: list [A] | (0 < (len v))) => list [A]
 
 
 
 
+
+**Containers: Types?**
+
+    T := ...
+       | {v: C [T1,...,Tn] | r}
+
+
+**Containers: Expressions?**
+
+**Containers: Wellformedness?**
+
+        G |- Ti     for each i in 1..n
+
+        G, v:C[T1..] |- p : boolean
+        ___________________________
+
+        G |- {v: C [T1...Tn] | p}
+
+
+**Containers: Subtyping?**
+
+        
+                  G |- Ti <: Ti'
+        
+        G, v:C[...] |- p => p' 
+        ____________________________________________________
+
+        G |- {v: C [T1...Tn] | p} <: {v: C [T1'...Tn'] | p'}
+
+
+
+
+**Containers: Typechecking?**
 
 
 -----------------------------------------------------------------------------
@@ -1006,6 +1093,91 @@ Example: find *index* of smallest element in a list.
 
     It is painful to have to write down ALL types ALL the time.
 
-    SUPER TRIVIAL.
+        1. WHAT needs to be inferred?
+    
+        2. HOW can we infer it?
 
-     
+-----------------------------------------------------------------------------
+**1. What needs to be inferred?**
+
+  A: the stuff we DONT want to write down!
+
+/*@ loop :: ( b:list [int]
+            , {min:int | ((0 <= min) && (min < (len b)))}
+            , {i:int | 0 <= i})  
+            => {v:int | ((0 <= v) && (v < (len b)))} */ 
+    
+function loop(b, min, i){
+  if (i < length(b)) {
+    var min_ = min;
+    assert(i < length(b));
+    if (nth(b, i) < nth(b, min)) { 
+      min_ = i; 
+    } 
+    return loop(b, min_, i + 1)
+  }
+  return min;
+}
+
+-----------------------------------------------------------------------------
+**1. What needs to be inferred?**
+
+  A: the stuff we DONT want to write down!
+
+**Step 1: Templates**
+
+Generate **FRESH** K variables for unknown refinements
+
+/*@ loop :: ( {b:list [int] | K1}, {min:int | K2}, {i:int | K3}) => {v:int | K4} */ 
+function loop(b, min, i){
+  if [min_ :: K8] (i < length[K5](b)) {
+    var min_ = min;
+    if (nth[K6](b, i) < nth[K7](b, min)) { 
+      min_ = i; 
+    } 
+    return loop(b, min_, i + 1)
+  }
+  return min;
+}
+
+**Step 2: Perform TypeChecking**
+
+    Generate a bunch of subtyping requirements
+
+    Via subtyping, boils down to subtyping over base types
+
+    **Subtyping: Base Types**
+
+       (embed G) /\ K1 => K98
+    _____________________________ [Sub-Base]
+
+    G |- {v:b | K1} <: {v:b | K98}
+
+    
+    cf Language.Nano.Liquid.CGMonad.splitC
+
+    So **step 2** yields a bunch of **base subtyping constraints**
+
+        x:K2       |- {v:int|K1}      <: {v:int|K9}
+        y:K9       |- {v:list int|K3} <: {v:list int| 0 < (len v)} 
+        y:K9, b:K1 |- {v:int|K3}      <: {v:int| K2} 
+        y:K9, z:K3 |- {v:int|v=y}     <: {v:int| v>=0} 
+
+
+
+
+**Step 3: Solve Constraints via TypeChecking**
+
+    Subtyping constraints are simply (via definition of **embed**)
+
+        K2[x/v] /\ K1                 => K9
+        K9[y/v] /\ K3                 => 0 < (len v)
+        K9[y/v] /\ K1[b/v] /\ K3      => K2 
+        K9[y/v] /\ K3[z/v] /\ {v = y} => (v >= 0)
+
+    Solved via **fixpoint** computation (i.e. abstract interpretation!)
+
+
+
+
+
