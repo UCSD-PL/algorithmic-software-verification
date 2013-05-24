@@ -868,7 +868,7 @@ Consider this variant.
 
     G(f) = forall A1...Am.TBODY 
     
-    TBODY[S1...Sm/A1...Am] = (x1:T1...) => T     
+    TBODY[τ1...τm/A1...Am] = (x1:T1...) => T     
     
     G |- yi:Ti'                 foreach i in 1..n
     
@@ -877,7 +877,7 @@ Consider this variant.
     Θ = [y1...yn/x1...xn]
     ______________________________________[E-Call]
 
-    G |- f[S1...Sm](y1...yn) : T θ 
+    G |- f[τ1...τm](y1...yn) : T θ 
 
     Result type is just output type with [actuals/formals]
 
