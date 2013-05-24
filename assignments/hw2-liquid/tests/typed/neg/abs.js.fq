@@ -1,0 +1,58 @@
+qualif Bot(v : int): (0 = 1)
+
+constant Prop : func(0, [boolean; bool])
+bind 0 x : {x : int | [true]}
+bind 1 y_0 : {VV : int | [(VV = x)]}
+bind 2 lq_tmp_nano1 : {VV : int | [(VV = 0)]}
+bind 3 lq_tmp_nano2 : {VV : boolean | []}
+bind 4 y_1 : {VV : int | [(VV = x)]}
+bind 5 y_3 : {VV : int | [(VV = y_1)]}
+bind 6 lq_tmp_nano3 : {VV : int | [(VV = 10)]}
+bind 7 lq_tmp_nano4 : {VV : int | []}
+bind 8 y_2 : {VV : int | [(VV = lq_tmp_nano4)]}
+bind 9 y_3 : {VV : int | [(VV = y_2)]}
+bind 10 y_3 : {VV#5 : int | [k_6]}
+bind 11 lq_tmp_nano7 : {VV : int | [(VV = 10)]}
+bind 12 lq_tmp_nano8 : {VV : boolean | []}
+bind 13 lq_tmp_nano9 : {VV : void | []}
+bind 14 lq_tmp_nano10 : {VV : int | [(VV = 100)]}
+bind 15 lq_tmp_nano11 : {VV : boolean | []}
+bind 16 lq_tmp_nano12 : {VV : void | []}
+
+
+constraint:
+  env [0; 10; 1; 11; 12]
+  grd true
+  lhs {VV#F2 : boolean | []}
+  rhs {VV#F2 : boolean | [(? Prop([VV#F2]))]}
+  id 2 
+
+
+constraint:
+  env [2; 0; 8; 3; 9; 1; 6; 7]
+  grd (~ ((? Prop([lq_tmp_nano2]))))
+  lhs {VV#F3 : int | [(VV#F3 = y_2)]}
+  rhs {VV#F3 : int | [k_6[VV#5:=VV#F3][VV#5:=VV#F3][y_3:=VV#F3][VV#F:=VV#F3]]}
+  id 3 
+
+
+constraint:
+  env [0; 14; 10; 1; 15]
+  grd true
+  lhs {VV#F1 : boolean | []}
+  rhs {VV#F1 : boolean | [(? Prop([VV#F1]))]}
+  id 1 
+
+
+constraint:
+  env [2; 0; 5; 3; 1; 4]
+  grd (? Prop([lq_tmp_nano2]))
+  lhs {VV#F4 : int | [(VV#F4 = y_1)]}
+  rhs {VV#F4 : int | [k_6[VV#5:=VV#F4][VV#5:=VV#F4][y_3:=VV#F4][VV#F:=VV#F4]]}
+  id 4 
+
+
+wf:
+  env [0; 10; 1]
+  reft {VV#5 : int | [k_6]}
+  

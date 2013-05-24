@@ -1,0 +1,10 @@
+UNSAT [2,1] 
+ 
+ 
+ 
+solution: k_6 := [] 
+
+//QUALIFIERS 
+
+qualif Bot(v:int):(0 = 1) 
+

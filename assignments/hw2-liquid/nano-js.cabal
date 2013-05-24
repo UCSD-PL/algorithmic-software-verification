@@ -1,0 +1,74 @@
+name:                nano-js
+version:             0.1.0.0
+synopsis:            Small Language for Implementing Verification Algorithms
+homepage:            https://github.com/UCSD-PL/nano-js
+license:             BSD3
+license-file:        LICENSE
+author:              Ranjit Jhala
+maintainer:          jhala@cs.ucsd.edu
+category:            Language
+build-type:          Simple
+cabal-version:       >=1.8
+extra-source-files:  README.md, 
+                     include/prelude.js
+
+data-files:          README.md, 
+                     include/prelude.js
+
+
+
+
+executable nanojs
+  build-depends:       base, 
+                       pretty, 
+                       hashable < 1.2, 
+                       unordered-containers, 
+                       filepath, ansi-terminal, process, mtl, syb, cmdargs,
+                       liquid-fixpoint, parsec, language-ecmascript
+
+  extensions:          ExistentialQuantification, 
+                       FlexibleInstances, 
+                       UndecidableInstances,
+                       DeriveDataTypeable,
+                       TupleSections,
+                       NoMonomorphismRestriction,
+                       ScopedTypeVariables,
+                       BangPatterns
+
+  ghc-options:         -W -O2  
+  Main-is:             Nano.hs
+
+-- Library
+--   build-depends:       base, pretty, hashable, unordered-containers, 
+--                        filepath, ansi-terminal, process, mtl, syb, cmdargs,
+--                        liquid-fixpoint, parsec, language-ecmascript 
+-- 
+--   extensions:          ExistentialQuantification, 
+--                        FlexibleInstances, 
+--                        UndecidableInstances,
+--                        DeriveDataTypeable,
+--                        TupleSections,
+--                        NoMonomorphismRestriction,
+--                        ScopedTypeVariables,
+--                        BangPatterns
+-- 
+--   ghc-options:         -W -O2  
+--  
+--  
+--   Exposed-Modules:     Language.Nano.Errors,
+--                        Language.Nano.Types,
+--                        Language.Nano.Files,
+--                        Language.Nano.CmdLine,
+--                        Language.Nano.ESC.Types,
+--                        Language.Nano.ESC.VCMonad, 
+--                        Language.Nano.ESC.ESC,
+--                        Language.Nano.SSA.SSA,
+--                        Language.Nano.SSA.SSAMonad,
+--                        Language.Nano.Typecheck.Types,
+--                        Language.Nano.Typecheck.TCMonad,
+--                        Language.Nano.Typecheck.Typecheck,
+--                        Language.Nano.Typecheck.Parse,
+--                        Language.Nano.Liquid.Types,
+--                        Language.Nano.Liquid.Liquid,
+--                        Language.Nano.Liquid.CGMonad
+
