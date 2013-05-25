@@ -83,21 +83,21 @@ class IsNano a where
 
 
 instance IsNano InfixOp where
-  isNano OpLT   = True -- ^ @<@
-  isNano OpLEq  = True -- ^ @<=@
-  isNano OpGT   = True -- ^ @>@
-  isNano OpGEq  = True -- ^ @>=@
-  isNano OpEq   = True -- ^ @==@
-  isNano OpNEq  = True -- ^ @!=@
+  isNano OpLT   = True -- @<@
+  isNano OpLEq  = True -- @<=@
+  isNano OpGT   = True -- @>@
+  isNano OpGEq  = True -- @>=@
+  isNano OpEq   = True -- @==@
+  isNano OpNEq  = True -- @!=@
   
-  isNano OpLAnd = True -- ^ @&&@
-  isNano OpLOr  = True -- ^ @||@
+  isNano OpLAnd = True -- @&&@
+  isNano OpLOr  = True -- @||@
 
-  isNano OpSub  = True -- ^ @-@
-  isNano OpAdd  = True -- ^ @+@
-  isNano OpMul  = True -- ^ @*@
-  isNano OpDiv  = True -- ^ @/@
-  isNano OpMod  = True -- ^ @%@
+  isNano OpSub  = True -- @-@
+  isNano OpAdd  = True -- @+@
+  isNano OpMul  = True -- @*@
+  isNano OpDiv  = True -- @/@
+  isNano OpMod  = True -- @%@
   isNano _      = False
 
 instance IsNano (LValue a) where 
@@ -130,9 +130,9 @@ instance IsNano PrefixOp where
   -- isNano _           = False
 
 instance IsNano (Statement a) where
-  isNano (EmptyStmt _)         = True                   -- ^ skip
-  isNano (ExprStmt _ e)        = isNanoExprStatement e  -- ^ x = e
-  isNano (BlockStmt _ ss)      = isNano ss              -- ^ sequence
+  isNano (EmptyStmt _)         = True                   -- skip
+  isNano (ExprStmt _ e)        = isNanoExprStatement e  -- x = e
+  isNano (BlockStmt _ ss)      = isNano ss              -- sequence
   isNano (IfSingleStmt _ b s)  = isNano b && isNano s   
   isNano (IfStmt _ b s1 s2)    = isNano b && isNano s1 && isNano s2
   isNano (WhileStmt _ b s)     = isNano b && isNano s
