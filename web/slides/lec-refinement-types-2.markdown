@@ -80,7 +80,8 @@ Will be transformed to:
     G = x1:T1,...,xn:Tn
 
 - A sequence of type bindings
-- Invariant: No *duplicate* bindings
+- *Invariant*: No *duplicate* bindings
+- *Invariant*: Types are *well-formed*
 
 
 Wellformedness
@@ -127,6 +128,14 @@ Subtyping
     G |- {v:b | p1} <: {v:b | p2}
 
 
+*Intuition:* Subtyping is like Floyd-Hoare **Rule Of Consequence**
+    
+    P' => P    {P} c {Q}      Q => Q'
+    _________________________________
+
+               {P'} c {Q'}
+
+
 **Subtyping: Functions**
 
     
@@ -140,12 +149,9 @@ Subtyping
     G |- (x1:T1...xn:Tn) => T <: (y1:T1'...yn:Tn') => T'
 
 
-*Intuition:* Subtyping is like Floyd-Hoare **Rule Of Consequence**
-    
-    P' => P    {P} c {Q}      Q => Q'
-    _________________________________
-
-               {P'} c {Q'}
+*Intuition:* `f <: g` means that when you expected `g` you can use `f`.
+- each argument of `g` should be a valid argument for `f`
+- `f`'s result should be `g`'s possible result
 
 
 Typing
@@ -228,6 +234,7 @@ Uh oh. What type do we give to the *output* of the call?
             
     +(foo(a), bar(b))   : {v:int | v = foo(a) + bar(b)}
 
+*Problem:* In the logic we cannot reason about functions e.g., `foo` or `bar`
 
 **Administrative Normal Form** (a.k.a. **ANF**)
 
@@ -400,6 +407,17 @@ We define `G(*)` as
 
     G |- if [φ] e { s1 } else { s2 } : G+φ      
 
+*Note:* The bindings for φ variables should be checked.
+The below statement should not typecheck
+
+      if [r1:{v:int | v>=1000}] 
+        (x0 < 0){
+        r1 = 0 - x0;
+      } else {
+        r1 = r0;
+      };
+
+
 
 Examples
 --------
@@ -415,9 +433,9 @@ Examples
       return r;
     }
     
-*Goal:* Type check the function
+*Goal:* Type check the function `abs`
     
-*Step 1* Transform the program 
+*Step 1:* Transform the program 
 
     /*@ abs :: ({x:int|true}) => {v:int|v >= 0} */ 
     function abs(x){
@@ -436,7 +454,7 @@ Examples
       return r1;
     }
 
-*Step 2* Compute the G environments at each program point
+*Step 2:* Compute the G environments at each program point
 
     G0  = x:int, $return:{v:int|v>=0}
     G1  = G0, r0:{v=x},t0:{v:bool| v <=> x < 0}, t0<=>true
@@ -445,7 +463,7 @@ Examples
     G2' = G2, r1:{v=r0}
     G3  = G0, r1:{v>=0}
     
-*Step 3* Typing of φ variables    
+*Step 3:* Typing of φ variables    
 Case of `then`  
 
      (embed G1') /\ v = r1 => v>=0 
