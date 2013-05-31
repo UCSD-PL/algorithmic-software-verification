@@ -1,4 +1,3 @@
-
 First Order Programs
 --------------------
 
@@ -10,39 +9,16 @@ First Order Programs
        | list int 
        | ...
 
-
-
-
-
-
-
-
 **Types**
 
     T := {v:B | p}                  // Base types
        | (x1:T1,...,xn:Tn) => T     // Function types
-
-
-
-
-
-
 
 **Expressions**
 
     E := x                 // Variables
        | c                 // Constants 0, 1, +, -, true...
        | f(e1,...,en)      // Function Call 
-
-
-
-
-
-
-
-
-
-
 
 
 **Statements**
@@ -57,93 +33,69 @@ First Order Programs
 
     φ := x1:T1 ... xn:Tn
 
-    // OLD
+
+*Note*: We make the following transformations to the code
+- SSA transformation
+- Addition of `else` branch
+- Annotate branches with φ variables
+
+So the following code:
 
     /*@ abs :: (x:int) => {v:int | v>=0}
     function abs(x){
       r = x;
       if (x < 0){
         r = 0 - x
-      }
+      };
       return r
     }
 
+Will be transformed to:
 
-
-    // SSA Transformed
-    r0 = x0;
-    if [r1:{v:int | v >= 1000 }] 
-      (x0 < 0){
-      r1 = 0 - x0;
-    } else {
-      r1 = r0
+    /*@ abs :: (x:int) => {v:int | v>=0}
+    function abs(x){
+      r0 = x0;
+      if [r1:{v:int | v>=0}] 
+        (x0 < 0){
+        r1 = 0 - x0;
+      } else {
+        r1 = r0;
+      };
+      return r1
     }
-    return r1 // v>= 1000
-
-
-
-
-
-
-
-
-
-
+    
 **Functions**
     
     F := function f(x1...xn){s}   // Function Definition
 
-
-
 **Programs**
 
-    P := f1:T1, ... fn:Tn   // Sequence of function definitions
-
-
-
-
-
-
-
-
-
-
-
-
-
+    P := F1:T1, ... Fn:Tn   // Sequence of function definitions
 
 **Environments**
 
     G = x1:T1,...,xn:Tn
 
-
-    - A sequence of type bindings
-    - No *duplicate* bindings
-
-
-
-
-
-
+- A sequence of type bindings
+- Invariant: No *duplicate* bindings
 
 
 **Wellformedness**
 
-    G |- p : bool
-   ________________
+     G, v:b |- p : bool
+    ____________________[W-Base]
+ 
+       G |- {v:b | p}
 
-    G |- {v:b | p}
+
+   G, x1:T1,...,xn:Tn |- Ti  for all i in 1..n
+   G, x1:T1,...,xn:Tn |- T
+   ______________________________________________[W-Fun]
+  
+           G |- (x1:T1,...,xn:Tn) => T
 
     
-    *Intuition* `p` must be a boolean predicate in `G`
-
-
-
-
-
-
-
-
+*Intuition:* `p` must be a boolean predicate in `G`
 
 **Embedding Environments**
 
@@ -152,11 +104,7 @@ First Order Programs
     embed (x1:{v:B | p1}, G) = p1[x1/v] && embed G -- Base     Binding
     embed (x1:T, G)          = embed G             -- Non-Base Binding
 
-    Intuition: Environment is like a Floyd-Hoare **Precondition**
-
-    
-
-
+*Intuition:* Environment is like a Floyd-Hoare **Precondition**
 
 
 **Subtyping**
@@ -165,9 +113,6 @@ First Order Programs
     _____________________________
 
     G |- {v:b | p1} <: {v:b | p2}
-
-
-
 
 
     
@@ -181,19 +126,7 @@ First Order Programs
     G |- (x1:T1...xn:Tn) => T <: (y1:T1'...yn:Tn') => T'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    Intuition: Subtyping is like Floyd-Hoare **Rule Of Consequence**
+*Intuition:* Subtyping is like Floyd-Hoare **Rule Of Consequence**
     
     P' => P    {P} c {Q}      Q => Q'
     _________________________________
@@ -201,52 +134,34 @@ First Order Programs
                {P'} c {Q'}
 
 
-
-
-
-
-
 **Program Typing**
 
+    for each i in 1..n Fi = function fi(...){si} 
+    
     G = f1:T1...fn:Tn
 
-    G |- fi:Ti for i in 1..n
-    ___________________________[Program]
+    G |- Fi:Ti for i in 1..n
+    _____________________________________________[Program]
 
-      0 |- f1:T1...fn:Tn
-
-
+      0 |- F1:T1...Fn:Tn
 
 
 
 **Function Typing**
 
-    G, x1:T1...,$result:T |- s  
-    ___________________________[Fun]
+                   G, x1:T1...,$result:T |- s:G'  
+    ______________________________________________________[Fun]
 
-    G |- function f(x1...){ s } 
-
-
-
-
-
-
-
+    G |- function f(x1:T1...xn:Tn){ s }:(x1:T1...xn:Tn)=>T 
 
 
 **Expression Typing**   
 
     G |- e : t
     
-    In environment `G` the expression `e` evaluates to a value of type `t`
+In environment `G` the expression `e` evaluates to a value of type `t`
 
-    We will see this is problematic, will revisit...
-
-
-
-
-
-
+We will see this is problematic, will revisit...
 
 **Typing Constants**
 
@@ -255,8 +170,7 @@ First Order Programs
     G |- c : ty(c) 
 
 
-
-    Intuition: Each constant has a *primitive* or *builtin* type
+*Intuition:* Each constant has a *primitive* or *builtin* type
 
     ty(1) = {v:int| v = 1}
     
@@ -268,25 +182,12 @@ First Order Programs
 
 
 
-
-
-
-
-
-
-
-
 **Typing Variables**
    
       G(x) = T 
     _____________[E-Var]
 
      G |- x : T 
-
-
-
-
-
 
 
 **Typing Function Calls**
@@ -300,22 +201,14 @@ First Order Programs
 
     G |- f(e1...en) : ??? 
 
-    Uh oh. What type do we give to the *output* of the call?
+
+Uh oh. What type do we give to the *output* of the call?
 
     + :: (x1:int, x2:int) => {v:int|v = x1 + x2}
     
     +(a,b)              : {v:int | v = a + b}
             
     +(foo(a), bar(b))   : {v:int | v = foo(a) + bar(b)}
-
-    var t1 = foo(a)
-    var t2 = bar(b) 
-    +(t1,t2)
-
-
-
-        
-
 
 
 **Administrative Normal Form**
@@ -328,8 +221,9 @@ Translate program so *every* call is of the form
 
 That is, all arguments are **variables**
 
-
-
+    var t1 = foo(a)
+    var t2 = bar(b) 
+    +(t1,t2) : {v:int | v = t1 + t2}
 
 
 **Typing ANF Function Calls**
@@ -345,19 +239,8 @@ That is, all arguments are **variables**
 
     G |- f(y1...yn) : T θ 
 
-    Result type is just output type with [actuals/formals]
 
-
-
-
-
-
-
-
-
-
-
-
+Result type is just output type with [actuals/formals]
 
 
 **On the Fly ANF Conversion**
@@ -366,13 +249,8 @@ Rejigger typing rules to perform ANF-conversion
 
     G |- e : G', xe
 
-    1. `G'` : the output environment with new temp binders
-    2. `xe` : the temp binder (in `G'`) corresponding to `e` 
-
-
-
-
-
+1. `G'` : the output environment with new temp binders
+2. `xe` : the temp binder (in `G'`) corresponding to `e` 
 
 
 **On the Fly ANF Conversion: EXAMPLE**
@@ -391,20 +269,7 @@ Rejigger typing rules to perform ANF-conversion
 
 
 
-
-
-
-
-
 **Revisit Typing Rules for ANF ...**
-
-
-
-
-
-
-
-
 
 **ANF-Expression Typing**   
 
@@ -414,11 +279,6 @@ Rejigger typing rules to perform ANF-conversion
 
     1. `G'` : the output environment with new temp binders
     2. `xe` : the temp binder (in `G'`) corresponding to `e` 
-
-
-
-
-
 
 
 **ANF-Typing Constants**
@@ -431,18 +291,6 @@ Rejigger typing rules to perform ANF-conversion
     G |- c : G', z
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 **ANF-Typing Variables**
    
 
@@ -450,12 +298,7 @@ Rejigger typing rules to perform ANF-conversion
 
      G |- x : G, x 
 
-
-
-    Yay! Easier than before ... :)
-
-
-
+Yay! Easier than before ... :)
 
 
 **ANF Typing Function Calls**
@@ -474,74 +317,30 @@ Rejigger typing rules to perform ANF-conversion
     G   |- f(e1...en) : G'', z  
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 **Statement Typing**
 
     G |- s : G'
 
     G' is G extended with **new bindings** for assigments in `s`
 
-
-
-
-
-
-
-
 **Statement Typing: skip**
 
     G |- skip : G
-
-
-
-
-
-
-
-
-
-
-
 
 **Statement Typing: assign**
 
 
          G |- e : G',xe
-    ________________________
+    ________________________[S-Ass]
 
-     G |- x = e : G',x:G(xe)
+     G |- x = e : G',x:G'(xe)
 
 
+    
+    ????
     G(x) = {v:b| v = x} if T == {v:b|p}
            T               otherwise
            
-
-
-
-
-
-
-
-
-
-
 
 **Statement Typing: sequence**
 
@@ -549,16 +348,9 @@ Rejigger typing rules to perform ANF-conversion
        G  |- s1 : G1 
 
        G1 |- s2 : G2
-      ___________________[Seq]
+      ___________________[S-Seq]
 
       G |- s1; s2 : G2
-
-
-
-
-
-
-
 
 
 **Statement Typing: return**
@@ -566,22 +358,9 @@ Rejigger typing rules to perform ANF-conversion
 
     G  |- e : G', xe
     G' |- G'(xe) <: G'($result)
-    _____________________________[Ret]
+    _____________________________[S-Ret]
 
     G  |- return e : Ø
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 **Statement Typing: branch**
@@ -598,18 +377,6 @@ Rejigger typing rules to perform ANF-conversion
     ___________________________________
 
     G |- if [φ] e { s1 } else { s2 } : G+φ      
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -639,20 +406,27 @@ Rejigger typing rules to perform ANF-conversion
       return r1;
     }
 
+
+
     G0  = x:int
     G1  = G0, r0:{v=x},t0:{v:bool| v <=> x < 0}, t0<=>true
     G1' = G1, r1:{v=0-x}
     
-    G1' |- G1'(r1) <: {v:int|v >=0}      
+    G1' |- G1'(r1) <: {v:int|v>=0}      
     
-    G1' |- {v=r1} <: {v >=0}      
+    G1' |- {v=r1} <: {v>=0}      
+
+
+(embed G1') /\ v = r1 => v>=0
 
 r0=x
 t0 <=> x < 0
-t0<=>true
+t0 <=>true
 r1=0-x
 v=r1
-=> v >= 0       OK!
+=> v>=0       OK!
+
+(embed G2') /\ v = r1 => v>=0
 
 r0=x
 t0 <=> x < 0
@@ -660,7 +434,7 @@ t0<=>false
 r1=r0
 v=r1
 => v >= 0       OK!
- 
+____________________________________ 
 G0,r1:{v>=0} |- {v=r1} <: {v>=0}
 
 
@@ -669,41 +443,6 @@ G0,r1:{v>=0} |- {v=r1} <: {v>=0}
     G2' = G2, r1:{v=r0}
     
     G2' |- G2'(r1) <: {v:int|v>=0}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*@ abs :: ({x:int|true}) => {v:int|v >= 0} */ 
-    function abs(x){
-      var r = x;
-      if (x < 0){
-        r = 0 - x;
-      } 
-      return r;
-    }
-
-
-
-
-
-
-
 
 
 **Example 2**
@@ -721,9 +460,6 @@ G0,r1:{v>=0} |- {v=r1} <: {v>=0}
       return f(r);
     }
 
-
-
-
     /*@ double :: ({x:int|true}) => {v:int| v=x+x} */
     function double(x){ return x + x }
 
@@ -732,19 +468,16 @@ G0,r1:{v>=0} |- {v=r1} <: {v>=0}
       return abs(double, x);
     }
 
-    G |- {x:int|x>=0}    <: {x:int|true}
+
+
+    G,z:{v:int|v>=0} |- {z:int|z>=0}   <: {z:int|true}
                
-    G,x:{v:int|v>=0} |- {v:int| v=x+x}  <: {v:int | v>=x}
-    _____________________________________________
+    G,z:{v:int|v>=0} |- {v:int|v=z+z}  <: {v:int | v>=z}
+    _____________________________________________________
 
     G |- ({x:int|true}) => {v:int| v=x+x}
          <: 
-         (({z:int|z>=0}) => {v>=z})
-
-
-
-
-
+         ({z:int|z>=0}) => {v>=z}
 
 
 
