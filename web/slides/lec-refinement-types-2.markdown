@@ -1,5 +1,8 @@
 First Order Programs
---------------------
+====================
+
+Syntax
+------
 
 **Base Types**
 
@@ -36,12 +39,12 @@ First Order Programs
 
 *Note*: We make the following transformations to the code
 - SSA transformation
-- Addition of `else` branch
+- Addition of `else` branches
 - Annotate branches with φ variables
 
 So the following code:
 
-    /*@ abs :: (x:int) => {v:int | v>=0}
+    /*@ abs :: (x:int) => {v:int | v>=0}*/
     function abs(x){
       r = x;
       if (x < 0){
@@ -52,7 +55,7 @@ So the following code:
 
 Will be transformed to:
 
-    /*@ abs :: (x:int) => {v:int | v>=0}
+    /*@ abs :: (x:int) => {v:int | v>=0}*/
     function abs(x){
       r0 = x0;
       if [r1:{v:int | v>=0}] 
@@ -80,22 +83,30 @@ Will be transformed to:
 - Invariant: No *duplicate* bindings
 
 
-**Wellformedness**
+Wellformedness
+--------------
 
-     G, v:b |- p : bool
+**Wellformedness: Base**
+
+    G, v:b |- p : bool
     ____________________[W-Base]
  
        G |- {v:b | p}
 
+*Intuition:* `p` must be a boolean predicate in `G`
 
-   G, x1:T1,...,xn:Tn |- Ti  for all i in 1..n
-   G, x1:T1,...,xn:Tn |- T
-   ______________________________________________[W-Fun]
-  
-           G |- (x1:T1,...,xn:Tn) => T
+**Wellformedness: Functions**
+
+    G, x1:T1,...,xn:Tn |- Ti  for all i in 1..n
+    G, x1:T1,...,xn:Tn |- T
+    ______________________________________________[W-Fun]
+   
+            G |- (x1:T1,...,xn:Tn) => T
 
     
-*Intuition:* `p` must be a boolean predicate in `G`
+
+Subtyping
+---------
 
 **Embedding Environments**
 
@@ -107,13 +118,16 @@ Will be transformed to:
 *Intuition:* Environment is like a Floyd-Hoare **Precondition**
 
 
-**Subtyping**
+
+**Subtyping: Base**
 
        (embed G) /\ p1 => p2
-    _____________________________
+    _____________________________[<:-Base]
 
     G |- {v:b | p1} <: {v:b | p2}
 
+
+**Subtyping: Functions**
 
     
     G,yi:Ti' |- Ti' <: (Ti θ)  foreach i in 1..n
@@ -121,7 +135,7 @@ Will be transformed to:
     G,yi:Ti' |- T θ <: T'
 
     θ = [y1..yn/x1..xn]
-    ______________________________________________________
+    ______________________________________________________[<:-Fun]
 
     G |- (x1:T1...xn:Tn) => T <: (y1:T1'...yn:Tn') => T'
 
@@ -134,28 +148,32 @@ Will be transformed to:
                {P'} c {Q'}
 
 
+Typing
+------
+
 **Program Typing**
 
-    for each i in 1..n Fi = function fi(...){si} 
+    for each i in 1..n Fi = function fi(_){_} 
     
     G = f1:T1...fn:Tn
 
     G |- Fi:Ti for i in 1..n
     _____________________________________________[Program]
 
-      0 |- F1:T1...Fn:Tn
+                0 |- F1:T1...Fn:Tn
 
 
 
 **Function Typing**
 
-                   G, x1:T1...,$result:T |- s:G'  
+    G, x1:T1...,$result:T |- s:_
     ______________________________________________________[Fun]
 
     G |- function f(x1:T1...xn:Tn){ s }:(x1:T1...xn:Tn)=>T 
 
 
-**Expression Typing**   
+Expression Typing
+-----------------
 
     G |- e : t
     
@@ -184,10 +202,10 @@ We will see this is problematic, will revisit...
 
 **Typing Variables**
    
-      G(x) = T 
-    _____________[E-Var]
+    G(x) = T 
+    ___________[E-Var]
 
-     G |- x : T 
+    G |- x : T 
 
 
 **Typing Function Calls**
@@ -197,9 +215,9 @@ We will see this is problematic, will revisit...
     G |- ei:Ti'     foreach i in 1..n
 
     G |- Ti' <: Ti  foreach i in 1..n
-    ____________________________________[E-Call]
+    __________________________________[E-Call]
 
-    G |- f(e1...en) : ??? 
+          G |- f(e1...en) : ??? 
 
 
 Uh oh. What type do we give to the *output* of the call?
@@ -211,9 +229,7 @@ Uh oh. What type do we give to the *output* of the call?
     +(foo(a), bar(b))   : {v:int | v = foo(a) + bar(b)}
 
 
-**Administrative Normal Form**
-
-a.k.a. **ANF**
+**Administrative Normal Form** (a.k.a. **ANF**)
 
 Translate program so *every* call is of the form
 
@@ -243,7 +259,8 @@ That is, all arguments are **variables**
 Result type is just output type with [actuals/formals]
 
 
-**On the Fly ANF Conversion**
+On the Fly ANF Conversion
+-------------------------
 
 Rejigger typing rules to perform ANF-conversion
 
@@ -271,14 +288,15 @@ Rejigger typing rules to perform ANF-conversion
 
 **Revisit Typing Rules for ANF ...**
 
-**ANF-Expression Typing**   
+ANF-Expression Typing
+---------------------
 
 Rejigger typing rules to perform ANF-conversion
 
     G |- e : G', xe
 
-    1. `G'` : the output environment with new temp binders
-    2. `xe` : the temp binder (in `G'`) corresponding to `e` 
+1. `G'` : the output environment with new temp binders
+2. `xe` : the temp binder (in `G'`) corresponding to `e` 
 
 
 **ANF-Typing Constants**
@@ -317,37 +335,41 @@ Yay! Easier than before ... :)
     G   |- f(e1...en) : G'', z  
 
 
-**Statement Typing**
+Statement Typing
+----------------
 
     G |- s : G'
 
-    G' is G extended with **new bindings** for assigments in `s`
+G' is G extended with **new bindings** for assigments in `s`
 
 **Statement Typing: skip**
+
+
+    ______________[S-skip]
 
     G |- skip : G
 
 **Statement Typing: assign**
 
 
-         G |- e : G',xe
+    G |- e : G',xe
     ________________________[S-Ass]
 
      G |- x = e : G',x:G'(xe)
 
 
-    
-    ????
-    G(x) = {v:b| v = x} if T == {v:b|p}
-           T               otherwise
+We define `G(*)` as
+
+    G(x) = {v:b| v = x} if x:{v:b|p} in G
+           T            if x:T       in G
            
 
 **Statement Typing: sequence**
 
 
-       G  |- s1 : G1 
+      G  |- s1 : G1 
 
-       G1 |- s2 : G2
+      G1 |- s2 : G2
       ___________________[S-Seq]
 
       G |- s1; s2 : G2
@@ -374,12 +396,13 @@ Yay! Easier than before ... :)
     G',z:{!xe} |- s2 : G2
     G1 |- G1(x) <: T    foreach x:T in φ 
     G2 |- G2(x) <: T    foreach x:T in φ 
-    ___________________________________
+    _______________________________________[S-If]
 
     G |- if [φ] e { s1 } else { s2 } : G+φ      
 
 
-
+Examples
+--------
 
 **Example 1**
 
@@ -391,6 +414,10 @@ Yay! Easier than before ... :)
       } 
       return r;
     }
+    
+*Goal:* Type check the function
+    
+*Step 1* Transform the program 
 
     /*@ abs :: ({x:int|true}) => {v:int|v >= 0} */ 
     function abs(x){
@@ -398,51 +425,77 @@ Yay! Easier than before ... :)
       if [r1:{v:int|v>=0}] (x < 0){
         /* G1  */
         r1 = 0 - x;
-      } /* G1' */ 
+        /* G1' */ 
+      }
       else {
-        /* G2 */
+        /* G2  */
         r1 = r0
-      } /* G2' */
+        /* G2' */
+      }
+      /*G3*/
       return r1;
     }
 
+*Step 2* Compute the G environments at each program point
 
-
-    G0  = x:int
+    G0  = x:int, $return:{v:int|v>=0}
     G1  = G0, r0:{v=x},t0:{v:bool| v <=> x < 0}, t0<=>true
     G1' = G1, r1:{v=0-x}
-    
-    G1' |- G1'(r1) <: {v:int|v>=0}      
-    
-    G1' |- {v=r1} <: {v>=0}      
-
-
-(embed G1') /\ v = r1 => v>=0
-
-r0=x
-t0 <=> x < 0
-t0 <=>true
-r1=0-x
-v=r1
-=> v>=0       OK!
-
-(embed G2') /\ v = r1 => v>=0
-
-r0=x
-t0 <=> x < 0
-t0<=>false
-r1=r0
-v=r1
-=> v >= 0       OK!
-____________________________________ 
-G0,r1:{v>=0} |- {v=r1} <: {v>=0}
-
-
-
     G2  = G0, r0:{v=x},t0:{v:bool| v <=> x < 0}, t0<=>false
     G2' = G2, r1:{v=r0}
+    G3  = G0, r1:{v>=0}
     
-    G2' |- G2'(r1) <: {v:int|v>=0}
+*Step 3* Typing of φ variables    
+Case of `then`  
+
+     (embed G1') /\ v = r1 => v>=0 
+     ___________________________________
+     G1' |- {v:int|v=r1} <: {v:int|v>=0}  
+     ___________________________________
+     G1' |- G1(r1)       <: {v>=0}      
+
+    where 
+    (embed G1') /\ v = r1 => v>=0 <=>
+
+    r0=x  
+    t0 <=> x < 0
+    t0 <=>true
+    r1=0-x
+    v=r1
+    => v>=0       OK!
+
+Case of `else`
+
+     (embed G2') /\ v = r1 => v>=0 
+     ___________________________________
+     G2' |- {v:int|v=r1} <: {v:int|v>=0}  
+     ___________________________________
+     G2' |- G2'(r1)      <: {v:int|v>=0}
+
+    where 
+    (embed G2') /\ v = r1 => v>=0 <=>
+
+    r0=x
+    t0 <=> x < 0
+    t0<=>false
+    r1=r0
+    v=r1
+    => v >= 0       OK!
+ 
+*Step 4:* Typing of `return` statement 
+ 
+ 
+    r1>=0 /\ v=r1 => v>=0
+    ___________________________
+    (embed G3 /\ v=r1) => v>=0
+    ___________________________
+    G3 |- {v=r1} <: {v>=0}
+    ___________________________
+
+    G3 |- G3(r1) <: G3($result)     G3  |- r1 : G3, r1
+    ___________________________________________________
+
+    G3 |- return r1 : Ø
 
 
 **Example 2**
