@@ -15,7 +15,6 @@ Requirements
 Due to dependency on the SMT solver Z3, liquid-fixpoint and hence,
 nano-js can **only be compiled on Linux** at the moment.
 
-
 In addition to the .cabal dependencies, to build you must have
 
 - the GNU multiprecision library 
@@ -26,6 +25,28 @@ The above can be carried out in one shot on a recent Linux by
 
     sudo apt-get install haskell-platform ocaml camlidl g++ libgmp3c2
 
+`hsenv` Install
+---------------
+
+I **strongly** recommend the use of [hsenv](http://hackage.haskell.org/package/hsenv)
+
+Use as follows:
+
+    cabal install hsenv
+
+    cd /path/to/work/
+
+    wget http://www.haskell.org/ghc/dist/7.6.3/ghc-7.6.3-i386-unknown-linux.tar.bz2
+
+    hsenv --ghc=ghc-7.6.3-i386-unknown-linux.tar.bz2
+
+This creates a special *sandboxed environment* created in `/path/to/work`
+
+It also tells you the shell command to run to *activate* the environment.
+
+    source .hsenv/bin/activate
+
+Now, execute the above command before proceeding to the *Install* the rest of nano-js.
 
 
 Install
