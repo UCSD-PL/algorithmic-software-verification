@@ -25,7 +25,7 @@ executable nanojs
                        unordered-containers, 
                        filepath, ansi-terminal, process, mtl, syb, cmdargs,
                        liquid-fixpoint, parsec
-                       , language-ecmascript>=0.13
+                       , language-ecmascript<=0.13
 
   extensions:          ExistentialQuantification, 
                        FlexibleInstances, 
@@ -42,7 +42,7 @@ executable nanojs
 Library
   build-depends:       base, pretty, hashable, unordered-containers, 
                        filepath, ansi-terminal, process, mtl, syb, cmdargs,
-                       liquid-fixpoint, parsec, language-ecmascript 
+                       liquid-fixpoint, parsec, language-ecmascript<=0.13 
 
   extensions:          ExistentialQuantification, 
                        FlexibleInstances, 
