@@ -1,6 +1,5 @@
-
-First Order Programs
---------------------
+Syntax
+------
 
 **Base Types**
 
@@ -10,23 +9,10 @@ First Order Programs
        | list int 
        | ...
 
-
-
-
-
-
-
-
 **Types**
 
     T := {v:B | p}                  // Base types
        | (x1:T1,...,xn:Tn) => T     // Function types
-
-
-
-
-
-
 
 **Expressions**
 
@@ -34,15 +20,8 @@ First Order Programs
        | c                 // Constants 0, 1, +, -, true...
        | f(e1,...,en)      // Function Call 
 
-
-
-
-
-
-
-
-
-
+Syntax (Cont'd)
+---------------
 
 
 **Statements**
@@ -50,213 +29,181 @@ First Order Programs
     S := skip                        
        | x = e 
        | s1; s2
-       | if [φ] (e) { s1 } else { s2 }
+       | if [$\phi$] (e) { s1 } else { s2 }
        | return e
 
 **Phi-Variables**
 
-    φ := x1:T1 ... xn:Tn
+    $\phi$ := x1:T1 ... xn:Tn
 
-    // OLD
+Code Transformation
+-------------------
 
-    /*@ abs :: (x:int) => {v:int | v>=0}
+*Note*: We make the following transformations to the code
+- SSA transformation
+- Addition of `else` branches
+- Annotate branches with $\phi$ variables
+
+So the following code:
+
+    /*@ abs :: (x:int) => {v:int | v>=0}*/
     function abs(x){
       r = x;
       if (x < 0){
         r = 0 - x
-      }
+      };
       return r
     }
 
+Code Transformation
+-------------------
 
+Will be transformed to:
 
-    // SSA Transformed
-    r0 = x0;
-    if [r1:{v:int | v >= 1000 }] 
-      (x0 < 0){
-      r1 = 0 - x0;
-    } else {
-      r1 = r0
+    /*@ abs :: (x:int) => {v:int | v>=0}*/
+    function abs(x){
+      r0 = x0;
+      if [r1:{v:int | v>=0}] 
+        (x0 < 0){
+        r1 = 0 - x0;
+      } else {
+        r1 = r0;
+      };
+      return r1
     }
-    return r1 // v>= 1000
 
-
-
-
-
-
-
-
-
-
+Syntax (Cont'd)
+---------------
+   
 **Functions**
     
     F := function f(x1...xn){s}   // Function Definition
 
-
-
 **Programs**
 
-    P := f1:T1, ... fn:Tn   // Sequence of function definitions
-
-
-
-
-
-
-
-
-
-
-
-
-
+    P := F1:T1, ... Fn:Tn   // List of function definitions
 
 **Environments**
 
     G = x1:T1,...,xn:Tn
 
-
-    - A sequence of type bindings
-    - No *duplicate* bindings
-
-
+- A sequence of type bindings
+- *Invariant*: No *duplicate* bindings
+- *Invariant*: Types are *well-formed*
 
 
+Wellformedness
+--------------
 
+**Wellformedness: Base**
 
+    G, v:b |- p : bool
+    ____________________[W-Base]
+ 
+       G |- {v:b | p}
 
+*Intuition:* `p` must be a boolean predicate in `G`
 
-**Wellformedness**
+**Wellformedness: Functions**
 
-    G |- p : bool
-   ________________
-
-    G |- {v:b | p}
+    G, x1:T1,...,xn:Tn |- Ti  for all i in 1..n
+    G, x1:T1,...,xn:Tn |- T
+    ______________________________________________[W-Fun]
+   
+            G |- (x1:T1,...,xn:Tn) => T
 
     
-    *Intuition* `p` must be a boolean predicate in `G`
 
-
-
-
-
-
-
-
+Subtyping
+---------
 
 **Embedding Environments**
 
     embed                    :: G -> Predicate
-    embed empty              = True                -- Empty Environment
-    embed (x1:{v:B | p1}, G) = p1[x1/v] && embed G -- Base     Binding
-    embed (x1:T, G)          = embed G             -- Non-Base Binding
+    embed empty              = True                
+    embed (x1:{v:B | p1}, G) = p1[x1/v] && embed G 
+    embed (x1:T, G)          = embed G             
 
-    Intuition: Environment is like a Floyd-Hoare **Precondition**
-
-    
+*Intuition:* Environment is like a Floyd-Hoare **Precondition**
 
 
-
-
-**Subtyping**
+Subtyping: Base
+---------------
 
        (embed G) /\ p1 => p2
-    _____________________________
+    _____________________________[<:-Base]
 
     G |- {v:b | p1} <: {v:b | p2}
 
 
-
-
-
-    
-    G,yi:Ti' |- Ti' <: (Ti θ)  foreach i in 1..n
-    
-    G,yi:Ti' |- T θ <: T'
-
-    θ = [y1..yn/x1..xn]
-    ______________________________________________________
-
-    G |- (x1:T1...xn:Tn) => T <: (y1:T1'...yn:Tn') => T'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    Intuition: Subtyping is like Floyd-Hoare **Rule Of Consequence**
+*Intuition:* Subtyping is like Floyd-Hoare **Rule Of Consequence**
     
     P' => P    {P} c {Q}      Q => Q'
     _________________________________
 
                {P'} c {Q'}
 
+Subtyping: Fuctions
+-------------------
+
+    
+    G,yi:Ti' |- Ti' <: (Ti $\theta$)  foreach i in 1..n
+    
+    G,yi:Ti' |- T $\theta$ <: T'
+
+    $\theta$ = [y1..yn/x1..xn]
+    __________________________________________________[<:-Fun]
+
+    G |- (x1:T1...xn:Tn) => T <: (y1:T1'...yn:Tn') => T'
 
 
+*Intuition:* `f <: g` means that when you expected `g` you can use `f`.
+- each argument of `g` should be a valid argument for `f`
+- `f`'s result should be `g`'s possible result
 
 
-
+Typing
+------
 
 **Program Typing**
 
+    for each i in 1..n Fi = function fi(_){_} 
+    
     G = f1:T1...fn:Tn
 
-    G |- fi:Ti for i in 1..n
-    ___________________________[Program]
+    G |- Fi:Ti for i in 1..n
+    _____________________________________________[Program]
 
-      0 |- f1:T1...fn:Tn
-
-
+                0 |- F1:T1...Fn:Tn
 
 
 
 **Function Typing**
 
-    G, x1:T1...,$result:T |- s  
-    ___________________________[Fun]
+    G, x1:T1...,$result:T |- s:_
+    _____________________________________________________[Fun]
 
-    G |- function f(x1...){ s } 
-
-
+    G |- function f(x1:T1...xn:Tn){ s }:(x1:T1...xn:Tn)=>T 
 
 
-
-
-
-
-
-**Expression Typing**   
+Expression Typing
+-----------------
 
     G |- e : t
     
-    In environment `G` the expression `e` evaluates to a value of type `t`
+In environment `G` the expression `e` evaluates to a value of type `t`
 
-    We will see this is problematic, will revisit...
+We will see this is problematic, will revisit...
 
-
-
-
-
-
-
-**Typing Constants**
+Typing Constants
+----------------
 
     ______________[E-Const]
 
     G |- c : ty(c) 
 
 
-
-    Intuition: Each constant has a *primitive* or *builtin* type
+*Intuition:* Each constant has a *primitive* or *builtin* type
 
     ty(1) = {v:int| v = 1}
     
@@ -267,40 +214,29 @@ First Order Programs
     etc.
 
 
-
-
-
-
-
-
-
-
-
-**Typing Variables**
+Typing Variables
+----------------
    
-      G(x) = T 
-    _____________[E-Var]
+    G(x) = T 
+    ___________[E-Var]
 
-     G |- x : T 
-
-
+    G |- x : T 
 
 
-
-
-
-**Typing Function Calls**
+Typing Function Calls
+---------------------
 
     G(f) = (x1:T1...xn:Tn) => T     
     
     G |- ei:Ti'     foreach i in 1..n
 
     G |- Ti' <: Ti  foreach i in 1..n
-    ____________________________________[E-Call]
+    __________________________________[E-Call]
 
-    G |- f(e1...en) : ??? 
+          G |- f(e1...en) : ??? 
 
-    Uh oh. What type do we give to the *output* of the call?
+
+Uh oh. What type do we give to the *output* of the call?
 
     + :: (x1:int, x2:int) => {v:int|v = x1 + x2}
     
@@ -308,19 +244,10 @@ First Order Programs
             
     +(foo(a), bar(b))   : {v:int | v = foo(a) + bar(b)}
 
-    var t1 = foo(a)
-    var t2 = bar(b) 
-    +(t1,t2)
+*Problem:* In the logic we cannot reason about functions e.g., `foo` or `bar`
 
-
-
-        
-
-
-
-**Administrative Normal Form**
-
-a.k.a. **ANF**
+**Administrative Normal Form** (a.k.a. **ANF**)
+-----------------------------------------------
 
 Translate program so *every* call is of the form
 
@@ -328,100 +255,67 @@ Translate program so *every* call is of the form
 
 That is, all arguments are **variables**
 
+    var t1 = foo(a)
+    var t2 = bar(b) 
+    +(t1,t2) : {v:int | v = t1 + t2}
 
 
-
-
-**Typing ANF Function Calls**
+Typing ANF Function Calls
+-------------------------
 
     G(f) = (x1:T1...) => T     
     
     G |- yi:Ti'         foreach i in 1..n
     
-    G |- Ti' <: Ti θ    foreach i in 1..n
+    G |- Ti' <: Ti $\theta$    foreach i in 1..n
 
-    Θ = [y1...yn/x1...xn]
+    $\theta$ = [y1...yn/x1...xn]
     ______________________________________[E-Call]
 
-    G |- f(y1...yn) : T θ 
-
-    Result type is just output type with [actuals/formals]
+    G |- f(y1...yn) : T $\theta$
 
 
+Result type is just output type with [actuals/formals]
 
 
-
-
-
-
-
-
-
-
-
-
-**On the Fly ANF Conversion**
+On the Fly ANF Conversion
+-------------------------
 
 Rejigger typing rules to perform ANF-conversion
 
     G |- e : G', xe
 
-    1. `G'` : the output environment with new temp binders
-    2. `xe` : the temp binder (in `G'`) corresponding to `e` 
-
-
-
-
-
+1. `G'` : the output environment with new temp binders
+2. `xe` : the temp binder (in `G'`) corresponding to `e` 
 
 
 **On the Fly ANF Conversion: EXAMPLE**
 
     G |- ((1 + 2) + 3) : G', x'
-
     where 
-
-    G' = G, t0:{v = 1      }
-          , t1:{v = 2      }
-          , t2:{v = t1 + t2}
-          , t3:{v = 3      }
-          , t4:{v = t2 + t3}
-    
-    x' = t4
-
+      G' = G, t0:{v = 1      }
+            , t1:{v = 2      }
+            , t2:{v = t1 + t2}
+            , t3:{v = 3      }
+            , t4:{v = t2 + t3}
+      
+      x' = t4
 
 
-
-
-
-
-
-**Revisit Typing Rules for ANF ...**
-
-
-
-
-
-
-
-
-
-**ANF-Expression Typing**   
+ANF-Expression Typing
+---------------------
 
 Rejigger typing rules to perform ANF-conversion
 
     G |- e : G', xe
 
-    1. `G'` : the output environment with new temp binders
-    2. `xe` : the temp binder (in `G'`) corresponding to `e` 
+1. `G'` : the output environment with new temp binders
+2. `xe` : the temp binder (in `G'`) corresponding to `e` 
 
+**Revisit Typing Rules for ANF ...**
 
-
-
-
-
-
-**ANF-Typing Constants**
+ANF-Typing Constants
+--------------------
 
     z is *FRESH*
 
@@ -431,34 +325,19 @@ Rejigger typing rules to perform ANF-conversion
     G |- c : G', z
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-**ANF-Typing Variables**
+ANF-Typing Variables
+--------------------
    
 
     ________________[E-Var]
 
      G |- x : G, x 
 
+Yay! Easier than before ... :)
 
 
-    Yay! Easier than before ... :)
-
-
-
-
-
-**ANF Typing Function Calls**
+ANF Typing Function Calls
+-------------------------
 
     G(f) = (x1:T1...) => T     
     
@@ -466,126 +345,67 @@ Rejigger typing rules to perform ANF-conversion
 
     G'  |- G'(yi) <: Ti   foreach i in 1..n
 
-    θ   = [y1...yn/x1...xn]
+    $\theta$ = [y1...yn/x1...xn]
 
-    G'' = G', z:T θ     z is *FRESH*
+    G'' = G', z:T $\theta$     z is *FRESH*
     ______________________________________________[E-Call]
 
     G   |- f(e1...en) : G'', z  
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-**Statement Typing**
+Statement Typing
+----------------
 
     G |- s : G'
 
-    G' is G extended with **new bindings** for assigments in `s`
-
-
-
-
-
-
-
+G' is G extended with **new bindings** for assigments in `s`
 
 **Statement Typing: skip**
 
+
+    ______________[S-skip]
+
     G |- skip : G
 
+Statement Typing: assign
+------------------------
+
+    G |- e : G',xe
+    ________________________[S-Ass]
+
+     G |- x = e : G',x:G'(xe)
 
 
+We define `G(*)` as
 
-
-
-
-
-
-
-
-
-**Statement Typing: assign**
-
-
-         G |- e : G',xe
-    ________________________
-
-     G |- x = e : G',x:G(xe)
-
-
-    G(x) = {v:b| v = x} if T == {v:b|p}
-           T               otherwise
+    G(x) = {v:b| v = x} if x:{v:b|p} in G
+           T            if x:T       in G
            
 
+Statement Typing: sequence
+--------------------------
 
 
+      G  |- s1 : G1 
 
-
-
-
-
-
-
-
-**Statement Typing: sequence**
-
-
-       G  |- s1 : G1 
-
-       G1 |- s2 : G2
-      ___________________[Seq]
+      G1 |- s2 : G2
+      ___________________[S-Seq]
 
       G |- s1; s2 : G2
 
 
-
-
-
-
-
-
-
-**Statement Typing: return**
-
+Statement Typing: return
+------------------------
 
     G  |- e : G', xe
     G' |- G'(xe) <: G'($result)
-    _____________________________[Ret]
+    _____________________________[S-Ret]
 
     G  |- return e : Ø
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-**Statement Typing: branch**
-
+Statement Typing: branch
+------------------------
 
     G |- e : G', xe     
     G'(xe) = {v:boolean | ...}
@@ -593,26 +413,27 @@ Rejigger typing rules to perform ANF-conversion
     z is FRESH
     G',z:{xe}  |- s1 : G1
     G',z:{!xe} |- s2 : G2
-    G1 |- G1(x) <: T    foreach x:T in φ 
-    G2 |- G2(x) <: T    foreach x:T in φ 
-    ___________________________________
+    G1 |- G1(x) <: T    foreach x:T in $\phi$ 
+    G2 |- G2(x) <: T    foreach x:T in $\phi$ 
+    _______________________________________[S-If]
 
-    G |- if [φ] e { s1 } else { s2 } : G+φ      
+    G |- if [$\phi$] e { s1 } else { s2 } : G+$\phi$      
 
+Statement Typing: branch
+------------------------
 
+*Note:* The bindings for $\phi$ variables should be checked.
+The below statement should not typecheck
 
+      if [r1:{v:int | v>=1000}] 
+        (x0 < 0){
+        r1 = 0 - x0;
+      } else {
+        r1 = r0;
+      };
 
-
-
-
-
-
-
-
-
-
-
-
+Examples
+--------
 
 **Example 1**
 
@@ -624,90 +445,95 @@ Rejigger typing rules to perform ANF-conversion
       } 
       return r;
     }
-
+    
+*Goal:* Type check the function `abs`
+    
+*Step 1:* Transform the program 
+------------------------------
     /*@ abs :: ({x:int|true}) => {v:int|v >= 0} */ 
     function abs(x){
       /*G0*/ var r0 = x;
       if [r1:{v:int|v>=0}] (x < 0){
         /* G1  */
         r1 = 0 - x;
-      } /* G1' */ 
+        /* G1' */ 
+      }
       else {
-        /* G2 */
+        /* G2  */
         r1 = r0
-      } /* G2' */
+        /* G2' */
+      }
+      /*G3*/
       return r1;
     }
 
-    G0  = x:int
+*Step 2:* Compute the G environments
+------------------------------------
+    G0  = x:int, $return:{v:int|v>=0}
     G1  = G0, r0:{v=x},t0:{v:bool| v <=> x < 0}, t0<=>true
     G1' = G1, r1:{v=0-x}
-    
-    G1' |- G1'(r1) <: {v:int|v >=0}      
-    
-    G1' |- {v=r1} <: {v >=0}      
-
-r0=x
-t0 <=> x < 0
-t0<=>true
-r1=0-x
-v=r1
-=> v >= 0       OK!
-
-r0=x
-t0 <=> x < 0
-t0<=>false
-r1=r0
-v=r1
-=> v >= 0       OK!
- 
-G0,r1:{v>=0} |- {v=r1} <: {v>=0}
-
-
-
     G2  = G0, r0:{v=x},t0:{v:bool| v <=> x < 0}, t0<=>false
     G2' = G2, r1:{v=r0}
+    G3  = G0, r1:{v>=0}
     
-    G2' |- G2'(r1) <: {v:int|v>=0}
+*Step 3:* Typing of $\phi$ variables (`then` statement)
+-------------------------------------- 
 
+     (embed G1') /\ v = r1 => v>=0 
+     ___________________________________
+     G1' |- {v:int|v=r1} <: {v:int|v>=0}  
+     ___________________________________
+     G1' |- G1(r1)       <: {v>=0}      
 
+    where 
+    (embed G1') /\ v = r1 => v>=0 <=>
 
+    r0=x  
+    t0 <=> x < 0
+    t0 <=>true
+    r1=0-x
+    v=r1
+    => v>=0       OK!
 
+*Step 3:* Typing of $\phi$ variables (`else` statement)
+-------------------------------------- 
 
+Case of `else`
 
+     (embed G2') /\ v = r1 => v>=0 
+     ___________________________________
+     G2' |- {v:int|v=r1} <: {v:int|v>=0}  
+     ___________________________________
+     G2' |- G2'(r1)      <: {v:int|v>=0}
 
+    where 
+    (embed G2') /\ v = r1 => v>=0 <=>
 
+    r0=x
+    t0 <=> x < 0
+    t0<=>false
+    r1=r0
+    v=r1
+    => v >= 0       OK!
+ 
+*Step 4:* Typing of `return` statement 
+-------------------------------------- 
+ 
+    r1>=0 /\ v=r1 => v>=0
+    ___________________________
+    (embed G3 /\ v=r1) => v>=0
+    ___________________________
+    G3 |- {v=r1} <: {v>=0}
+    ___________________________
 
+    G3 |- G3(r1) <: G3($result)     G3  |- r1 : G3, r1
+    ___________________________________________________
 
-
-
-
-
-
-
-
-
-
-
-    /*@ abs :: ({x:int|true}) => {v:int|v >= 0} */ 
-    function abs(x){
-      var r = x;
-      if (x < 0){
-        r = 0 - x;
-      } 
-      return r;
-    }
-
-
-
-
-
-
-
+    G3 |- return r1 : Ø
 
 
 **Example 2**
-
+-------------
     /*@ abs :: ((({z:int|z>=0}) => {v>=z})
                 , int
                ) 
@@ -721,9 +547,9 @@ G0,r1:{v>=0} |- {v=r1} <: {v>=0}
       return f(r);
     }
 
-
-
-
+**Example 2** (Cont'd)
+----------------------
+ 
     /*@ double :: ({x:int|true}) => {v:int| v=x+x} */
     function double(x){ return x + x }
 
@@ -732,24 +558,22 @@ G0,r1:{v>=0} |- {v=r1} <: {v>=0}
       return abs(double, x);
     }
 
-    G |- {x:int|x>=0}    <: {x:int|true}
+Subtyping Rule
+--------------
+
+    G,z:{v:int|v>=0} |- {z:int|z>=0}   <: {z:int|true}
                
-    G,x:{v:int|v>=0} |- {v:int| v=x+x}  <: {v:int | v>=x}
-    _____________________________________________
+    G,z:{v:int|v>=0} |- {v:int|v=z+z}  <: {v:int | v>=z}
+    _____________________________________________________
 
     G |- ({x:int|true}) => {v:int| v=x+x}
          <: 
-         (({z:int|z>=0}) => {v>=z})
-
-
-
-
-
+         ({z:int|z>=0}) => {v>=z}
 
 
 
 **Example 3**
-
+-------------
     /*@ abs :: ((({z:int|z>=0}) => {v>=z}), {x:int|true}) => {v:int|v >= 0} */ 
     function abs(f, x){
       var r = x;
@@ -764,6 +588,9 @@ G0,r1:{v>=0} |- {v=r1} <: {v>=0}
 
     /*@ id :: forall A. (A) => A */
     function id(x){ return x}
+
+**Example 3** (Cont'd)
+----------------------
 
     /*@ main :: (int) => {v:int | v>=0} */
     function main(x){
