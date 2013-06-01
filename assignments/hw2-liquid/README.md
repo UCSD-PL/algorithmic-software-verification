@@ -65,11 +65,12 @@ Run
 
 After building run the verifier with
 
-    $ nanojs tests/pos/skip.js 
+    $ nanojs liquid tests/liquid/pos/test00.js 
 
 If all went well you should see something like
 
-    $ nanojs liquid tests/liquid/pos/test00.js 
+    $ nanojs liquid tests/typed/pos/test00.js 
+    
     nanojs © Copyright 2013 Regents of the University of California.
     All Rights Reserved.
     nanojsLiquid {files = ["tests/liquid/pos/test00.js"], incdirs = []}
@@ -94,6 +95,7 @@ To run all the tests you can do
 There are two kinds of tests, 
 
 - programs which verify `tests/liquid/pos` 
+
 - programs which should not verify `tests/liquid/neg`
 
 
