@@ -234,7 +234,7 @@ consExpr g (BoolLit l b)
 
 -- x
 consExpr g (VarRef i x)
-  = do addAnnot (srcPos i)  x' $ envFindTy x g
+  = do addAnnot (srcPos i) x $ envFindTy x g
        error "TO BE DONE"
 
 consExpr g (PrefixExpr l o e)

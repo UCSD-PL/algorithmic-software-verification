@@ -57,11 +57,16 @@ Make sure your machine has the above **requirements**.
 **Step 1** Execute the following commands
 
     cabal update
+    
+    git clone git@github.com:ucsd-pl/language-ecmascript.git 
+    cd language-ecmascript && cabal install && cd ..
+    
     git clone git@github.com:ucsd-progsys/liquid-fixpoint.git 
     cd liquid-fixpoint && make && cd ..
 
     git clone git@github.com:ucsd-pl/algorithmic-software-verification.git
     cd assignments/hw2-liquid/ 
+
     make
 
 
