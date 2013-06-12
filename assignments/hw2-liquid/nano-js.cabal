@@ -15,17 +15,14 @@ extra-source-files:  README.md,
 data-files:          README.md, 
                      include/prelude.js
 
-
-
-
 executable nanojs
   build-depends:       base, 
                        pretty, 
+                       vector, bytestring, text, aeson, 
                        hashable < 1.2, 
                        unordered-containers, 
                        filepath, ansi-terminal, process, mtl, syb, cmdargs,
-                       liquid-fixpoint, parsec
-                       , language-ecmascript<=0.13
+                       liquid-fixpoint, parsec, language-ecmascript-pp
 
   extensions:          ExistentialQuantification, 
                        FlexibleInstances, 
@@ -40,9 +37,14 @@ executable nanojs
   Main-is:             Nano.hs
 
 Library
-  build-depends:       base, pretty, hashable, unordered-containers, 
+  build-depends:       base, 
+                       pretty, 
+                       vector, bytestring, text, aeson, 
+                       hashable < 1.2, 
+                       unordered-containers, 
                        filepath, ansi-terminal, process, mtl, syb, cmdargs,
-                       liquid-fixpoint, parsec, language-ecmascript<=0.13 
+                       liquid-fixpoint, parsec, language-ecmascript-pp
+
 
   extensions:          ExistentialQuantification, 
                        FlexibleInstances, 
@@ -52,14 +54,18 @@ Library
                        NoMonomorphismRestriction,
                        ScopedTypeVariables,
                        BangPatterns
-
+ 
   ghc-options:         -W -O2  
- 
- 
+  
+  
   Exposed-Modules:     Language.Nano.Errors,
                        Language.Nano.Types,
                        Language.Nano.Files,
+                       Language.Nano.Annots,
                        Language.Nano.CmdLine,
+                       Language.Nano.ESC.Types,
+                       Language.Nano.ESC.VCMonad, 
+                       Language.Nano.ESC.ESC,
                        Language.Nano.SSA.SSA,
                        Language.Nano.SSA.SSAMonad,
                        Language.Nano.Typecheck.Types,
