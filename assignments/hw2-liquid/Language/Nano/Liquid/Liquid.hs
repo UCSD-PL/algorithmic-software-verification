@@ -4,20 +4,24 @@
 
 module Language.Nano.Liquid.Liquid (verifyFile) where
 
--- import           Text.Printf                        (printf)
+import           Text.Printf                        (printf)
 import           Text.PrettyPrint.HughesPJ          (Doc, text, render, ($+$), (<+>))
 import           Control.Monad
 import           Control.Applicative                ((<$>))
 import           Data.Maybe                         (fromJust) -- fromMaybe, isJust)
-
+import qualified Data.ByteString.Lazy   as B
+import qualified Data.HashMap.Strict as M
 import           Language.ECMAScript3.Syntax
 import           Language.ECMAScript3.PrettyPrint
+import           Language.ECMAScript3.Parser        (SourceSpan (..))
 import qualified Language.Fixpoint.Types as F
 import           Language.Fixpoint.Misc
+import           Language.Fixpoint.Files
 import           Language.Fixpoint.PrettyPrint
 import           Language.Fixpoint.Interface        (solve)
 import           Language.Nano.Errors
 import           Language.Nano.Types
+import qualified Language.Nano.Annots as A
 import           Language.Nano.Typecheck.Types
 import           Language.Nano.Typecheck.Parse
 import           Language.Nano.Typecheck.Typecheck  (typeCheck) 
@@ -28,35 +32,51 @@ import           Language.Nano.Liquid.Types
 import           Language.Nano.Liquid.CGMonad
 
 --------------------------------------------------------------------------------
-verifyFile     :: FilePath -> IO (F.FixResult SourcePos)
+verifyFile     :: FilePath -> IO (F.FixResult SourceSpan)
 --------------------------------------------------------------------------------
-verifyFile f   = reftypeCheck f . typeCheck . ssaTransform =<< parseNanoFromFile f
+verifyFile f   =  reftypeCheck f . typeCheck . ssaTransform =<< parseNanoFromFile f
 
 -- DEBUG VERSION 
 ssaTransform' x = tracePP "SSATX" $ ssaTransform x 
 
-reftypeCheck   :: FilePath -> Nano AnnType RefType -> IO (F.FixResult SourcePos)
+reftypeCheck   :: FilePath -> Nano AnnType RefType -> IO (F.FixResult SourceSpan)
 reftypeCheck f = solveConstraints f . generateConstraints  
 
 --------------------------------------------------------------------------------
-solveConstraints :: FilePath -> F.FInfo Cinfo -> IO (F.FixResult SourcePos) 
+solveConstraints :: FilePath -> CGInfo -> IO (F.FixResult SourceSpan) 
 --------------------------------------------------------------------------------
-solveConstraints f ci 
-  = do (r, sol) <- solve f [] ci
+solveConstraints f cgi 
+  = do (r, sol) <- solve f [] $ cgi_finfo cgi
        let r'    = fmap (srcPos . F.sinfo) r
-       renderAnnotations sol
+       renderAnnotations f sol r' $ cgi_annot cgi
        donePhase (F.colorResult r) (F.showFix r) 
        return r'
 
-renderAnnotations   :: a -> IO ()
-renderAnnotations _ 
-  = donePhase Loud "Ask Santa to: render inferred types (pull request forthcoming)"
+renderAnnotations srcFile sol res ann  
+  = do writeFile   annFile  $ wrapStars "Constraint Templates" ++ "\n\n" 
+       appendFile  annFile  $ ppshow ann
+       appendFile  annFile  $ wrapStars "Inferred Types"       ++ "\n\n" 
+       appendFile  annFile  $ ppshow ann'
+       B.writeFile jsonFile $ A.annotByteString res ann' 
+       donePhase Loud "Written Inferred Types"
+    where 
+       jsonFile = extFileName Json  srcFile
+       annFile  = extFileName Annot srcFile
+       ann'     = tidy $ applySolution sol ann
 
+applySolution :: F.FixSolution -> A.AnnInfo RefType -> A.AnnInfo RefType 
+applySolution = fmap . fmap . tx
+  where
+    tx s (F.Reft (x, zs))   = F.Reft (x, F.squishRefas (appSol s <$> zs))
+    appSol _ ra@(F.RConc _) = ra 
+    appSol s (F.RKvar k su) = F.RConc $ F.subst su $ M.lookupDefault F.PTop k s  
+
+tidy = id
 
 --------------------------------------------------------------------------------
-generateConstraints     :: NanoRefType -> F.FInfo Cinfo 
+generateConstraints     :: NanoRefType -> CGInfo 
 --------------------------------------------------------------------------------
-generateConstraints pgm = getFInfo pgm $ consNano pgm
+generateConstraints pgm = getCGInfo pgm $ consNano pgm
 
 --------------------------------------------------------------------------------
 consNano     :: NanoRefType -> CGM ()
@@ -69,24 +89,13 @@ initCGEnv pgm = CGE (specs pgm) F.emptyIBindEnv []
 --------------------------------------------------------------------------------
 consFun :: CGEnv -> FunctionStatement AnnType -> CGM CGEnv  
 --------------------------------------------------------------------------------
--- | see "ANF Typing Function Calls": from lecture notes
--- `ft` is THE TYPE of the function. That is, it is the 
---  explicit refinement type if one was provided, and 
---  otherwise it is a "fresh template" with unknown 
---  refinements K. Use @envAddFun@ to add the bindings 
---  for the function into the environment before checking
---  the function body.
-
 consFun g (FunctionStmt l f xs body) 
-  = do ft <- freshTyFun g l =<< getDefType f
+  = do ft             <- freshTyFun g l =<< getDefType f
        error "TO BE DONE"
-
+       
 -----------------------------------------------------------------------------------
 envAddFun :: AnnType -> CGEnv -> Id AnnType -> [Id AnnType] -> RefType -> CGM CGEnv
 -----------------------------------------------------------------------------------
--- | This function adds the relevant bindings; tyVars, arguments 
---   after renaming the names in the types to the function's formals.
-
 envAddFun l g f xs ft = envAdds tyBinds =<< envAdds (varBinds xs ts') =<< (return $ envAddReturn f t' g) 
   where  
     (αs, yts, t)      = fromJust $ bkFun ft
@@ -95,14 +104,11 @@ envAddFun l g f xs ft = envAdds tyBinds =<< envAdds (varBinds xs ts') =<< (retur
     (su, ts')         = renameBinds yts xs 
     t'                = F.subst su t
 
------------------------------------------------------------------------------------
-renameBinds          :: [Bind F.Reft] -> [Id AnnType] -> (F.Subst, [RefType]) 
------------------------------------------------------------------------------------
 renameBinds yts xs   = (su, [F.subst su ty | B _ ty <- yts])
   where 
     su               = F.mkSubst $ safeZipWith "renameArgs" fSub yts xs 
     fSub yt x        = (b_sym yt, F.eVar x)
-
+    
 --------------------------------------------------------------------------------
 consStmts :: CGEnv -> [Statement AnnType]  -> CGM (Maybe CGEnv) 
 --------------------------------------------------------------------------------
@@ -130,7 +136,7 @@ consStmt g (ExprStmt _ e)
 
 -- s1;s2;...;sn
 consStmt g (BlockStmt _ stmts) 
-  = error "TO BE DONE"
+  = error "TO BE DONE" 
 
 -- if b { s1 }
 consStmt g (IfSingleStmt l b s)
@@ -193,9 +199,9 @@ envJoin' l g g1 g2
   = do let xs   = [x | PhiVar x <- ann_fact l] 
        error "TO BE DONE"
 
-----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 consVarDecl :: CGEnv -> VarDecl AnnType -> CGM (Maybe CGEnv) 
-----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 consVarDecl g (VarDecl _ x (Just e)) 
   = consAsgn g x e  
@@ -203,11 +209,12 @@ consVarDecl g (VarDecl _ x (Just e))
 consVarDecl g (VarDecl _ _ Nothing)  
   = return $ Just g
 
-----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 consAsgn :: CGEnv -> Id AnnType -> Expression AnnType -> CGM (Maybe CGEnv) 
-----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 consAsgn g x e 
   = error "TO BE DONE"
+
 
 ------------------------------------------------------------------------------------
 consExpr :: CGEnv -> Expression AnnType -> CGM (Id AnnType, CGEnv) 
@@ -226,20 +233,18 @@ consExpr g (BoolLit l b)
   = envAddFresh l (pSingleton tBool b) g 
 
 -- x
-consExpr g (VarRef _ x)
-  = error "TO BE DONE"
+consExpr g (VarRef i x)
+  = do addAnnot (srcPos i)  x' $ envFindTy x g
+       error "TO BE DONE"
 
--- op e
 consExpr g (PrefixExpr l o e)
   = do (x', g') <- consCall g l o [e] (prefixOpTy o $ renv g)
        return (x', g')
 
--- e1 op e2
 consExpr g (InfixExpr l o e1 e2)        
   = do (x', g') <- consCall g l o [e1, e2] (infixOpTy o $ renv g)
        return (x', g')
 
--- e(e1,...,en)
 consExpr g (CallExpr l e es)
   = error "TO BE DONE"
 
